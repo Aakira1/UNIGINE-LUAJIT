@@ -1,4 +1,4 @@
-will require sol2 & luajit
+# Note: this will require sol2 & luajit libraries as I was unable to push the libraries to the top level.
 
 # How to Use All Lua Integration Features
 
