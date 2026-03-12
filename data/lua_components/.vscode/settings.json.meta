@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>00cc3a94a35e2d4930d4578a36a48ac71066c784</guid>
+	<type>file</type>
+	<hash>0ea13f34</hash>
+	<runtimes>
+		<runtime id="00cc3a94a35e2d4930d4578a36a48ac71066c784" name="settings.json" link="0"/>
+	</runtimes>
+</asset>

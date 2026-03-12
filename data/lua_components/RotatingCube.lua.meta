@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>166c37f7e1db6f5685208715e84540c96f67584f</guid>
+	<type>file</type>
+	<hash>3778fecd</hash>
+	<runtimes>
+		<runtime id="166c37f7e1db6f5685208715e84540c96f67584f" name="RotatingCube.lua" link="0"/>
+	</runtimes>
+</asset>

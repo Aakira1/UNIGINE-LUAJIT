@@ -1,0 +1,374 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.Sound.setAdaptation(float)">
+			<summary>
+			Sets sound occlusion with the specified adaptation time.
+			</summary> 
+			<param name="adaptation"> Time for sound adaptation to a filter, used when the sound source becomes occluded or other way round. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getAdaptation">
+			<summary>
+			Returns the current time set for sound adaptation, that is used when the sound source becomes occluded or other way round.
+			</summary>  
+			<returns>Time for sound adaptation to a filter.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setAttenuation(int)">
+			<summary>
+			Sets the specified sound attenuation mode. Attenuation is the ability of a sound to lower in volume as the player moves away from it.
+			</summary> 
+			<param name="attenuation"> One of the ATTENUATION_* variables. The default value is ATTENUATION_LINEAR_CLAMPED. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getAttenuation">
+			<summary>
+			Returns the current sound attenuation mode.
+			</summary>  
+			<returns>One of the ATTENUATION_* variables.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setData(char)">
+			<summary>
+			Sets user data associated with the world. This string is written directly into a *.world file, into the data child tag of the sound tag, for example:
+			</summary> 
+			<param name="data"> New user data. Data can contain an XML formatted string </param> 
+		</member>
+		<member name="M:Unigine.Sound.getData">
+			<summary>
+			Returns user string data associated with the world. This string is written directly into the data tag of the *.world file, into the data child tag of the sound tag, for example:
+			</summary>  
+			<returns>User data. Data can contain an XML formatted string.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setDoppler(float)">
+			<summary>
+			Sets the Doppler factor. This parameter allows you to exaggerate or tone-down the Doppler shift effect. By default, it is set to 1.0f.
+			</summary> 
+			<param name="doppler"> Doppler factor. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getDoppler">
+			<summary>
+			Returns the current Doppler factor. This parameter allows you to exaggerate or tone-down the Doppler shift effect. The default value is 1.0f.
+			</summary>  
+			<returns>Doppler factor.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setEnabled(int)">
+			<summary>
+			Enables or disables all sounds in the scene.
+			</summary> 
+			<param name="enabled"> true to enable all sounds, false to disable them. </param> 
+		</member>
+		<member name="M:Unigine.Sound.isEnabled">
+			<summary>
+			Returns a value indicating if sounds in the scene are enabled.
+			</summary>  
+			<returns>true if sounds are enabled; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setHRTF(int)">
+			<summary>
+			Enables or disables the HRTF (Head Related Transfer Function) mode. This mode provides imitation of the surround sound for the stereo wired headset.
+			</summary> 
+			<param name="hrtf"> true to enable binaural sound; false to disable it. </param> 
+		</member>
+		<member name="M:Unigine.Sound.isHRTF">
+			<summary>
+			Returns a value indicating if the binaural HRTF (Head Related Transfer Function) sound is enabled. An HRTF provides imitation of the surround sound for the stereo wired headset.
+			</summary>  
+			<returns>true if the binaural sound is enabled; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setSourceReverbMode(int)">
+			<summary>
+			Sets sound reverberation mode.
+			</summary> 
+			<param name="mode"> Reverberation mode. One of the REVERB_* variables. The default value is REVERB_MULTIPLE. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getSourceReverbMode">
+			<summary>
+			Returns current sound reverberation mode.
+			</summary>  
+			<returns>Current sound reverberation mode. One of the REVERB_* variables. The default value is REVERB_MULTIPLE.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setSourceOcclusion(int)">
+			<summary>
+			Enables or disables occlusion for sounds. When enabled, the sound will be occluded when there are other nodes between the listener and the sound source.
+			</summary> 
+			<param name="occlusion"> true to enable occlusion for sounds, false to disable it. </param> 
+		</member>
+		<member name="M:Unigine.Sound.isSourceOcclusion">
+			<summary>
+			Returns a value indicating if occlusion for sounds is enabled. When enabled, the sound will be occluded when there are other nodes between the listener and the sound source.
+			</summary>  
+			<returns>true if sound occlusion for sounds is enabled; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setScale(float)">
+			<summary>
+			Set the time scale for the sound playing.
+			</summary> 
+			<param name="scale"> Sound time scale. The provided value is clamped in the range [0; 2]. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getScale">
+			<summary>
+			Returns the current time scale for the sound playing.
+			</summary>  
+			<returns>Sound time scale.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setSourceLimit(int,int)">
+			<summary>
+			Limits the number of simultaneously played sound sources per one mixer channel. This setting is also available in the Editor global sound settings.
+			</summary> 
+			<param name="source"> Number of the mixer channel (from 0 to 31). </param>
+			<param name="limit"> The maximum number of sound sources that can be played simultaneously. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getSourceLimit(int)">
+			<summary>
+			Returns the current number of simultaneously played sound sources per one mixer channel.
+			</summary> 
+			<param name="source"> Number of the mixer channel (from 0 to 31). </param> 
+			<returns>The maximum number of sound sources that can be played simultaneously.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setSourceVolume(int,float)">
+			<summary>
+			Sets the volume of the specified mixer channel.
+			</summary> 
+			<param name="source"> Number of the mixer channel (from 0 to 31). </param>
+			<param name="volume"> Channel volume. The provided value is clamped within [0;1] range, where 0 means muted sound and 1 is the maximum volume. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getSourceVolume(int)">
+			<summary>
+			Returns the current volume of the specified mixer channel.
+			</summary> 
+			<param name="source"> Number of the mixer channel (from 0 to 31). </param> 
+			<returns>Volume of the specified mixer channel. The returning value is in range [0;1], where 0 means muted sound and 1 is the maximum volume.</returns>
+		</member>
+		<member name="M:Unigine.Sound.getTotalTime">
+			<summary>
+			Returns the total time of asynchronous loading sounds.
+			</summary>  
+			<returns>The total time value, milliseconds.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setVelocity(float)">
+			<summary>
+			Sets the velocity value the Doppler shift calculation is based upon. By default, it is set to 343.3f. If you have players moving really fast, then you may want to adjust this to prevent the Doppler shift from distorting the sound too much.
+			</summary> 
+			<param name="velocity"> New velocity value for the Doppler shift calculation to be set. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getVelocity">
+			<summary>
+			Returns the current velocity value the Doppler shift calculation is based upon. By default, it is set to 343.3f. If you have players moving really fast, then you may want to adjust this to prevent the Doppler shift from distorting the sound too much.
+			</summary>  
+			<returns>Current velocity value for the Doppler shift calculation.</returns>
+		</member>
+		<member name="M:Unigine.Sound.setVolume(float)">
+			<summary>
+			Sets the sound volume. By default, it is set to 1.0f.
+			</summary> 
+			<param name="volume"> Sound volume. 0 means the muted sound, 1 means the maximum volume. </param> 
+		</member>
+		<member name="M:Unigine.Sound.getVolume">
+			<summary>
+			Returns the current sound volume. The default value is 1.0f.
+			</summary>  
+			<returns>Sound volume. 0 means the muted sound, 1 means the maximum volume.</returns>
+		</member>
+		<member name="M:Unigine.Sound.loadSettings(char,bool)">
+			<summary>
+			Loads the sound settings from the given file.
+			</summary> 
+			<param name="name"> Path to a sound settings file (*.sound). </param>
+			<param name="clear"> Clear flag. Set true to clear settings before loading (new settings shall be applied right after loading them), or false not to clear. </param> 
+			<returns>true if the sound settings are loaded successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.loadWorld(Unigine.Ptr{Unigine.Xml})">
+			<summary>
+			Loads a sound state from the Xml. The sound state includes such settings as the volume, velocity, adaptation, Doppler factor, time scale and number of sound sources and their volumes.
+			</summary> 
+			<param name="xml"> Xml smart pointer. </param> 
+			<returns>true if the sound state is loaded successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.renderWorld(int)">
+			<summary>
+			Forces update of the sound system: all sound changes (such as play() or stop() events and change of parameters) will be applied at once.					The sound thread is updated at 30 FPS. Imagine, you have a sound sample playing and you want to update the time, from which the sample should be played. But playback won't stop immediately, so the a new time value won't be set. You need force updating of the sound thread after stopping it:
+			</summary> 
+			<param name="force"> true to force update of the sound system; otherwise, false. </param> 
+		</member>
+		<member name="M:Unigine.Sound.saveSettings(char,int)">
+			<summary>
+			Saves the current sound settings to the given file.
+			</summary> 
+			<param name="name"> Path to a sound settings file (*.sound). </param>
+			<param name="force"> Force flag indcating if forced saving of sound settings is enabled. </param> 
+			<returns>true if the sound settings are saved successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.saveState(Unigine.Ptr{Unigine.Stream})">
+			<summary>
+			Saves a sound state into the stream. The sound state includes such settings as the volume, velocity, adaptation, Doppler factor, time scale and number of sound sources and their volumes.					Example using saveState() and restoreState() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the sound state is saved successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.restoreState(Unigine.Ptr{Unigine.Stream})">
+			<summary>
+			Restores a sound state from the stream. The sound state includes such settings as the volume, velocity, adaptation, Doppler factor, time scale and number of sound sources and their volumes.					Example using saveState() and restoreState() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the sound state is restored successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Sound.saveWorld(Unigine.Ptr{Unigine.Xml},int)">
+			<summary>
+			Saves a sound state into the given Xml node. The sound state includes such settings as the volume, velocity, adaptation, Doppler factor, time scale and number of sound sources and their volumes.
+			</summary> 
+			<param name="xml"> Xml smart pointer. </param>
+			<param name="force"> Force flag indicating if forced saving of the sound state is enabled. </param> 
+			<returns>true if the sound state is saved successfully; otherwise, false.</returns>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_EXPONENT">
+			<summary>
+			Exponential distance rolloff model, modeling an exponential dropoff in gain as distance increases between the source and listener.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_EXPONENT_CLAMPED">
+			<summary>
+			Exponential Distance clamped model.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_INVERSE">
+			<summary>
+			Inverse distance rolloff model.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_INVERSE_CLAMPED">
+			<summary>
+			Inverse distance clamped model.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_LINEAR">
+			<summary>
+			Linear distance rolloff model.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.ATTENUATION_LINEAR_CLAMPED">
+			<summary>
+			Linear distance clamped model.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.NUM_SOURCES">
+			<summary>
+			Number of sound sources.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.REVERB_DISABLED">
+			<summary>
+			Reverberation is disabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.REVERB_MULTIPLE">
+			<summary>
+			Multiple-environment reverberation.
+		</summary>
+		</member>
+		<member name="F:Unigine.Sound.REVERB_SINGLE">
+			<summary>
+			Single-environment reverberation.
+		</summary>
+		</member>
+		<member name="M:Unigine.Sounds.setCurrentDeviceName(char)">
+			<summary>
+			Changes the current device name thus changing the used current device. Only names got by the getDeviceName() method are supported.
+			</summary> 
+			<param name="name"> The new name of the device. </param> 
+		</member>
+		<member name="M:Unigine.Sounds.getCurrentDeviceName">
+			<summary>
+			Returns the name of the currently used device.
+			</summary>  
+			<returns>Current device name.</returns>
+		</member>
+		<member name="M:Unigine.Sounds.getDefaultDeviceName">
+			<summary>
+			Returns the name of the device set in its system by default.
+			</summary>  
+			<returns>The default device name.</returns>
+		</member>
+		<member name="M:Unigine.Sounds.isDeviceConnected">
+			<summary>
+			Returns the value indicating if the device is currently connected.
+			</summary>  
+			<returns>true if device is connected; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.Sounds.isDeviceEnumerationSupported">
+			<summary>
+			Returns the value indicating if the device enumeration is supported. If it is not, the further actions (for example, getting the device name) won't be possible.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Sounds.getDeviceName(int)">
+			<summary>
+			Returns the name of the device by its index.
+			</summary> 
+			<param name="num"> The index of the device. </param> 
+			<returns>The name of the device.</returns>
+		</member>
+		<member name="M:Unigine.Sounds.getNumDevices">
+			<summary>
+			Returns the total number of the available devices.
+			</summary>  
+			<returns>Number of devices.</returns>
+		</member>
+		<member name="M:Unigine.Sounds.updateDeviceList">
+			<summary>
+			Updates the list of available devices each 5 seconds.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AmbientSource.#ctor(char,int)">
+			<summary>
+			Constructor. Creates a new ambient sound source using a given sound file.
+			</summary> 
+			<param name="name"> Path to the sound file. </param>
+			<param name="stream"> Positive value to create a streaming source, 0 to create a static source. If the flag is set, the sample will not be fully loaded into memory. Instead, its successive parts will be read one by one into a memory buffer.  </param> 
+		</member>
+		<member name="M:Unigine.AmbientSource.play">
+			<summary>
+			Starts playing the sample.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AmbientSource.stop">
+			<summary>
+			Stops playback. This function saves the playback position so that playing of the file can be resumed from the same point.					The playback won't stop immediately, as the sound thread is updated at 30 FPS. So, when you need to perform operations that require stopping of the playback (for example, updating the time, from which the sample should be played), you need to force update the sound thread after stopping the playback.
+			</summary>  
+		</member>
+		<member name="M:Unigine.SoundReverb.#ctor(Unigine.Math.vec3)">
+			<summary>
+			Constructor. Creates a new reverberation zone of specified size.
+			</summary> 
+			<param name="size"> Size of the reverberation zone in units. </param> 
+		</member>
+		<member name="M:Unigine.SoundReverb.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Sound type identifier.</returns>
+		</member>
+		<member name="M:Unigine.SoundSource.#ctor(char,int)">
+			<summary>
+			Constructor. Creates a new world sound source using a given sound sample file.
+			</summary> 
+			<param name="name"> Path to the sound sample file. </param>
+			<param name="stream"> Positive value to create a streaming source, 0 to create a static source. If the flag is set, the sample will not be fully loaded into memory. Instead, its successive parts will be read one by one into a memory buffer. </param> 
+		</member>
+		<member name="M:Unigine.SoundSource.play">
+			<summary>
+			Starts playing the sample.
+			</summary>  
+		</member>
+		<member name="M:Unigine.SoundSource.stop">
+			<summary>
+			Stops playback. This function doesn't reset the playback position so that playing of the file can be resumed from the same point.					The playback won't stop immediately, as the sound thread is updated at 30 FPS. So, when you need to perform operations that require stopping of the playback (for example, updating the time, from which the sample should be played), you need to force update the sound thread after stopping the playback.
+			</summary>  
+		</member>
+		<member name="M:Unigine.SoundSource.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Sound type identifier.</returns>
+		</member>
+	</members>
+</doc>

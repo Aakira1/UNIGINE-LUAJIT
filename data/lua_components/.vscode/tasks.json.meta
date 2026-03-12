@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>9466f464ac199f469e8077e9c34d3a24f84edf74</guid>
+	<type>file</type>
+	<hash>99ec568e</hash>
+	<runtimes>
+		<runtime id="9466f464ac199f469e8077e9c34d3a24f84edf74" name="tasks.json" link="0"/>
+	</runtimes>
+</asset>

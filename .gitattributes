@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Git LFS tracking for large binary/build files
+# PDB debug symbols
+*.pdb filter=lfs diff=lfs merge=lfs -text
+# Precompiled header cache files
+*.ipch filter=lfs diff=lfs merge=lfs -text
+# Object files
+*.obj filter=lfs diff=lfs merge=lfs -text

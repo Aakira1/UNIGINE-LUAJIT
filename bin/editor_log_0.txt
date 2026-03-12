@@ -1,0 +1,200 @@
+18:54:27 Third-Party Notices: https://developer.unigine.com/docs/2.20/third_party
+18:54:27 
+18:54:27 
+18:54:27 ---- Configs ----
+18:54:27 Loading boot config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/editor.boot"...
+18:54:27 Loading user config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.user"...
+18:54:27 Using config file "configs/default.config"
+18:54:27 Using boot config file "configs/editor.boot"
+18:54:27 Using user config file "configs/default.user"
+18:54:27 Using controls config file "configs/default.controls"
+18:54:27 Loading "dxgi.dll"...
+18:54:27 
+18:54:27 ---- Engine ----
+18:54:27 Version: 2.20.0.0 Development Double ver-2.20-b7b1652 Aug  7 2025
+18:54:27 Binary: Windows x86_64 Release WinSDK(10.0.10011.16384) Compiler(Clang 18.1.6)
+18:54:27 Features: Direct3D12.0 Vulkan OpenAL VR OpenVR OpenXR Varjo Microprofile DoubleCoords HalfTexCoords Development
+18:54:27 
+18:54:27 ---- OS ----
+18:54:27 Windows 11 (build 22621)
+18:54:27 
+18:54:27 ---- CPU ----
+18:54:27 Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+18:54:27 Extensions:  MMX SSE SSE2 SSE3 SSSE3 SSE41 SSE42 AVX AVX2 HTT
+18:54:27 Frequency: 3599MHz
+18:54:27 Cores: 8 Threads : 16
+18:54:27 RAM: 31.9GB
+18:54:27 
+18:54:27 ---- GPU ----
+18:54:27 GPU 0 Active : NVIDIA GeForce RTX 3080 Ti    Memory:12086MB Type:Discrete    Vendor:NVidia   CommonHeaps:true Priority:32 LUID:0000000000010118 DeviceID:00002208 Driver:591.74
+18:54:27 GPU 1        : Microsoft Basic Render Driver Memory:16350MB Type:Other       Vendor:Unknown  CommonHeaps:true Priority:31 LUID:0000000000013212 DeviceID:00013212 Driver:Unknown
+18:54:27 GAPI: Direct3D 12.0
+18:54:27 
+18:54:27 
+18:54:27 ---- Engine Microprofile ----
+18:54:27 Microprofile initialization (Time: 0.0ms, Memory: 0B)
+18:54:27 
+18:54:27 ---- Application ----
+18:54:27 
+18:54:27 ---- System Proxy ----
+18:54:27 SystemProxy initialization (Time: 0.0ms, Memory: 0B)
+18:54:27 
+18:54:27 ---- VR ----
+18:54:27 VR initialization (Time: 0.0ms, Memory: 1.9KB)
+18:54:27 
+18:54:27 
+18:54:27 ---- Render ----
+18:54:28 Renderer API: Direct3D 12.0
+18:54:28 Maximum texture size: 16384
+18:54:28 Maximum texture units: 16
+18:54:28 DLSS is not supported
+18:54:28 sl.interposer.dll is not found. Copy libraries from Streamline SDK.
+18:54:28 FSR is supported
+18:54:28 FSR Version: 3.1.3
+18:54:28 FSR Max Contexts: 8
+18:54:28 Render initialization (Time: 241.9ms, Memory: 24.3MB)
+18:54:28 
+18:54:28 
+18:54:28 ---- VR Subsystems ----
+18:54:28 VR Subsystems initialization (Time: 0.0ms, Memory: 17.4KB)
+18:54:28 
+18:54:28 
+18:54:28 ---- Filesystem begin ----
+18:54:28 App path:  C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/
+18:54:28 Data path: C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/
+18:54:28 Save path: C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/
+18:54:28 
+18:54:28 Runtimes loaded: 11 (Time: 1.9ms, Memory: 317.9KB)
+18:54:28 Filesystem initialization (Time: 35.3ms, Memory: 1.6MB)
+18:54:28 ---- Filesystem end ----
+18:54:28 
+18:54:28 
+18:54:28 ---- Sound ----
+18:54:28 Loading "openal32.dll"...
+18:54:28 Renderer: OpenAL Soft on XV345CUR V (NVIDIA High Definition Audio)
+18:54:28 OpenAL vendor: OpenAL Community
+18:54:28 OpenAL renderer: OpenAL Soft
+18:54:28 OpenAL version: 1.1 ALSOFT 1.22.2
+18:54:28 Found AL_EXT_LINEAR_DISTANCE
+18:54:28 Found AL_EXT_OFFSET
+18:54:28 Found ALC_EXT_EFX
+18:54:28 Found ALC_SOFT_HRTF
+18:54:28 Found EFX Filter
+18:54:28 Found EFX Reverb
+18:54:28 Found EAX Reverb
+18:54:28 Found QUAD16 format
+18:54:28 Found 51CHN16 format
+18:54:28 Found 61CHN16 format
+18:54:28 Found 71CHN16 format
+18:54:28 Device enumeration supported
+18:54:28 Maximum sources: 256
+18:54:28 Maximum effect slots: 16
+18:54:28 Maximum auxiliary sends: 2
+18:54:28 Output sampling frequency: 48000hz
+18:54:28 HRTF not enabled!
+18:54:28 
+18:54:28 Sound: openal
+18:54:28 Sound initialization (Time: 30.8ms, Memory: 7.2KB)
+18:54:28 
+18:54:28 ---- Physics ----
+18:54:28 
+18:54:28 ---- PathFind ----
+18:54:28 
+18:54:28 Loading controls "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.controls"...
+18:54:28 Loading config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.config"...
+18:54:28 
+18:54:28 ---- Materials begin----
+18:54:28 
+18:54:28 ---- Properties begin ----
+18:54:28 
+18:54:28 ---- MeshManager begin ----
+18:54:28 Properties loaded: 7/7 (Time: 3.8ms, Memory: 204.5KB)
+18:54:28 ---- Properties end ----
+18:54:28 
+18:54:28 Initialization meshes (Time: 4.2ms, Memory: 167.1KB)
+18:54:28 Total resources: 32
+18:54:28 ---- MeshManager end ----
+18:54:28 
+18:54:28 Base materials loaded: 199/199
+18:54:28 Materials loaded: 78/78
+18:54:28 Load Materials (Time: 126.8ms, Memory: 3.7MB)
+18:54:28 Preload materials loaded: 58 (Time: 9.4ms, Memory: 419.8KB)
+18:54:29 Shaders compiled: 939 (Time: 835.9ms, Memory: 10.3MB)
+18:54:29 Total materials loaded: 335 (Time: 1.0s, Memory: 14.4MB)
+18:54:29 ---- Materials end ----
+18:54:29 
+18:54:29 
+18:54:29 ---- Animations ----
+18:54:29 Total objects: 0
+18:54:29 Total tracks: 0
+18:54:29 Total playbacks: 0
+18:54:29 Load Animations (Time: 0.5ms, Memory: 0B)
+18:54:29 
+18:54:29 Engine initialization (Time: 2.0s, Memory: 210.0MB)
+18:54:29 
+18:54:29 
+18:54:29 ---- Plugins ----
+18:54:29 Plugins path: "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins"
+18:54:29 Loading "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins/Unigine/FbxImporter/UnigineFbxImporter_plugin_double_x64.dll"...
+18:54:29 Loading "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins/Unigine/GLTFImporter/UnigineGLTFImporter_plugin_double_x64.dll"...
+18:54:29 Loading "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins/Unigine/FbxExporter/UnigineFbxExporter_plugin_double_x64.dll"...
+18:54:29 Loading "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins/Unigine/UsdExchanger/UnigineUsdExchanger_plugin_double_x64.dll"...
+18:54:29 EnginePlugins: "UnigineFbxImporter" plugin is initialized
+18:54:29 EnginePlugins: "UnigineGLTFImporter" plugin is initialized
+18:54:29 EnginePlugins: "UnigineFbxExporter" plugin is initialized
+18:54:29 EnginePlugins: "UnigineUsdExchanger" plugin is initialized
+18:54:29 Plugins initialization (Time: 17.0ms, Memory: 11.8KB)
+18:54:29 
+18:54:29 Script loading "editor2/editor.usc" 46ms
+18:54:29 ---- UnigineEditor ----
+18:54:29 Version: 2.20.0.0 ver-2.20-4530b126 Aug  7 2025
+18:54:29 Binary: Windows Clang 18.1.6 
+18:54:29 
+18:54:29 
+18:54:29 ---- UnigineEditor Material Editor ----
+18:54:29 UnigineEditor Material Editor initialization: 9ms
+18:54:29 
+18:54:29 
+18:54:29 ---- UnigineEditor Asset Manager ----
+18:54:29 Migration version: 2.20.0.0
+18:54:29 UnigineEditor Asset Manager initialization: Assets 305 (Time: 89.0ms, Size: 6.7MB)
+18:54:29 
+18:54:29 
+18:54:29 ---- UnigineEditor Auxiliary Systems ----
+18:54:29 UnigineEditor Auxiliary Systems initialization: 117ms
+18:54:29 
+18:54:29 
+18:54:29 ---- UnigineEditor GUI Components ----
+18:54:30 [Build Tool] Project file is found ( "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/LUAPROJECT.project" ).
+18:54:30 UnigineEditor GUI Components initialization: 872ms
+18:54:30 
+18:54:30 
+18:54:30 ---- UnigineEditor Plugins ----
+18:54:30 Editor.PluginSystem: Plugin search paths:  C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins/
+18:54:30 Editor.PluginSystem: Plugin search template:  CompanyNamePluginName_editorplugin_double_x64.dll
+18:54:30 UnigineEditor Plugins initialization: 13ms
+18:54:30 
+18:54:30 ---- Interpreter ----
+18:54:30 Version: 2.90
+18:54:30 
+18:54:30 Unigine~# config_autosave 1 && world_load "unigine_project_5"
+18:54:30 Script loading "core/unigine.usc" 11ms
+18:54:30 ERROR:	SoundFile::load(): unknown type of "" file
+18:54:30 ERROR:	ALSampleStatic::ALSampleStatic(): can't load "" file
+18:54:30 WARNING:	NodeDummy(Name:"TriggerBox", ID:1743240552, IDFromFile:1743240552, File:"unigine_project_5.world", Hierarchy:"TriggerBox")
+18:54:30 WARNING:	Node::setProperty(): can't find guid "b6c796f1b7c31ff978ea5a6fa96364cf66228dc9" property for "TriggerBox" node (1743240552)
+18:54:30 World loading "unigine_project_5.world" (Time: 21.7ms, Memory: 0B)
+18:54:30 WARNING:	QObject::connect: Cannot queue arguments of type 'Unigine::UGUID'
+18:54:30 WARNING:	(Make sure 'Unigine::UGUID' is registered using qRegisterMetaType().)
+18:54:30 
+18:54:30 ---- UnigineEditor Final Adjustments ----
+18:54:31 UnigineEditor Final Adjustments: 998ms
+18:54:31 
+18:54:32 UnigineEditor initialization: 6133ms
+18:54:32 
+18:54:41 Saving "unigine_project_5.world"
+18:54:44 UnigineEditor::AssetManager. `guids.db` saved 4.283000 ms
+18:54:45 Close "openal32.dll"
+18:54:45 Fast shutdown 524.4ms
+18:54:45 UnigineEditor shutdown: 1130ms
+18:54:45 

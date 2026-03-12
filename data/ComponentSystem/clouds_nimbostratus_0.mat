@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<material version="2.20.0.0" guid="a549a2b6c5700f350dc36920c7ceb300d44f7d88" parent="aaf46d65dd46b5d7f4b08b1ce2ec6895775c0a63" base_material="11b0b7b791c6eb08a2151f2b4523edb80bd803ab">
+	<parameter name="coverage_contrast" expression="0">0.132929996</parameter>
+	<parameter name="detail_affect" expression="0">0.782469988</parameter>
+	<parameter name="multiscattering_intensity" expression="0">1</parameter>
+</material>

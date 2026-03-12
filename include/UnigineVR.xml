@@ -1,0 +1,413 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.VR.getHMDResolution(VR::VIEWPORT_TYPE) const">
+			<summary>
+			Returns the current resolution of the head-mounted display. For HMDs having context (peripheral) and focus displays, you should specify the viewport type.
+			</summary> 
+			<param name="viewport_type"> Type of the viewport (for HMDs having context (peripheral) and focus displays). </param> 
+			<returns>HMD resolution.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureMixedReality const">
+			<summary>
+			Returns a value indicating if the mixed reality mode is available. Mixed reality enables you to combine real-world view from front-facing cameras mounted on the headset with the VR image rendered. This feature is available for the Varjo devices only.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureEyeTracking const">
+			<summary>
+			Returns a value indicating if eye tracking is available. This feature is available for the Varjo devices only.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureHandTracking const">
+			<summary>
+			Returns a value indicating if hand tracking is available. This feature is available for the Varjo devices only.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureTrackingSpaceRaw const">
+			<summary>
+			Returns a value indicating if poses can be provided in the coordinate system defined by the tracker driver.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureMotionPrediction const">
+			<summary>
+			Returns a value indicating if motion prediction is available. This feature is available for the Varjo devices only. It allows the engine to submit the velocity from the GBuffer to the Varjo Composer.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureFoveatedRendering const">
+			<summary>
+			Returns a value indicating if foveated rendering is available. This feature is available for the Varjo devices only. Foveated rendering enhances performance by using the eye tracking functionality in Varjo headsets: it decreases the image quality in the peripheral areas where the user is not looking. Foveation allows applications to render fewer pixels and achieve a better VR experience.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureReportProximitySensor const">
+			<summary>
+			Returns a value indicating if proximity sensor reporting is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureSupportForTreadmill const">
+			<summary>
+			Returns a value indicating if the user treadmill support is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureSupportForBaseStations const">
+			<summary>
+			Returns a value indicating if the base stations support is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureSupportForTrackers const">
+			<summary>
+			Returns a value indicating if support for trackers is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureSupportForRenderModelComponents const">
+			<summary>
+			Returns a value indicating if support for render model components is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.resetZeroPose">
+			<summary>
+			Sets the zero pose to the current tracker position.
+			</summary>  
+			<returns>true if the pose is reset successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureSupportForRenderModel const">
+			<summary>
+			Returns a value indicating if VR API can provide Render Models for the controllers.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureFadeToColor const">
+			<summary>
+			Returns a value indicating if the FadeToColor feature is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureFadeGrid const">
+			<summary>
+			Returns the value indicating if the FadeGrid feature is available.					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.hasFeatureGetAudioDevice const">
+			<summary>
+			Returns the value indicating if VR API can return Audio Device name (usually Oculus only).					If VR is not initialized, the function will return false.
+			</summary>  
+			<returns>true if the feature is available; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.fadeToColor(float,Unigine.Math.vec4,bool)">
+			<summary>
+			Fades the engine render to the specified color over time.
+			</summary> 
+			<param name="seconds"> Fade period, in seconds. </param>
+			<param name="color"> Target color. </param> 
+		</member>
+		<member name="M:Unigine.VR.fadeGrid(float,bool)">
+			<summary>
+			Fades the engine render to/from the grid over the specified time.
+			</summary> 
+			<param name="seconds"> Fade period, in seconds. </param>
+			<param name="fade_in"> true fades render to grid; false fades grid to render. </param> 
+		</member>
+		<member name="M:Unigine.VR.clearScriptableMaterials(VR::EYE_TYPE)">
+			<summary>
+			Removes all scriptable materials assigned to the target eye.
+			</summary> 
+			<param name="eye"> Target eye. </param> 
+		</member>
+		<member name="M:Unigine.VR.getNumScriptableMaterials(VR::EYE_TYPE)">
+			<summary>
+			Returns the number of scriptable materials currently assigned to the specified eye.
+			</summary> 
+			<param name="eye"> Target eye. </param> 
+			<returns>Number of scriptable materials currently assigned to the specified eye.</returns>
+		</member>
+		<member name="M:Unigine.VR.getScriptableMaterial(VR::EYE_TYPE,int) const">
+			<summary>
+			Returns the scriptable material assigned to the target eye by the number. The material's number determines the order in which the expressions assigned to it are executed.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Scriptable material number in the range from 0 to the total number of scriptable materials. </param> 
+			<returns>Scriptable material assigned to the target eye.</returns>
+		</member>
+		<member name="M:Unigine.VR.setScriptableMaterial(VR::EYE_TYPE,int,Unigine.Ptr{Unigine.Material})">
+			<summary>
+			Replaces the specified scriptable material with a new scriptable material by its number for the target eye. The material's number determines the order in which the expressions assigned to it are executed.					Scriptable materials applied globally have their expressions executed before the ones that are applied per-eye.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Scriptable material number in the range from 0 to the total number of scriptable materials. </param>
+			<param name="material"> New scriptable material to replace the one with the specified number. </param> 
+		</member>
+		<member name="M:Unigine.VR.insertScriptableMaterial(VR::EYE_TYPE,int,Unigine.Ptr{Unigine.Material})">
+			<summary>
+			Inserts a new scriptable material at the specified position for the target eye. The material's number determines the order in which the expressions assigned to it are executed. To apply a scriptable material globally, use the  method of the Render class.					Scriptable materials applied globally have their expressions executed before the ones that are applied per-eye.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Position at which the new scriptable material is to be inserted. </param>
+			<param name="material"> Scriptable material to be inserted. </param> 
+		</member>
+		<member name="M:Unigine.VR.findScriptableMaterial(VR::EYE_TYPE,Unigine.Ptr{Unigine.Material}) const">
+			<summary>
+			Returns the number of the specified scriptable material for the target eye. The material's number determines the order in which the expressions assigned to it are executed.					Scriptable materials applied globally have their expressions executed before the ones that are applied per-eye.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="material"> Scriptable material for which the number is to be found. </param> 
+			<returns>The number of the specified scriptable material for the target eye.</returns>
+		</member>
+		<member name="M:Unigine.VR.addScriptableMaterial(VR::EYE_TYPE,Unigine.Ptr{Unigine.Material})">
+			<summary>
+			Adds the specified scriptable material to the target eye's material list. The material's number determines the order in which the expressions assigned to it are executed. To apply a scriptable material globally, use the  method of the Render class.					Scriptable materials applied globally have their expressions executed before the ones that are applied per-eye.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="material"> Scriptable material to add. </param> 
+		</member>
+		<member name="M:Unigine.VR.removeScriptableMaterial(VR::EYE_TYPE,int)">
+			<summary>
+			Removes the scriptable material with the specified number from the target eye's material list.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Scriptable material number in the range from 0 to the total number of scriptable materials. </param> 
+		</member>
+		<member name="M:Unigine.VR.swapScriptableMaterials(VR::EYE_TYPE,int,int)">
+			<summary>
+			Swaps two scriptable materials with the specified numbers in the target eye's material list. The material's number determines the order in which the expressions assigned to it are executed.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num_0"> Number of the first scriptable material in the range from 0 to the total number of scriptable materials. </param>
+			<param name="num_1"> Number of the second scriptable material in the range from 0 to the total number of scriptable materials. </param> 
+		</member>
+		<member name="M:Unigine.VR.setScriptableMaterialEnabled(VR::EYE_TYPE,int,bool)">
+			<summary>
+			Enables or disables the scriptable material with the specified number for the target eye. When a material is disabled (inactive), the scripts attached to it are not executed.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Scriptable material number in the range from 0 to the total number of scriptable materials. </param>
+			<param name="enabled"> true to enable the scriptable material with the specified number, false to disable it. </param> 
+		</member>
+		<member name="M:Unigine.VR.getScriptableMaterialEnabled(VR::EYE_TYPE,int) const">
+			<summary>
+			Returns a value indicating if the scriptable material with the specified number is enabled (active) for the target eye. When a material is disabled (inactive), the scripts attached to it are not executed.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="num"> Scriptable material number in the range from 0 to the total number of scriptable materials. </param> 
+			<returns>true if the scriptable material with the specified number is enabled; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.VR.setEyeOffset(VR::EYE_TYPE,Unigine.Math.mat4)">
+			<summary>
+			Sets a custom transformation matrix to be applied to the target eye.
+			</summary> 
+			<param name="eye"> Target eye. </param>
+			<param name="offset"> Transformation matrix to be applied to the target eye. </param> 
+		</member>
+		<member name="M:Unigine.VR.getEyeOffset(VR::EYE_TYPE) const">
+			<summary>
+			Returns the current transformation matrix applied to the target eye.
+			</summary> 
+			<param name="eye"> Target eye. </param> 
+			<returns>Transformation matrix currently applied to the target eye.</returns>
+		</member>
+		<member name="M:Unigine.VR.resetEyeOffset(VR::EYE_TYPE)">
+			<summary>
+			Resets the transformation offset of the target eye to the identity matrix.
+			</summary> 
+			<param name="eye"> Target eye. </param> 
+		</member>
+		<member name="M:Unigine.VR.resetEyeOffset">
+			<summary>
+			Resets the transformation offsets for both eyes to the identity matrix.
+			</summary>  
+		</member>
+		<member name="M:Unigine.VR.resetEyeOverrideFOV">
+			<summary>
+			Resets the vertical field of view override to the native value.
+			</summary>  
+		</member>
+		<member name="F:Unigine.VR.API_NULL">
+			<summary>
+			VR API is not initialized.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.API_VARJO">
+			<summary>
+			Varjo API.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.API_OPENVR">
+			<summary>
+			OpenVR API.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.API_OPENXR">
+			<summary>
+			OpenXR API.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.VIEWPORT_TYPE_CONTEXT">
+			<summary>
+			Context (low-res) viewport.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.VIEWPORT_TYPE_FOCUS">
+			<summary>
+			Focus (high-res) viewport.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.VIEWPORT_TYPE_NUM">
+			<summary>
+			Number of viewport types.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.EYE_TYPE_LEFT">
+			<summary>
+			Left eye.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.EYE_TYPE_RIGHT">
+			<summary>
+			Right eye.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.EYE_TYPE_NUM">
+			<summary>
+			Number of eye types.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TOTAL_VIEWPORTS">
+			<summary>
+			The total number of available viewports.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_BEGIN">
+			<summary>
+			The first element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_BLACK_SCREEN">
+			<summary>
+			No image (black screen).
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_MONO_LEFT">
+			<summary>
+			Mono image for the left eye.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_MONO_RIGHT">
+			<summary>
+			Mono image for the right eye.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_STEREO">
+			<summary>
+			Stereo image (left and right eyes).
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.MIRROR_MODE_END">
+			<summary>
+			The last element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.WINDOW_MODE_BEGIN">
+			<summary>
+			The first element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.WINDOW_MODE_DISABLED">
+			<summary>
+			Showing the mirrored image is disabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.WINDOW_MODE_MAIN">
+			<summary>
+			The main window shows the mirrored image.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.WINDOW_MODE_END">
+			<summary>
+			The last element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TRACKING_SPACE_BEGIN">
+			<summary>
+			The first element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TRACKING_SPACE_UNKNOWN">
+			<summary>
+			Poses are provided in the coordinate system defined by the tracker driver.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TRACKING_SPACE_SEATED">
+			<summary>
+			Poses are provided relative to the seated zero pose.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TRACKING_SPACE_STANDING">
+			<summary>
+			Poses are provided relative to the safe bounds specified by the user.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.TRACKING_SPACE_END">
+			<summary>
+			The last element to be used for iteration.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.DEBUG_MODE_DISABLED">
+			<summary>
+			Debug VR context is disabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.DEBUG_MODE_ENABLED">
+			<summary>
+			Debug VR context is enabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.DEBUG_MODE_ENABLED_BREAK_ON_ERROR">
+			<summary>
+			Debug VR context with the break on error option is enabled (only on debug binaries).
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_UNKNOWN">
+			<summary>
+			The runtime type is unknown.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_NULL">
+			<summary>
+			The runtime is null.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_STEAMVR">
+			<summary>
+			SteamVR runtime.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_OCULUS">
+			<summary>
+			Oculus runtime.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_VARJO">
+			<summary>
+			Varjo runtime.
+		</summary>
+		</member>
+		<member name="F:Unigine.VR.RUNTIME_TYPE_WMR">
+			<summary>
+			Windows Mixed Reality OpenXR runtime.
+		</summary>
+		</member>
+	</members>
+</doc>

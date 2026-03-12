@@ -1,0 +1,26 @@
+﻿  LuaSystem.cpp
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(56,29): warning C5321: nonstandard extension used: encoding '\xF0' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(56,29): warning C5321: nonstandard extension used: encoding '\x9F' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(56,29): warning C5321: nonstandard extension used: encoding '\x8C' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(56,29): warning C5321: nonstandard extension used: encoding '\xB2' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(61,29): warning C5321: nonstandard extension used: encoding '\xF0' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(61,29): warning C5321: nonstandard extension used: encoding '\x9F' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(61,29): warning C5321: nonstandard extension used: encoding '\x8C' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\sol\sol2\include\sol\inheritance.hpp(61,29): warning C5321: nonstandard extension used: encoding '\xB2' as a multi-byte utf-8 character. Use \u instead for cross platform compatibility or '/Zc:u8EscapeEncoding' to disable the extension.
+  (compiling source file 'LuaSystem.cpp')
+  
+C:\Users\ayden\Documents\UNIGINE Projects\unigine_project_5.1\source\LuaSystem.cpp(88,21): error C2040: 'resolved_path': 'Unigine::String' differs in levels of indirection from 'char [260]'

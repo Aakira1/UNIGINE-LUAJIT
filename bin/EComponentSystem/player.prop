@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<property version="2.18.0.1" name="player" manual="1" editable="1">
+	<!-- Player movement and camera -->
+	<parameter name="jump_power" type="float" title="Jump Power" group="Movement">5.000000</parameter>
+	<parameter name="run_speed" type="float" title="Run Speed" group="Movement">6.000000</parameter>
+</property>

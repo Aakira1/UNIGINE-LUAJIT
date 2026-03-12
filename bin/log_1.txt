@@ -1,0 +1,181 @@
+19:40:02 Third-Party Notices: https://developer.unigine.com/docs/2.20/third_party
+19:40:02 
+19:40:02 
+19:40:02 ---- Configs ----
+19:40:02 Loading boot config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.boot"...
+19:40:02 Loading user config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.user"...
+19:40:02 Using config file "configs/default.config"
+19:40:02 Using boot config file "configs/default.boot"
+19:40:02 Using user config file "configs/default.user"
+19:40:02 Using controls config file "configs/default.controls"
+19:40:02 Loading "dxgi.dll"...
+19:40:02 
+19:40:02 ---- Engine ----
+19:40:02 Version: 2.20.0.0 Debug Double ver-2.20-b7b1652 Aug  7 2025
+19:40:02 Binary: Windows x86_64 Debug WinSDK(10.0.10011.16384) Compiler(Clang 18.1.6)
+19:40:02 Features: Direct3D12.0 Vulkan OpenAL VR OpenVR OpenXR Varjo DoubleCoords HalfTexCoords Debug
+19:40:02 
+19:40:02 ---- OS ----
+19:40:02 Windows 11 (build 22621)
+19:40:02 
+19:40:02 ---- CPU ----
+19:40:02 Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+19:40:02 Extensions:  MMX SSE SSE2 SSE3 SSSE3 SSE41 SSE42 AVX AVX2 HTT
+19:40:02 Frequency: 3599MHz
+19:40:02 Cores: 8 Threads : 16
+19:40:02 RAM: 31.9GB
+19:40:02 
+19:40:02 ---- GPU ----
+19:40:02 GPU 0 Active : NVIDIA GeForce RTX 3080 Ti    Memory:12086MB Type:Discrete    Vendor:NVidia   CommonHeaps:true Priority:32 LUID:0000000000010118 DeviceID:00002208 Driver:591.74
+19:40:02 GPU 1        : Microsoft Basic Render Driver Memory:16350MB Type:Other       Vendor:Unknown  CommonHeaps:true Priority:31 LUID:0000000000013212 DeviceID:00013212 Driver:Unknown
+19:40:02 GAPI: Direct3D 12.0
+19:40:02 
+19:40:02 
+19:40:02 ---- Application ----
+19:40:02 
+19:40:02 ---- System Proxy ----
+19:40:03 SystemProxy initialization (Time: 608.2ms, Memory: 4.1KB)
+19:40:03 
+19:40:03 ---- VR ----
+19:40:03 VR initialization (Time: 0.3ms, Memory: 896B)
+19:40:03 
+19:40:03 
+19:40:03 ---- Render ----
+19:40:03 Renderer API: Direct3D 12.0
+19:40:03 Maximum texture size: 16384
+19:40:03 Maximum texture units: 16
+19:40:03 DLSS is not supported
+19:40:03 sl.interposer.dll is not found. Copy libraries from Streamline SDK.
+19:40:03 FSR is supported
+19:40:03 FSR Version: 3.1.3
+19:40:03 FSR Max Contexts: 8
+19:40:03 Render initialization (Time: 252.6ms, Memory: 24.3MB)
+19:40:03 
+19:40:03 
+19:40:03 ---- VR Subsystems ----
+19:40:03 VR Subsystems initialization (Time: 0.2ms, Memory: 17.4KB)
+19:40:03 
+19:40:03 
+19:40:03 ---- Filesystem begin ----
+19:40:03 App path:  C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/
+19:40:03 Data path: C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/
+19:40:03 Save path: C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/
+19:40:03 
+19:40:03 Runtimes loaded: 11 (Time: 4.1ms, Memory: 323.3KB)
+19:40:03 Filesystem initialization (Time: 145.9ms, Memory: 5.0MB)
+19:40:03 ---- Filesystem end ----
+19:40:03 
+19:40:03 
+19:40:03 ---- Sound ----
+19:40:03 Loading "openal32.dll"...
+19:40:03 Renderer: OpenAL Soft on XV345CUR V (NVIDIA High Definition Audio)
+19:40:03 OpenAL vendor: OpenAL Community
+19:40:03 OpenAL renderer: OpenAL Soft
+19:40:03 OpenAL version: 1.1 ALSOFT 1.22.2
+19:40:03 Found AL_EXT_LINEAR_DISTANCE
+19:40:03 Found AL_EXT_OFFSET
+19:40:03 Found ALC_EXT_EFX
+19:40:03 Found ALC_SOFT_HRTF
+19:40:03 Found EFX Filter
+19:40:03 Found EFX Reverb
+19:40:03 Found EAX Reverb
+19:40:03 Found QUAD16 format
+19:40:03 Found 51CHN16 format
+19:40:03 Found 61CHN16 format
+19:40:03 Found 71CHN16 format
+19:40:03 Device enumeration supported
+19:40:03 Maximum sources: 256
+19:40:03 Maximum effect slots: 16
+19:40:03 Maximum auxiliary sends: 2
+19:40:03 Output sampling frequency: 48000hz
+19:40:03 HRTF not enabled!
+19:40:03 
+19:40:03 Sound: openal
+19:40:03 Sound initialization (Time: 41.2ms, Memory: 7.0KB)
+19:40:03 
+19:40:03 ---- Physics ----
+19:40:03 
+19:40:03 ---- PathFind ----
+19:40:03 
+19:40:03 Loading controls "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.controls"...
+19:40:03 Loading config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/default.config"...
+19:40:03 
+19:40:03 ---- Materials begin----
+19:40:03 
+19:40:03 ---- MeshManager begin ----
+19:40:03 
+19:40:03 ---- Properties begin ----
+19:40:03 Initialization meshes (Time: 5.1ms, Memory: 256.2KB)
+19:40:03 Total resources: 32
+19:40:03 ---- MeshManager end ----
+19:40:03 
+19:40:03 Properties loaded: 7/7 (Time: 5.5ms, Memory: 155.2KB)
+19:40:03 ---- Properties end ----
+19:40:03 
+19:40:04 Base materials loaded: 199/199
+19:40:04 Materials loaded: 78/78
+19:40:04 Load Materials (Time: 164.5ms, Memory: 3.8MB)
+19:40:04 Preload materials loaded: 58 (Time: 65.7ms, Memory: 419.8KB)
+19:40:04 Shaders compiled: 939 (Time: 779.6ms, Memory: 13.1MB)
+19:40:04 Total materials loaded: 335 (Time: 1.0s, Memory: 17.3MB)
+19:40:04 ---- Materials end ----
+19:40:04 
+19:40:04 
+19:40:04 ---- Animations ----
+19:40:04 Total objects: 0
+19:40:04 Total tracks: 0
+19:40:04 Total playbacks: 0
+19:40:04 Load Animations (Time: 1.4ms, Memory: 0B)
+19:40:05 
+19:40:05 Engine initialization (Time: 3.2s, Memory: 216.0MB)
+19:40:05 
+19:40:05 
+19:40:05 ---- Plugins ----
+19:40:05 Plugins path: "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/bin/plugins"
+19:40:05 Plugins initialization (Time: 0.3ms, Memory: 192B)
+19:40:05 
+19:40:05 ---- Interpreter ----
+19:40:05 Version: 2.90
+19:40:05 
+19:40:05 Unigine~# world_load "unigine_project_5"
+19:40:05 Script loading "core/unigine.usc" 6ms
+19:40:05 Loading config "C:/Users/ayden/OneDrive/Documents/UNIGINE Projects/LuaIntegrationProject/data/configs/lua_system.config"...
+19:40:05 ComponentSystem: property "Lua_PhysicsFallSound" was modified (ComponentSystem/Lua_PhysicsFallSound.prop)
+19:40:05 ComponentSystem: property "Lua_PlayerController" was modified (ComponentSystem/Lua_PlayerController.prop)
+19:40:05 [LuaSystem] [SKIP] Lua_PlayerController (up to date)
+19:40:05 [LuaSystem] [SKIP] Lua_PhysicsFallSound (up to date)
+19:40:05 [LuaSystem] [SKIP] Lua_RotatingCube (up to date)
+19:40:14 ERROR:	SoundFile::load(): unknown type of "" file
+19:40:14 ERROR:	ALSampleStatic::ALSampleStatic(): can't load "" file
+19:40:14 WARNING:	NodeDummy(Name:"TriggerBox", ID:1743240552, IDFromFile:1743240552, File:"unigine_project_5.world", Hierarchy:"TriggerBox")
+19:40:14 WARNING:	Node::setProperty(): can't find guid "b6c796f1b7c31ff978ea5a6fa96364cf66228dc9" property for "TriggerBox" node (1743240552)
+19:40:14 World loading "unigine_project_5.world" (Time: 53.0ms, Memory: 181.9KB)
+19:40:14 [LuaSystem] Registered instance: PlayerController on node PlayerController
+19:40:14 [32m[Lua Log][0m [PlayerController] Initialized (simple)
+19:40:14 
+19:40:14 [LuaSystem] Registered instance: PhysicsFallSound on node SoundSource
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Creating SoundSource and loading sound: 'sounds/preview.mp3'
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sample set to: 'sounds/preview.mp3'
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sound system is ENABLED (Volume: 1.00)
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sound gain: 1.00, Sample: sounds/preview.mp3
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Initialized successfully
+19:40:14 
+19:40:14 [LuaSystem] Registered instance: PhysicsFallSound on node SoundSource
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Creating SoundSource and loading sound: 'sounds/preview.mp3'
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sample set to: 'sounds/preview.mp3'
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sound system is ENABLED (Volume: 1.00)
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Sound gain: 1.00, Sample: sounds/preview.mp3
+19:40:14 
+19:40:14 [32m[Lua Log][0m [PhysicsFallSound] Initialized successfully
+19:40:14 
+19:40:35 Close "openal32.dll"
+19:40:35 Fast shutdown 566.8ms
+19:40:35 [Lua-Event] Cleared all event listeners (0 total)
+19:40:35 [ComponentPool] All pools cleared

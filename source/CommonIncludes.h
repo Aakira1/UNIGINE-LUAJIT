@@ -1,0 +1,20 @@
+#pragma once
+#pragma warning(push, 0)
+#include <sol.hpp>
+#include <Unigine.h>
+#include <UnigineBase.h>
+#include <UnigineLog.h>
+#include <UnigineString.h>
+#include <UnigineVector.h>
+#include <UnigineHashMap.h>
+#include <UnigineNode.h>
+#include <UnigineComponentSystem.h>
+#include <UnigineConfig.h>
+#include <UnigineMathLib.h>
+#include <UnigineMathLibCommon.h>
+#include <unordered_map>
+#include <memory>
+#include <functional>
+#include <string>
+#include <vector>
+#pragma warning(pop)

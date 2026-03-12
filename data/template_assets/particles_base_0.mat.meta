@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>598290e7d5e1c6bbd668018fa2f0eaaace9067ca</guid>
+	<type>material</type>
+	<hash>c1f6d9b2</hash>
+	<runtimes>
+		<runtime id="598290e7d5e1c6bbd668018fa2f0eaaace9067ca" name="particles_base_0" link="0" type="5"/>
+	</runtimes>
+	<parameters>
+		<parameter type="bool" name="unchanged">1</parameter>
+	</parameters>
+</asset>

@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "LuaInteg.98BCC83F\\x64\\Debug\\sol2_UniginePtr_Fixes.obj",
+            "outputs": [
+                "LuaInteg.98BCC83F\\x64\\Debug\\sol2_UniginePtr_Fixes.h_70E7C34EB6F1E0A0.ifc.dt.module.json",
+                "LuaInteg.98BCC83F\\x64\\Debug\\sol2_UniginePtr_Fixes.h_70E7C34EB6F1E0A0.ifc.dt.d.json",
+                "LuaInteg.98BCC83F\\x64\\Debug\\sol2_UniginePtr_Fixes.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "C:\\Users\\ayden\\Documents\\UNIGINE Projects\\LuaIntegrationProject\\source\\sol2_UniginePtr_Fixes.h",
+                    "source-path": "c:\\users\\ayden\\documents\\unigine projects\\luaintegrationproject\\source\\sol2_unigineptr_fixes.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

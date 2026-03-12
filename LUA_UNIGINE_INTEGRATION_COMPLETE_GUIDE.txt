@@ -1,0 +1,2044 @@
+# UNIGINE Lua Integration System - Complete Documentation
+
+**Version:** 2.0  
+**Date:** January 2026  
+**Status:** Production Ready
+
+---
+
+## Table of Contents
+
+1. [Introduction](#1-introduction)
+2. [Architecture Overview](#2-architecture-overview)
+3. [Installation & Setup](#3-installation--setup)
+4. [Core Concepts](#4-core-concepts)
+5. [Component System](#5-component-system)
+6. [Input System](#6-input-system)
+7. [Animation System](#7-animation-system)
+8. [Pathfinding](#8-pathfinding)
+9. [Coroutines & Timing](#9-coroutines--timing)
+10. [Event System](#10-event-system)
+11. [Property Management](#11-property-management)
+12. [Serialization & Persistence](#12-serialization--persistence)
+13. [Physics API](#13-physics-api)
+14. [Material System](#14-material-system)
+15. [Profiling & Debugging](#15-profiling--debugging)
+16. [Console Commands](#16-console-commands)
+17. [API Reference](#17-api-reference)
+18. [Best Practices](#18-best-practices)
+19. [Troubleshooting](#19-troubleshooting)
+20. [Advanced Topics](#20-advanced-topics)
+
+---
+
+## 1. Introduction
+
+### 1.1 What is This?
+
+The UNIGINE Lua Integration System is a comprehensive scripting framework that allows you to create game logic, components, and behaviors entirely in Lua. It provides:
+
+- **Component System**: Define reusable components in Lua that integrate seamlessly with UNIGINE's C++ Component System
+- **Hot Reload**: Edit Lua scripts and see changes instantly without restarting
+- **Full API Coverage**: Access to ~70% of UNIGINE's engine APIs from Lua
+- **Type Safety**: Automatic type conversion between Lua and C++
+- **Event System**: Publish/subscribe event architecture
+- **Input Mapping**: Action-based input system with keyboard, mouse, and gamepad support
+- **Animation Control**: Full control over ObjectMeshSkinned animations
+- **Pathfinding**: Navigation mesh integration
+- **Coroutines**: Time-based and conditional waiting
+- **Profiling**: Built-in performance profiling tools
+
+### 1.2 Key Features
+
+✅ **Automatic Code Generation**: Lua components automatically generate C++ wrappers  
+✅ **Bidirectional Property Sync**: Lua can modify properties that persist in the editor  
+✅ **Hot Reload**: Press F5 or use `lua_tool_reload` to reload all scripts  
+✅ **Component Queries**: Find components by type, tag, or node  
+✅ **Event System**: Decoupled communication between components  
+✅ **Input Actions**: Map keyboard/mouse/gamepad to named actions  
+✅ **Animation Blending**: Smooth time-based animation transitions  
+✅ **Coroutine Management**: Automatic coroutine lifecycle management  
+✅ **Save/Load**: Serialize component states to JSON  
+✅ **Profiler**: Measure Lua function performance  
+✅ **Debugger Support**: Remote debugging via MobDebug/DAP protocol  
+✅ **Autocomplete**: Generate IDE autocomplete files
+
+### 1.3 Requirements
+
+- UNIGINE SDK 2.x or later
+- Visual Studio 2019 or later (Windows)
+- C++17 or later
+- sol2 library (included)
+
+---
+
+## 2. Architecture Overview
+
+### 2.1 System Components
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Lua System Core                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  LuaSystem   │  │  Component   │  │   Property   │  │
+│  │  (Singleton) │  │  Lifecycle   │  │   Manager    │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │ File Scanner │  │ Event System │  │   Generator   │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│              Helper Systems                              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │   Input      │  │  Animation    │  │  Pathfinding │  │
+│  │   System     │  │   System      │  │   System     │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  Coroutine   │  │   Profiler   │  │   Material   │  │
+│  │   Helpers    │  │              │  │   Runtime    │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 2.2 Component Flow
+
+```
+1. Lua Definition (data/lua_components/*.lua)
+   component("MyComponent", { properties = {...}, on_init = "..." })
+   
+2. Parsing & Registration
+   → LuaComponentDescriptor stored in components HashMap
+   
+3. Code Generation
+   → LuaComponentGenerator creates Lua_MyComponent.h/cpp
+   → C++ wrapper with PROP_PARAM properties
+   
+4. Runtime Registration
+   → REGISTER_COMPONENT(Lua_MyComponent)
+   → Unigine Component System picks it up
+   
+5. Instance Creation
+   → When component added to node in editor
+   → init() creates sol::table lua_instance
+   → Properties synced C++ → Lua
+   → Lua on_init() called
+   → Instance registered in active_components
+   
+6. Update Loop
+   → Each frame: C++ → Lua property sync
+   → Lua on_update() called
+   → Lua → C++ property sync (bidirectional)
+```
+
+### 2.3 Data Flow
+
+**Property Synchronization:**
+- **C++ → Lua**: Every frame, `PROP_PARAM` values copied to `lua_instance["prop"]`
+- **Lua → C++**: After `on_update()`, `lua_instance["prop"]` values read back and written to `PROP_PARAM`
+
+**Lifecycle:**
+- **init()**: Called once when component added to node
+- **update()**: Called every frame (via `COMPONENT_UPDATE`)
+- **shutdown()**: Called when component removed or node destroyed
+- **updatePhysics()**: Called during physics update
+- **swap()**: Called when world is swapped
+
+---
+
+## 3. Installation & Setup
+
+### 3.1 Project Structure
+
+```
+LuaIntegrationProject/
+├── data/
+│   ├── lua_components/          # Your Lua component definitions
+│   │   ├── MyComponent.lua
+│   │   └── ...
+│   └── configs/
+│       └── lua_system.config     # Log settings (auto-generated)
+├── source/
+│   ├── LuaSystem.h/cpp          # Core system
+│   ├── LuaComponent*.h/cpp      # Component management
+│   ├── LuaInputSystem.h/cpp      # Input system
+│   ├── LuaAnimationSystem.h/cpp  # Animation system
+│   ├── LuaPathfinding.h/cpp      # Pathfinding
+│   ├── LuaCoroutineHelpers.h/cpp # Coroutines
+│   ├── LuaEventSystem.h/cpp     # Events
+│   ├── LuaBindings_*.cpp         # API bindings
+│   └── lua_components_generated/  # Generated C++ wrappers
+│       ├── Lua_MyComponent.h
+│       ├── Lua_MyComponent.cpp
+│       └── _register_all.h
+└── sol/                          # sol2 library
+```
+
+### 3.2 Initialization
+
+The system initializes automatically when your UNIGINE application starts:
+
+```cpp
+// In AppSystemLogic.cpp or similar
+void AppSystemLogic::init()
+{
+    // Initialize component system first
+    ComponentSystem::get()->initialize();
+    
+    // Initialize Lua system
+    LuaSystem::get()->initialize();
+}
+
+void AppSystemLogic::postInit()
+{
+    // Post-initialize Lua system (after component system is ready)
+    LuaSystem::get()->postInitialize();
+}
+
+void AppSystemLogic::update()
+{
+    float ifps = Game::getIFps();
+    LuaSystem::get()->update(ifps);
+}
+```
+
+### 3.3 First Component
+
+1. **Create a Lua file** in `data/lua_components/`:
+
+```lua
+-- MyFirstComponent.lua
+component("MyFirstComponent", {
+    description = "My first Lua component",
+    
+    on_init = "my_init",
+    on_update = "my_update",
+    
+    properties = {
+        speed = { type = "float", default = 5.0, min = 0, max = 100 },
+        name = { type = "string", default = "Component" }
+    }
+})
+
+function my_init(self)
+    Log.message("[MyFirstComponent] Initialized on node: %s\n", self.node:getName())
+end
+
+function my_update(self, dt)
+    -- Your update logic here
+end
+```
+
+2. **Run the project** - The system will:
+   - Scan `data/lua_components/` for `.lua` files
+   - Parse `component()` declarations
+   - Generate C++ wrappers in `source/lua_components_generated/`
+   - Register components with UNIGINE
+
+3. **Add to node in editor**:
+   - Select a node
+   - Add Component → `Lua_MyFirstComponent`
+   - Adjust properties in Properties panel
+
+4. **Hot reload**: Press **F5** or use `lua_tool_reload` to reload scripts
+
+---
+
+## 4. Core Concepts
+
+### 4.1 Components
+
+A **component** is a reusable piece of behavior that can be attached to any node. Components are defined in Lua but generate C++ wrappers that integrate with UNIGINE's Component System.
+
+**Key Points:**
+- Components live in `data/lua_components/*.lua`
+- Each component generates a `Lua_<Name>` C++ class
+- Components have properties (exposed in editor)
+- Components have lifecycle hooks (`on_init`, `on_update`, etc.)
+- Components can depend on other components (`requires`)
+
+### 4.2 Properties
+
+Properties are values that can be edited in the UNIGINE editor and accessed in Lua via `self.prop_name`.
+
+**Supported Types:**
+- `int` - Integer
+- `float` - Floating point
+- `bool` / `toggle` - Boolean
+- `string` - Text
+- `file` - File path
+- `vec2` - 2D vector
+- `vec3` - 3D vector
+- `vec4` / `color` - 4D vector or color
+
+**Property Definition:**
+```lua
+properties = {
+    speed = {
+        type = "float",
+        title = "Movement Speed",
+        default = 5.0,
+        min = 0,
+        max = 100,
+        description = "How fast the object moves"
+    }
+}
+```
+
+### 4.3 Lifecycle Hooks
+
+Components can define functions that are called at specific times:
+
+- **on_init**: Called once when component is added to node
+- **on_update**: Called every frame
+- **on_shutdown**: Called when component is removed
+- **on_update_physics**: Called during physics update
+- **on_swap**: Called when world is swapped
+- **on_update_async_thread**: Called on async thread
+- **on_update_sync_thread**: Called on sync thread
+
+### 4.4 The `self` Table
+
+Every component instance has a `self` table (also accessible as `lua_instance`) that contains:
+
+- `self.node` - The UNIGINE node this component is attached to
+- `self.<property_name>` - All component properties
+- Any custom data you store
+
+**Example:**
+```lua
+function my_init(self)
+    self.node:setWorldPosition(vec3(0, 0, 10))
+    self.custom_data = {}
+    self.timer = 0.0
+end
+
+function my_update(self, dt)
+    self.timer = self.timer + dt
+    if self.timer > 5.0 then
+        self.speed = self.speed * 1.1  -- Modifies property (syncs to C++)
+    end
+end
+```
+
+---
+
+## 5. Component System
+
+### 5.1 Defining Components
+
+**Basic Structure:**
+```lua
+component("ComponentName", {
+    description = "What this component does",
+    
+    -- Lifecycle hooks (function names)
+    on_init = "component_init",
+    on_update = "component_update",
+    on_shutdown = "component_shutdown",
+    
+    -- Dependencies (load order)
+    requires = { "OtherComponent", "AnotherComponent" },
+    
+    -- Additional Lua files to load
+    files = { "utils.lua", "helpers.lua" },
+    
+    -- Properties
+    properties = {
+        -- Property definitions here
+    }
+})
+
+-- Lifecycle functions
+function component_init(self)
+    -- Initialization code
+end
+
+function component_update(self, dt)
+    -- Update code (called every frame)
+end
+```
+
+### 5.2 Property Definitions
+
+**Full Property Schema:**
+```lua
+properties = {
+    -- Simple property
+    health = { type = "int", default = 100 },
+    
+    -- With constraints
+    speed = {
+        type = "float",
+        default = 5.0,
+        min = 0,
+        max = 100,
+        title = "Movement Speed",
+        description = "How fast the object moves"
+    },
+    
+    -- Boolean
+    enabled = { type = "bool", default = true },
+    
+    -- String
+    name = { type = "string", default = "Object" },
+    
+    -- File path
+    mesh = { type = "file", default = "meshes/box.mesh" },
+    
+    -- Vector types
+    position = { type = "vec3", default = {0, 0, 0} },
+    color = { type = "vec4", default = {1, 1, 1, 1} }
+}
+```
+
+### 5.3 Component Dependencies
+
+Components can depend on others to ensure load order:
+
+```lua
+component("WeaponSystem", {
+    requires = { "HealthSystem", "InventorySystem" },
+    -- ...
+})
+```
+
+Dependencies are resolved automatically. If a dependency is missing, the component is queued until all dependencies are loaded.
+
+### 5.4 Multi-File Components
+
+Load additional Lua files with a component:
+
+```lua
+component("ComplexComponent", {
+    files = { "weapon_utils.lua", "damage_calculator.lua" },
+    -- ...
+})
+```
+
+These files are loaded in order before the component's lifecycle functions are called.
+
+### 5.5 Finding Components
+
+**By Type:**
+```lua
+local health_components = findComponentsByType("HealthComponent")
+for i = 1, #health_components do
+    local ci = health_components[i]
+    local node = ci.node
+    local instance = ci.instance  -- The self table
+    -- Use instance.health, etc.
+end
+```
+
+**By Tag:**
+```lua
+-- In your component, set a tag
+self.tag = "enemy"
+
+-- Find all enemies
+local enemies = findComponentsByTag("enemy")
+```
+
+**On Specific Node:**
+```lua
+local ci = findComponentOnNode(node, "WeaponSystem")
+if ci then
+    local weapon = ci.instance
+    -- Use weapon
+end
+```
+
+### 5.6 Component Queries Return Value
+
+Query functions return `LuaComponentInstance` objects with:
+- `ci.node` - The UNIGINE node
+- `ci.instance` - The Lua `self` table for that component
+
+---
+
+## 6. Input System
+
+### 6.1 Overview
+
+The Input System provides an action-based input mapping system that supports keyboard, mouse, and gamepad input.
+
+### 6.2 Registering Actions
+
+**Basic Action:**
+```lua
+InputActions.register("jump", { Input.KEY_SPACE }, {}, {})
+```
+
+**With Multiple Keys:**
+```lua
+InputActions.register("move_forward", 
+    { Input.KEY_W, Input.KEY_UP },  -- keyboard
+    {},                              -- mouse
+    {}                               -- gamepad
+)
+```
+
+**With Mouse:**
+```lua
+InputActions.register("fire", 
+    {}, 
+    { Input.MOUSE_BUTTON_LEFT }, 
+    {}
+)
+```
+
+**With Gamepad:**
+```lua
+-- When Input.GAMEPAD_BUTTON_* constants are available
+InputActions.register("jump", 
+    { Input.KEY_SPACE }, 
+    {}, 
+    { Input.GAMEPAD_BUTTON_A }
+)
+```
+
+### 6.3 Action States
+
+**isPressed** - Currently held down (this frame)
+```lua
+if InputActions.isPressed("fire") then
+    -- Shooting
+end
+```
+
+**isDown** - Just pressed (this frame, wasn't last frame)
+```lua
+if InputActions.isDown("jump") then
+    -- Jump (only once per press)
+end
+```
+
+**isReleased** - Just released (was pressed last frame, not this frame)
+```lua
+if InputActions.isReleased("interact") then
+    -- Interact
+end
+```
+
+### 6.4 Axes
+
+**Register Axis:**
+```lua
+-- registerAxis(name, positive_key, negative_key, gamepad_axis, sensitivity)
+InputActions.registerAxis("move_x", Input.KEY_D, Input.KEY_A, -1, 1.0)
+InputActions.registerAxis("move_y", Input.KEY_W, Input.KEY_S, -1, 1.0)
+
+-- With gamepad
+InputActions.registerAxis("move_x", -1, -1, Input.GAMEPAD_AXIS_LEFT_X, 1.0)
+```
+
+**Get Axis Value:**
+```lua
+local dx = InputActions.getAxis("move_x")  -- -1.0 to 1.0
+local dy = InputActions.getAxis("move_y")
+```
+
+**Gamepad Axes:**
+- `GAMEPAD_AXIS_LEFT_X` / `LEFT_Y` - Left stick
+- `GAMEPAD_AXIS_RIGHT_X` / `RIGHT_Y` - Right stick
+- `GAMEPAD_AXIS_LEFT_TRIGGER` / `RIGHT_TRIGGER` - Triggers
+
+Gamepad input has a 0.1 deadzone and overrides keyboard when active.
+
+### 6.5 Input Constants
+
+**Keyboard:**
+- `Input.KEY_A` through `Input.KEY_Z`
+- `Input.KEY_0` through `Input.KEY_9`
+- `Input.KEY_SPACE`, `Input.KEY_ESC`, `Input.KEY_TAB`
+- `Input.KEY_UP`, `Input.KEY_DOWN`, `Input.KEY_LEFT`, `Input.KEY_RIGHT`
+- `Input.KEY_F1` through `Input.KEY_F12`
+- `Input.KEY_LEFT_SHIFT`, `Input.KEY_RIGHT_CTRL`, etc.
+
+**Mouse:**
+- `Input.MOUSE_BUTTON_LEFT`
+- `Input.MOUSE_BUTTON_RIGHT`
+- `Input.MOUSE_BUTTON_MIDDLE`
+- `Input.MOUSE_BUTTON_DCLICK`
+- `Input.MOUSE_BUTTON_AUX_0`, `MOUSE_BUTTON_AUX_1`
+
+### 6.6 Complete Example
+
+```lua
+component("PlayerController", {
+    on_init = "player_init",
+    on_update = "player_update",
+    
+    properties = {
+        move_speed = { type = "float", default = 5.0 }
+    }
+})
+
+function player_init(self)
+    -- Register input actions
+    InputActions.register("jump", { Input.KEY_SPACE }, {}, {})
+    InputActions.register("fire", {}, { Input.MOUSE_BUTTON_LEFT }, {})
+    
+    -- Register axes
+    InputActions.registerAxis("move_x", Input.KEY_D, Input.KEY_A)
+    InputActions.registerAxis("move_y", Input.KEY_W, Input.KEY_S)
+end
+
+function player_update(self, dt)
+    -- Movement
+    local dx = InputActions.getAxis("move_x")
+    local dy = InputActions.getAxis("move_y")
+    
+    local move = vec3(dx, dy, 0) * self.move_speed * dt
+    self.node:setWorldPosition(self.node:getWorldPosition() + move)
+    
+    -- Jump
+    if InputActions.isDown("jump") then
+        -- Jump logic
+    end
+    
+    -- Fire
+    if InputActions.isPressed("fire") then
+        -- Shooting logic
+    end
+end
+```
+
+---
+
+## 7. Animation System
+
+### 7.1 Overview
+
+The Animation System provides control over `ObjectMeshSkinned` animations, including playback, blending, and state queries.
+
+### 7.2 Getting the Object
+
+```lua
+local obj = Object.cast(node)  -- Cast Node to Object
+-- Or if you already have an ObjectMeshSkinned:
+local skinned = ObjectMeshSkinned.cast(node)
+```
+
+### 7.3 Playing Animations
+
+**Basic:**
+```lua
+Animation.play(obj, "idle")
+```
+
+**With Speed:**
+```lua
+Animation.play(obj, "walk", 1.2)  -- 1.2x speed
+```
+
+**With Loop:**
+```lua
+Animation.play(obj, "run", 1.5, true)  -- speed, loop
+```
+
+### 7.4 Controlling Playback
+
+**Stop:**
+```lua
+Animation.stop(obj, "walk")
+```
+
+**Pause:**
+```lua
+Animation.pause(obj, "run")
+```
+
+**Set Time:**
+```lua
+Animation.setTime(obj, "idle", 0.5)  -- Jump to 0.5 seconds
+```
+
+### 7.5 Blending Animations
+
+**Time-Based Blending:**
+```lua
+-- Blend from "idle" to "walk" over 0.5 seconds
+Animation.blend(obj, "idle", "walk", 0.5)
+```
+
+The system automatically interpolates layer weights over time. No manual management needed.
+
+### 7.6 Animation State
+
+**Get State:**
+```lua
+local state = Animation.getState(obj, "walk")
+
+-- state.is_playing - boolean
+-- state.current_time - float
+-- state.duration - float
+-- state.speed - float
+-- state.loop - boolean
+```
+
+**Example:**
+```lua
+local state = Animation.getState(obj, "walk")
+if state.is_playing then
+    Log.message("Animation at %.2f / %.2f seconds\n", 
+        state.current_time, state.duration)
+end
+```
+
+### 7.7 Complete Example
+
+```lua
+component("CharacterAnimator", {
+    on_init = "animator_init",
+    on_update = "animator_update",
+    
+    properties = {
+        walk_speed = { type = "float", default = 1.0 },
+        run_speed = { type = "float", default = 1.5 }
+    }
+})
+
+function animator_init(self)
+    self.obj = Object.cast(self.node)
+    self.current_anim = "idle"
+end
+
+function animator_update(self, dt)
+    if not self.obj then return end
+    
+    -- Check movement speed (example)
+    local speed = self.node:getWorldVelocity():length()
+    
+    if speed > 5.0 then
+        if self.current_anim ~= "run" then
+            Animation.blend(self.obj, self.current_anim, "run", 0.3)
+            self.current_anim = "run"
+        end
+        Animation.play(self.obj, "run", self.run_speed, true)
+    elseif speed > 0.1 then
+        if self.current_anim ~= "walk" then
+            Animation.blend(self.obj, self.current_anim, "walk", 0.3)
+            self.current_anim = "walk"
+        end
+        Animation.play(self.obj, "walk", self.walk_speed, true)
+    else
+        if self.current_anim ~= "idle" then
+            Animation.blend(self.obj, self.current_anim, "idle", 0.2)
+            self.current_anim = "idle"
+        end
+        Animation.play(self.obj, "idle", 1.0, true)
+    end
+end
+```
+
+---
+
+## 8. Pathfinding
+
+### 8.1 Overview
+
+The Pathfinding System provides integration with UNIGINE's navigation mesh system for finding paths and checking walkability.
+
+### 8.2 Finding a Path
+
+**Basic:**
+```lua
+local start = vec3(0, 0, 1)
+local dest = vec3(10, 5, 1)
+
+local points = Pathfinding.findPath(start, dest)
+-- points is a table of vec3 waypoints
+```
+
+**With Agent Radius:**
+```lua
+local points = Pathfinding.findPath(start, dest, 0.5)  -- 0.5m radius
+```
+
+**Using Path:**
+```lua
+for i, point in ipairs(points) do
+    Log.message("Waypoint %d: %.2f, %.2f, %.2f\n", 
+        i, point.x, point.y, point.z)
+end
+```
+
+### 8.3 Walkability Checks
+
+**Is Position Walkable:**
+```lua
+local pos = vec3(1, 2, 0)
+local walkable = Pathfinding.isWalkable(pos)
+```
+
+**With Radius:**
+```lua
+local walkable = Pathfinding.isWalkable(pos, 0.5)
+```
+
+### 8.4 Finding Nearest Walkable
+
+**Basic:**
+```lua
+local pos = vec3(1, 2, 0)
+local nearest = Pathfinding.getNearestWalkable(pos)
+```
+
+**With Radius:**
+```lua
+local nearest = Pathfinding.getNearestWalkable(pos, 0.5)
+```
+
+Returns the nearest walkable position, or the original position if already walkable.
+
+### 8.5 Custom PathRoute
+
+**Using PathRoute Object:**
+```lua
+local path = PathRoute.create(0.5)  -- 0.5m radius
+local points_table = Pathfinding.findPathWithPath(path, start, dest)
+
+if points_table then
+    -- points_table is a table of vec3 or nil
+    for i, p in ipairs(points_table) do
+        -- Use waypoint
+    end
+end
+```
+
+### 8.6 Complete Example
+
+```lua
+component("AIController", {
+    on_init = "ai_init",
+    on_update = "ai_update",
+    
+    properties = {
+        move_speed = { type = "float", default = 3.0 },
+        target_pos = { type = "vec3", default = {10, 0, 1} }
+    }
+})
+
+function ai_init(self)
+    self.path = nil
+    self.path_index = 1
+    self.recalculate_path = true
+end
+
+function ai_update(self, dt)
+    local current_pos = self.node:getWorldPosition()
+    
+    -- Recalculate path if needed
+    if self.recalculate_path then
+        self.path = Pathfinding.findPath(current_pos, self.target_pos, 0.5)
+        if self.path and #self.path > 0 then
+            self.path_index = 1
+            self.recalculate_path = false
+        end
+    end
+    
+    -- Follow path
+    if self.path and self.path_index <= #self.path then
+        local target = self.path[self.path_index]
+        local dir = target - current_pos
+        local dist = dir:length()
+        
+        if dist < 0.5 then
+            -- Reached waypoint, move to next
+            self.path_index = self.path_index + 1
+        else
+            -- Move toward waypoint
+            dir:normalize()
+            local move = dir * self.move_speed * dt
+            self.node:setWorldPosition(current_pos + move)
+        end
+    end
+end
+```
+
+---
+
+## 9. Coroutines & Timing
+
+### 9.1 Overview
+
+Coroutines allow you to write sequential code that can yield (pause) and resume later, perfect for time-based sequences, waiting for conditions, and complex state machines.
+
+### 9.2 Starting Coroutines
+
+**Basic:**
+```lua
+StartCoroutine(function()
+    Log.message("Start\n")
+    WaitForSeconds(2.0)()  -- Wait 2 seconds (note the ()!)
+    Log.message("2 seconds later\n")
+end)
+```
+
+**Important:** `WaitForSeconds()` and `WaitUntil()` return **functions**. You must call them with `()` to actually yield.
+
+### 9.3 WaitForSeconds
+
+Wait for a specific duration:
+
+```lua
+StartCoroutine(function()
+    Log.message("Before wait\n")
+    WaitForSeconds(1.5)()  -- Wait 1.5 seconds
+    Log.message("After wait\n")
+end)
+```
+
+### 9.4 WaitUntil
+
+Wait until a condition is true:
+
+```lua
+local player_ready = false
+
+StartCoroutine(function()
+    Log.message("Waiting for player...\n")
+    WaitUntil(function() return player_ready end)()
+    Log.message("Player is ready!\n")
+end)
+
+-- Later, set player_ready = true
+```
+
+### 9.5 Lerp (Linear Interpolation)
+
+**Float:**
+```lua
+local x = Lerp(0, 100, 0.5)  -- Returns 50
+```
+
+**Vector:**
+```lua
+local v = Lerp(vec3(0,0,0), vec3(1,1,1), 0.5)  -- Returns vec3(0.5, 0.5, 0.5)
+```
+
+### 9.6 Tween
+
+**Note:** `Tween` is a blocking function (doesn't yield). For frame-based tweens, use `WaitForSeconds` + `Lerp` in a coroutine.
+
+```lua
+-- Blocking tween (runs to completion)
+Tween(0, 1, 2.0, function(t)
+    node:setWorldScale(vec3(t, t, t))
+end)
+```
+
+**Better: Use Coroutine:**
+```lua
+StartCoroutine(function()
+    local start = 0
+    local end_val = 1
+    local duration = 2.0
+    local elapsed = 0.0
+    
+    while elapsed < duration do
+        local t = elapsed / duration
+        local value = Lerp(start, end_val, t)
+        node:setWorldScale(vec3(value, value, value))
+        
+        elapsed = elapsed + Game.getIFps()
+        WaitForSeconds(Game.getIFps())()
+    end
+end)
+```
+
+### 9.7 Complete Examples
+
+**Sequential Actions:**
+```lua
+StartCoroutine(function()
+    -- Fade in
+    Log.message("Fading in...\n")
+    WaitForSeconds(1.0)()
+    
+    -- Wait for input
+    Log.message("Press space to continue\n")
+    WaitUntil(function() 
+        return InputActions.isDown("jump") 
+    end)()
+    
+    -- Fade out
+    Log.message("Fading out...\n")
+    WaitForSeconds(1.0)()
+    
+    Log.message("Done!\n")
+end)
+```
+
+**Delayed Action:**
+```lua
+function delayed_destroy(node, delay)
+    StartCoroutine(function()
+        WaitForSeconds(delay)()
+        node:deleteLater()
+    end)
+end
+
+delayed_destroy(self.node, 5.0)  -- Destroy after 5 seconds
+```
+
+**State Machine:**
+```lua
+function patrol_sequence()
+    StartCoroutine(function()
+        while true do
+            -- Move to point A
+            Log.message("Moving to A\n")
+            WaitForSeconds(3.0)()
+            
+            -- Wait at A
+            Log.message("Waiting at A\n")
+            WaitForSeconds(2.0)()
+            
+            -- Move to point B
+            Log.message("Moving to B\n")
+            WaitForSeconds(3.0)()
+            
+            -- Wait at B
+            Log.message("Waiting at B\n")
+            WaitForSeconds(2.0)()
+        end
+    end)
+end
+```
+
+---
+
+## 10. Event System
+
+### 10.1 Overview
+
+The Event System provides a publish/subscribe architecture for decoupled communication between components.
+
+### 10.2 Subscribing to Events
+
+**Basic:**
+```lua
+subscribe("player_died", function()
+    Log.message("Player died!\n")
+end)
+```
+
+**With Priority:**
+```lua
+subscribe("score", function(points)
+    -- Handle score
+end, 10)  -- Higher priority = called first
+```
+
+**With ID (for later unsubscribe):**
+```lua
+local id = subscribeWithId("respawn", "my_handler", function()
+    -- Handle respawn
+end)
+```
+
+**One-Time Subscription:**
+```lua
+subscribeOnce("level_complete", function()
+    Log.message("Level complete!\n")
+end)
+```
+
+### 10.3 Emitting Events
+
+**Basic:**
+```lua
+emit("player_died")
+```
+
+**With Data:**
+```lua
+emit("score", 100)
+emit("damage", target, 50)
+```
+
+**Deferred (next frame):**
+```lua
+emitDeferred("heavy_event", large_data)
+```
+
+### 10.4 Unsubscribing
+
+**By Callback:**
+```lua
+local callback = function() end
+subscribe("event", callback)
+-- Later...
+unsubscribe("event", callback)
+```
+
+**By ID:**
+```lua
+subscribeWithId("event", "my_id", callback)
+-- Later...
+unsubscribeById("event", "my_id")
+```
+
+**All Listeners:**
+```lua
+unsubscribeAll("event")
+```
+
+### 10.5 Event Management
+
+**Check Listeners:**
+```lua
+if hasListeners("player_died") then
+    -- Has listeners
+end
+```
+
+**Get Count:**
+```lua
+local count = getListenerCount("player_died")
+```
+
+**Clear Events:**
+```lua
+clearEvents("player_died")  -- Clear specific event
+clearEvents()                -- Clear all events
+```
+
+### 10.6 Complete Example
+
+```lua
+-- HealthComponent.lua
+component("HealthComponent", {
+    on_init = "health_init",
+    on_update = "health_update",
+    
+    properties = {
+        max_health = { type = "float", default = 100.0 },
+        current_health = { type = "float", default = 100.0 }
+    }
+})
+
+function health_init(self)
+    self.current_health = self.max_health
+    
+    -- Subscribe to damage events
+    subscribe("take_damage", function(target, amount)
+        if target == self.node then
+            self.current_health = self.current_health - amount
+            if self.current_health <= 0 then
+                emit("entity_died", self.node)
+            end
+        end
+    end)
+end
+
+function health_update(self, dt)
+    -- Health logic
+end
+
+-- WeaponComponent.lua
+component("WeaponComponent", {
+    on_init = "weapon_init",
+    properties = {
+        damage = { type = "float", default = 10.0 }
+    }
+})
+
+function weapon_init(self)
+    -- Subscribe to fire event
+    subscribe("weapon_fire", function(weapon_node, target)
+        if weapon_node == self.node then
+            emit("take_damage", target, self.damage)
+        end
+    end)
+end
+```
+
+---
+
+## 11. Property Management
+
+### 11.1 Property Synchronization
+
+Properties are automatically synchronized between C++ and Lua:
+
+**C++ → Lua (Every Frame):**
+- `PROP_PARAM` values are copied to `lua_instance["prop"]`
+- Happens before `on_update()` is called
+
+**Lua → C++ (After on_update):**
+- `lua_instance["prop"]` values are read back
+- Written to `PROP_PARAM` members
+- Changes persist in editor
+
+### 11.2 Accessing Properties
+
+```lua
+function my_update(self, dt)
+    -- Read property
+    local speed = self.speed
+    
+    -- Modify property (syncs back to C++)
+    self.speed = self.speed + 0.1
+    
+    -- Vector properties
+    local pos = self.position  -- vec3
+    pos.x = pos.x + 1.0
+    self.position = pos  -- Syncs back
+end
+```
+
+### 11.3 Property Types
+
+**Integer:**
+```lua
+self.count = 42
+```
+
+**Float:**
+```lua
+self.speed = 5.5
+```
+
+**Boolean:**
+```lua
+self.enabled = true
+```
+
+**String:**
+```lua
+self.name = "Object"
+```
+
+**Vector (from table):**
+```lua
+self.position = {1, 2, 3}  -- vec3
+self.color = {1, 1, 1, 1}  -- vec4
+```
+
+**Vector (from vec3/vec4):**
+```lua
+local pos = vec3(1, 2, 3)
+self.position = pos
+```
+
+---
+
+## 12. Serialization & Persistence
+
+### 12.1 Saving Node State
+
+Save all Lua component states on a node to a JSON file:
+
+```lua
+local success = saveNodeToFile(node, "save/my_node.json")
+if success then
+    Log.message("Node saved successfully\n")
+end
+```
+
+### 12.2 Loading Node State
+
+Load component states from a JSON file:
+
+```lua
+local success = loadNodeFromFile(node, "save/my_node.json")
+if success then
+    Log.message("Node loaded successfully\n")
+end
+```
+
+### 12.3 Serializing Single Component
+
+Serialize a single component instance:
+
+```lua
+local ci = findComponentOnNode(node, "MyComponent")
+if ci then
+    local json_str = serializeComponent(ci)
+    -- json_str is a JSON string
+end
+```
+
+**Save to File:**
+```lua
+local ci = findComponentOnNode(node, "MyComponent")
+if ci then
+    saveComponentToFile(ci, "save/component.json")
+end
+```
+
+### 12.4 JSON Format
+
+The saved JSON format:
+```json
+{
+  "components": [
+    {
+      "type": "MyComponent",
+      "properties": {
+        "speed": 5.0,
+        "name": "Object",
+        "position": [1, 2, 3]
+      }
+    }
+  ]
+}
+```
+
+### 12.5 Complete Example
+
+```lua
+component("SaveSystem", {
+    on_init = "save_init",
+    properties = {
+        save_path = { type = "string", default = "save/game.json" }
+    }
+})
+
+function save_init(self)
+    -- Save on F5
+    subscribe("save_game", function()
+        saveNodeToFile(self.node, self.save_path)
+        Log.message("Game saved to %s\n", self.save_path)
+    end)
+    
+    -- Load on F9
+    subscribe("load_game", function()
+        loadNodeFromFile(self.node, self.save_path)
+        Log.message("Game loaded from %s\n", self.save_path)
+    end)
+end
+```
+
+---
+
+## 13. Physics API
+
+### 13.1 Body
+
+**Create Body:**
+```lua
+local body = Body.createBody(Body.BODY_RIGID)
+-- or
+local body = Body.createBody("BodyRigid")
+```
+
+**Attach to Object:**
+```lua
+body:setObject(obj)
+```
+
+**Shapes:**
+```lua
+body:addShape(shape)
+body:removeShape(shape)
+local shape = body:getShape(0)
+local count = body:getNumShapes()
+```
+
+**Enable/Disable:**
+```lua
+body:setEnabled(true)
+local enabled = body:isEnabled()
+```
+
+**Visualization:**
+```lua
+body:renderVisualizer()
+```
+
+### 13.2 BodyRigid
+
+**Create:**
+```lua
+local rigid = BodyRigid.create()
+```
+
+**Mass:**
+```lua
+rigid:setMass(10.0)
+local mass = rigid:getMass()
+```
+
+**Forces:**
+```lua
+rigid:addForce(vec3(0, 0, 100))
+rigid:addImpulse(vec3(0,0,0), vec3(0,0,5))
+```
+
+**Frozen State:**
+```lua
+rigid:setFrozen(false)
+local frozen = rigid:isFrozen()
+```
+
+### 13.3 Shapes
+
+**Sphere:**
+```lua
+local sphere = ShapeSphere.create(0.5)  -- radius
+```
+
+**Box:**
+```lua
+local box = ShapeBox.create(vec3(1, 1, 1))  -- size
+```
+
+**Capsule:**
+```lua
+local capsule = ShapeCapsule.create(0.5, 2.0)  -- radius, height
+```
+
+**Cylinder:**
+```lua
+local cylinder = ShapeCylinder.create(0.5, 2.0)  -- radius, height
+```
+
+**Convex:**
+```lua
+local convex = ShapeConvex.create()
+```
+
+**Shape Operations:**
+```lua
+shape:setTransform(Mat4(...))
+shape:setEnabled(true)
+local enabled = shape:isEnabled()
+```
+
+**Attach to Body:**
+```lua
+body:addShape(shape)
+```
+
+### 13.4 Physics Queries
+
+**Raycast:**
+```lua
+local hit = PhysicsIntersectionNormal.create()
+local result = Physics.getIntersection(
+    vec3(0, 0, 0),  -- start
+    vec3(0, 0, 10), -- end
+    1,              -- mask
+    hit
+)
+
+if result then
+    local point = hit:getPoint()
+    local normal = hit:getNormal()
+    local object = hit:getObject()
+end
+```
+
+### 13.5 Complete Example
+
+```lua
+component("PhysicsObject", {
+    on_init = "physics_init",
+    properties = {
+        mass = { type = "float", default = 10.0 },
+        shape_type = { type = "string", default = "sphere" }
+    }
+})
+
+function physics_init(self)
+    -- Create body
+    local body = Body.createBody(Body.BODY_RIGID)
+    body:setObject(Object.cast(self.node))
+    body:setMass(self.mass)
+    
+    -- Create shape
+    local shape = nil
+    if self.shape_type == "sphere" then
+        shape = ShapeSphere.create(0.5)
+    elseif self.shape_type == "box" then
+        shape = ShapeBox.create(vec3(1, 1, 1))
+    end
+    
+    if shape then
+        body:addShape(shape)
+        body:setEnabled(true)
+    end
+end
+```
+
+---
+
+## 14. Material System
+
+### 14.1 MaterialRuntime
+
+**Create Instance:**
+```lua
+local mat = MaterialRuntime.createInstance("mesh_base")
+```
+
+**Apply to Object:**
+```lua
+MaterialRuntime.applyToObject(obj, mat)
+MaterialRuntime.applyToObject(obj, mat, 0)  -- surface index
+```
+
+**Get from Object:**
+```lua
+local mat = MaterialRuntime.getFromObject(obj)
+local mat = MaterialRuntime.getFromObject(obj, 0)  -- surface index
+```
+
+### 14.2 Setting Parameters
+
+**Float:**
+```lua
+MaterialRuntime.setParameter(mat, "roughness", 0.5)
+```
+
+**Vec3:**
+```lua
+MaterialRuntime.setParameter(mat, "albedo_color", vec3(1, 0, 0))
+```
+
+**Vec4:**
+```lua
+MaterialRuntime.setParameter(mat, "albedo_color", vec4(1, 0, 0, 1))
+```
+
+### 14.3 Getting Parameters
+
+```lua
+local f = MaterialRuntime.getParameterFloat(mat, "roughness")
+local v3 = MaterialRuntime.getParameterVec3(mat, "param_name")
+local v4 = MaterialRuntime.getParameterVec4(mat, "param_name")
+```
+
+### 14.4 Complete Example
+
+```lua
+component("MaterialController", {
+    on_init = "material_init",
+    on_update = "material_update",
+    
+    properties = {
+        color_speed = { type = "float", default = 1.0 }
+    }
+})
+
+function material_init(self)
+    self.obj = Object.cast(self.node)
+    self.mat = MaterialRuntime.getFromObject(self.obj)
+    self.time = 0.0
+end
+
+function material_update(self, dt)
+    if not self.mat then return end
+    
+    self.time = self.time + dt * self.color_speed
+    
+    -- Animate color
+    local r = (math.sin(self.time) + 1) / 2
+    local g = (math.sin(self.time + 2) + 1) / 2
+    local b = (math.sin(self.time + 4) + 1) / 2
+    
+    MaterialRuntime.setParameter(self.mat, "albedo_color", vec4(r, g, b, 1))
+end
+```
+
+---
+
+## 15. Profiling & Debugging
+
+### 15.1 Profiler
+
+**Begin/End:**
+```lua
+Profiler.begin("my_section")
+-- Expensive code here
+Profiler.end("my_section")
+```
+
+**Get Data:**
+```lua
+local data = Profiler.getData("my_section")
+-- data.name
+-- data.total_time (seconds)
+-- data.call_count
+-- data.avg_time
+-- data.min_time
+-- data.max_time
+```
+
+**Reset:**
+```lua
+Profiler.reset()  -- Clear all profiler data
+```
+
+**Console Command:**
+```
+lua_tool_profiler_stats
+```
+
+### 15.2 Debugger
+
+**Enable:**
+```
+lua_tool_debugger_enable
+lua_tool_debugger_enable 9999  -- custom port
+```
+
+**Disable:**
+```
+lua_tool_debugger_disable
+```
+
+Connect with MobDebug or DAP-compatible IDE.
+
+### 15.3 Logging
+
+```lua
+Log.message("Info: %s\n", msg)
+Log.warning("Warning: %d\n", n)
+Log.error("Error: %s\n", err)
+```
+
+---
+
+## 16. Console Commands
+
+All commands are prefixed with `lua_tool_`:
+
+### 16.1 Log Control
+
+```
+lua_tool_log_init [0/1]          # Init logs
+lua_tool_log_scan [0/1]          # File scan logs
+lua_tool_log_load [0/1]          # File load logs
+lua_tool_log_parse [0/1]         # Parse logs
+lua_tool_log_registration [0/1]  # Registration logs
+lua_tool_log_generation [0/1]    # Code generation logs
+lua_tool_log_properties [0/1]    # Property logs
+lua_tool_log_pending [0/1]       # Pending component warnings
+lua_tool_log_all [0/1]           # All logs
+lua_tool_log_status              # Show current settings
+```
+
+**Persistence:** Settings saved to `data/configs/lua_system.config`
+
+### 16.2 Tool Commands
+
+```
+lua_tool_reload                   # Reload all Lua scripts (F5)
+lua_tool_components               # List registered components
+lua_tool_autocomplete [dir]      # Generate autocomplete files
+lua_tool_debugger_enable [port]  # Enable debugger
+lua_tool_debugger_disable         # Disable debugger
+lua_tool_profiler_reset          # Reset profiler
+lua_tool_profiler_stats          # Print profiler stats
+```
+
+---
+
+## 17. API Reference
+
+### 17.1 Component API
+
+**component(name, definition)**
+- Registers a component definition
+- Parameters: `name` (string), `definition` (table)
+
+**findComponentsByType(type)**
+- Returns: Table of `LuaComponentInstance`
+- Each instance has `.node` and `.instance` (self table)
+
+**findComponentsByTag(tag)**
+- Returns: Table of `LuaComponentInstance`
+- Components must set `self.tag = "tag_name"`
+
+**findComponentOnNode(node, type)**
+- Returns: `LuaComponentInstance` or `nil`
+
+### 17.2 Input API
+
+**InputActions.register(name, keys, mouse, gamepad)**
+- Registers an action mapping
+
+**InputActions.isPressed(name)**
+- Returns: `boolean` (currently held)
+
+**InputActions.isDown(name)**
+- Returns: `boolean` (just pressed)
+
+**InputActions.isReleased(name)**
+- Returns: `boolean` (just released)
+
+**InputActions.registerAxis(name, pos_key, neg_key, gamepad_axis, sensitivity)**
+- Registers an axis mapping
+
+**InputActions.getAxis(name)**
+- Returns: `float` (-1.0 to 1.0)
+
+### 17.3 Animation API
+
+**Animation.play(obj, name, speed, loop)**
+- Plays an animation
+
+**Animation.stop(obj, name)**
+- Stops an animation
+
+**Animation.pause(obj, name)**
+- Pauses an animation
+
+**Animation.setTime(obj, name, time)**
+- Sets animation time
+
+**Animation.blend(obj, from, to, blend_time)**
+- Blends between animations over time
+
+**Animation.getState(obj, name)**
+- Returns: Table with `is_playing`, `current_time`, `duration`, `speed`, `loop`
+
+### 17.4 Pathfinding API
+
+**Pathfinding.findPath(start, dest, radius)**
+- Returns: Table of `vec3` waypoints
+
+**Pathfinding.isWalkable(pos, radius)**
+- Returns: `boolean`
+
+**Pathfinding.getNearestWalkable(pos, radius)**
+- Returns: `vec3`
+
+**Pathfinding.findPathWithPath(path, start, dest)**
+- Returns: Table of `vec3` or `nil`
+
+### 17.5 Coroutine API
+
+**StartCoroutine(func)**
+- Starts a coroutine
+
+**WaitForSeconds(seconds)**
+- Returns: Function (call with `()` to yield)
+
+**WaitUntil(condition)**
+- Returns: Function (call with `()` to yield)
+
+**Lerp(a, b, t)**
+- Returns: Interpolated value (float or vec3)
+
+**Tween(start, end, duration, on_update)**
+- Blocking tween function
+
+### 17.6 Event API
+
+**subscribe(name, callback, priority)**
+- Subscribes to an event
+
+**subscribeOnce(name, callback, priority)**
+- One-time subscription
+
+**subscribeWithId(name, id, callback, priority)**
+- Subscription with ID
+
+**emit(name, ...)**
+- Emits an event
+
+**emitDeferred(name, ...)**
+- Emits event next frame
+
+**unsubscribe(name, callback)**
+- Unsubscribes
+
+**unsubscribeById(name, id)**
+- Unsubscribes by ID
+
+**unsubscribeAll(name)**
+- Unsubscribes all listeners
+
+**hasListeners(name)**
+- Returns: `boolean`
+
+**getListenerCount(name)**
+- Returns: `number`
+
+**clearEvents(name)**
+- Clears events
+
+### 17.7 Serialization API
+
+**saveNodeToFile(node, path)**
+- Returns: `boolean`
+
+**loadNodeFromFile(node, path)**
+- Returns: `boolean`
+
+**serializeComponent(instance)**
+- Returns: `string` (JSON)
+
+**saveComponentToFile(instance, path)**
+- Returns: `boolean`
+
+---
+
+## 18. Best Practices
+
+### 18.1 Component Design
+
+**Do:**
+- Keep components focused on a single responsibility
+- Use properties for values that should be editable in the editor
+- Use events for communication between components
+- Store component-specific data in `self`
+
+**Don't:**
+- Create components that do too many things
+- Access other components directly (use queries or events)
+- Modify properties of other components directly
+
+### 18.2 Performance
+
+**Do:**
+- Cache frequently accessed values
+- Use `findComponentsByType` sparingly (cache results)
+- Avoid creating objects in `on_update` (use object pooling)
+- Profile with `Profiler.begin/end`
+
+**Don't:**
+- Call expensive operations every frame
+- Create large tables in hot paths
+- Use `pairs()` on large tables frequently
+
+### 18.3 Error Handling
+
+**Do:**
+- Check for `nil` before using values
+- Validate input in `on_init`
+- Use try-catch for risky operations (if available)
+- Log errors with context
+
+**Don't:**
+- Assume values exist
+- Ignore errors silently
+- Access nodes/components without null checks
+
+### 18.4 Code Organization
+
+**Do:**
+- Group related components in files
+- Use descriptive component and property names
+- Add comments for complex logic
+- Use `files` for shared utilities
+
+**Don't:**
+- Create overly long component files
+- Use magic numbers (use properties)
+- Duplicate code (extract to functions)
+
+---
+
+## 19. Troubleshooting
+
+### 19.1 Component Not Appearing
+
+**Problem:** Component doesn't show up in editor
+
+**Solutions:**
+- Check that `.lua` file is in `data/lua_components/`
+- Verify `component()` call syntax
+- Check console for errors (`lua_tool_log_parse 1`)
+- Run `lua_tool_reload`
+- Check for missing dependencies (`lua_tool_log_pending 1`)
+
+### 19.2 Properties Not Syncing
+
+**Problem:** Property changes in Lua don't appear in editor
+
+**Solutions:**
+- Ensure property is defined in `properties` table
+- Check property type matches (float vs int)
+- Verify bidirectional sync is enabled (it is by default)
+- Check console for errors
+
+### 19.3 Input Not Working
+
+**Problem:** `isDown`/`isReleased` always false
+
+**Solutions:**
+- Ensure `InputActions.register()` is called before use
+- Check that `LuaInputSystem::update()` is called (it is automatically)
+- Verify key/button constants are correct
+- Check console for registration errors
+
+### 19.4 Hot Reload Not Working
+
+**Problem:** Changes don't appear after F5
+
+**Solutions:**
+- Check file is saved
+- Verify file is in `data/lua_components/`
+- Check console for syntax errors
+- Try `lua_tool_reload` manually
+- Restart editor if needed
+
+### 19.5 Coroutines Not Resuming
+
+**Problem:** Coroutine stops after first yield
+
+**Solutions:**
+- Ensure `WaitForSeconds()()` has the `()` call
+- Check that `StartCoroutine` is used (not manual coroutine)
+- Verify `LuaCoroutineHelpers::updateCoroutines()` is called (it is automatically)
+- Check console for errors
+
+### 19.6 Animation Not Playing
+
+**Problem:** Animation doesn't start
+
+**Solutions:**
+- Verify object is `ObjectMeshSkinned`
+- Check animation name matches asset name
+- Ensure object has the animation loaded
+- Check console for errors
+
+### 19.7 Pathfinding Returns Empty
+
+**Problem:** `findPath` returns empty table
+
+**Solutions:**
+- Verify navigation mesh exists in scene
+- Check start/end positions are valid
+- Try increasing agent radius
+- Use `isWalkable` to test positions
+- Check console for warnings
+
+---
+
+## 20. Advanced Topics
+
+### 20.1 Custom Property Types
+
+To add custom property types, modify `LuaComponentGenerator.h` to handle the new type in property sync code.
+
+### 20.2 Extending the API
+
+Add new Lua functions by:
+1. Creating a helper class (e.g., `LuaMySystem.h/cpp`)
+2. Implementing `registerToLua(sol::state& lua)`
+3. Calling it in `LuaSystem::initialize()`
+
+### 20.3 Component Templates
+
+Create reusable component templates:
+
+```lua
+function create_health_template(max_hp)
+    return {
+        on_init = "health_init",
+        on_update = "health_update",
+        properties = {
+            max_health = { type = "float", default = max_hp },
+            current_health = { type = "float", default = max_hp }
+        }
+    }
+end
+
+component("PlayerHealth", create_health_template(100))
+component("EnemyHealth", create_health_template(50))
+```
+
+### 20.4 Thread Safety
+
+- Lua state is **not** thread-safe
+- All Lua operations must happen on the main thread
+- Use `on_update_async_thread` / `on_update_sync_thread` for thread-specific code
+- Don't access Lua from worker threads
+
+### 20.5 Memory Management
+
+- sol2 handles Lua object lifetime automatically
+- UNIGINE smart pointers (`NodePtr`, etc.) prevent dangling references
+- Component instances are cleaned up automatically
+- Monitor for memory leaks with profiler
+
+### 20.6 Debugging Tips
+
+1. **Use Logging:**
+   ```lua
+   Log.message("Debug: value = %f\n", value)
+   ```
+
+2. **Use Profiler:**
+   ```lua
+   Profiler.begin("expensive_operation")
+   -- code
+   Profiler.end("expensive_operation")
+   ```
+
+3. **Enable Debugger:**
+   ```
+   lua_tool_debugger_enable
+   ```
+
+4. **Check Console:**
+   - Enable relevant log categories
+   - Look for errors/warnings
+
+5. **Use Visualizer:**
+   ```lua
+   Visualizer.renderPoint3D(pos, vec4(1,0,0,1))
+   ```
+
+---
+
+## Appendix A: Quick Reference
+
+| Feature | API |
+|--------|-----|
+| Components | `component("Name", {...})`, `on_init`, `on_update`, `self.node`, `self.prop` |
+| Input | `InputActions.register`, `isPressed`/`isDown`/`isReleased`, `registerAxis`, `getAxis` |
+| Animation | `Animation.play`/`stop`/`pause`/`blend`/`getState` |
+| Pathfinding | `Pathfinding.findPath`, `isWalkable`, `getNearestWalkable` |
+| Coroutines | `StartCoroutine`, `WaitForSeconds(n)()`, `WaitUntil(fn)()`, `Lerp` |
+| Events | `subscribe`, `emit`, `unsubscribe`, etc. |
+| Queries | `findComponentsByType`, `findComponentsByTag`, `findComponentOnNode` |
+| Save/Load | `saveNodeToFile`, `loadNodeFromFile` |
+| Profiler | `Profiler.begin`/`end`, `getData`, `reset` |
+| Materials | `MaterialRuntime.createInstance`, `applyToObject`, `setParameter` |
+| Console | `lua_tool_*` commands |
+
+---
+
+## Appendix B: File Locations
+
+- **Lua Components:** `data/lua_components/*.lua`
+- **Generated Code:** `source/lua_components_generated/`
+- **Config:** `data/configs/lua_system.config`
+- **Core System:** `source/LuaSystem.*`
+- **Bindings:** `source/LuaBindings_*.cpp`
+
+---
+
+## Appendix C: Version History
+
+**v2.0 (January 2026)**
+- ✅ Bidirectional property sync
+- ✅ Animation blending over time
+- ✅ Gamepad support
+- ✅ Real coroutine management
+- ✅ Save/load node state
+- ✅ Additional physics bindings
+
+**v1.0 (Initial Release)**
+- Component system
+- Hot reload
+- Input system
+- Animation system
+- Pathfinding
+- Event system
+- Basic API bindings
+
+---
+
+**End of Documentation**

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>02d54b6c5bce4a1cc872ef93c1467ad29808ca52</guid>
+	<type>file</type>
+	<hash>2f256d72</hash>
+	<runtimes>
+		<runtime id="02d54b6c5bce4a1cc872ef93c1467ad29808ca52" name="lua_system.config" link="0"/>
+	</runtimes>
+</asset>

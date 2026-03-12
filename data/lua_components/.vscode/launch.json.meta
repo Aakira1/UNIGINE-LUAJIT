@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>ef65d942242c90b33b96748924f85566f4d7e429</guid>
+	<type>file</type>
+	<hash>731c84bd</hash>
+	<runtimes>
+		<runtime id="ef65d942242c90b33b96748924f85566f4d7e429" name="launch.json" link="0"/>
+	</runtimes>
+</asset>

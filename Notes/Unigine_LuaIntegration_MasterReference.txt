@@ -1,0 +1,291 @@
+# UNIGINE LUA INTEGRATION REFERENCE – MASTER DOCUMENT
+**Author:** Ayden Beggs  
+**Purpose:** Canonical internal reference for integrating Lua scripting into Unigine’s C++ runtime — following the engine’s reflection, property, and component model.  
+**Version:** Integration Framework – Stage 1 Complete
+
+---
+
+## Canonical Engine Context (Stored Knowledge)
+
+### 🔹 How Unigine’s Component System Works
+
+Unigine components inherit from `Unigine::ComponentBase` and are managed globally by `Unigine::ComponentSystem`. They represent runtime logic entities that can be attached to nodes and are discoverable via the Unigine Editor.
+
+#### Key Macros
+```cpp
+COMPONENT_DEFINE(MyComponent, Unigine::ComponentBase);
+REGISTER_COMPONENT(MyComponent);
+```
+These macros automatically:
+- Create metadata for the Editor (`.prop` file).
+- Expose properties and groups.
+- Hook lifecycle callbacks (`init`, `update`, `shutdown`).
+
+#### Property Exposure
+```cpp
+PROP_PARAM(Float, my_float, 1.5f);
+PROP_GROUP("Movement");
+```
+- Defines runtime-editable data fields.  
+- Automatically serializes to `.prop` files.  
+- Appears in the Unigine Editor property inspector.
+
+#### Engine Reflection
+- The system dynamically constructs metadata for registered classes.
+- Uses specialized `ComponentVariable*` wrappers (e.g., `ComponentVariableFloat`).
+- Links C++ types to XML property definitions inside `.prop` files.
+- Serialized states synchronize between Editor and runtime.
+
+#### Event Lifecycle
+| Callback | Trigger | Description |
+|-----------|----------|-------------|
+| `init()` | on component creation | Initialization logic |
+| `update()` | per-frame | Game logic loop |
+| `shutdown()` | on destruction | Cleanup and deallocation |
+
+#### Editor ↔ Runtime Sync
+- `.prop` files store property states in XML.
+- Editor automatically reflects property edits.
+- Engine reloads `.prop` definitions via `ComponentSystem::refreshProperty(name)`.
+
+---
+
+## Lua Integration Goal
+
+**Goal:** Replicate Unigine’s C++ component reflection model for Lua scripts.
+
+| Unigine C++ / C# Concept | Lua System Equivalent |
+|---------------------------|----------------------|
+| `PROP_PARAM()` | Lua variables registered via `sol2` |
+| `.prop` reflection | `.lua` reflection tables |
+| `REGISTER_COMPONENT()` | `REGISTER_LUA_COMPONENT()` macro |
+| Lifecycle callbacks (`init`, `update`, `shutdown`) | Lua functions (`OnInit`, `OnUpdate`, `OnShutdown`) |
+| `ComponentSystem.createPropertyFile()` | Engine Lua loader creating `.lua` templates dynamically |
+
+---
+
+# STAGE 1 – LuaSystem Bootstrap and Script Scanning
+
+## Overview
+
+Stage 1 establishes the Lua runtime and automatic script loader.  
+The goal: mirror Unigine’s C++ ComponentSystem startup flow.
+
+### Objectives
+1. Initialize Lua via **sol2**.
+2. Mount and scan a directory for `.lua` components.
+3. Expose the `component()` registration function to Lua.
+4. Prepare for lifecycle & property reflection in later stages.
+
+---
+
+## System Summary
+
+### Primary Class
+```cpp
+class LuaSystem {
+public:
+    static LuaSystem *get();
+    void initialize();
+    void LuaScanDirectory(const char *path);
+    void registerLuaComponent(const std::string &name, const sol::table &definition);
+    void shutdown();
+private:
+    sol::state lua;
+    std::unordered_map<std::string, sol::table> registered_components;
+};
+```
+
+### Entry Points
+- `initialize()` → called during `AppSystemLogic::init()`
+- `shutdown()` → called during `AppSystemLogic::shutdown()`
+
+### Responsibilities
+- Boot Lua runtime.
+- Mount Lua directories.
+- Load all `.lua` files safely (with recursion).
+- Provide stable logging, memory safety, and graceful shutdown.
+
+---
+
+## Initialization Flow
+
+1 **Lua Boot**
+```cpp
+lua.open_libraries(sol::lib::base, sol::lib::package,
+                   sol::lib::string, sol::lib::math,
+                   sol::lib::table, sol::lib::io,
+                   sol::lib::os, sol::lib::coroutine);
+```
+
+2 **Mounting Path**
+```cpp
+FileSystem::addMountPoint("data/lua_components/");
+lua["package"]["path"] = lua["package"]["path"].get<std::string>() + ";data/lua_components/?.lua";
+```
+
+3 **Global Registration Function**
+```cpp
+lua.set_function("component", [this](const std::string &name, const sol::table &definition) {
+    this->registerLuaComponent(name, definition);
+});
+```
+
+4 **Script Loading**
+Implemented through `LuaScanDirectory()` using `std::filesystem`.
+
+---
+
+##  Final Working LuaScanDirectory()
+
+```cpp
+#include <UnigineFileSystem.h>
+#include <UnigineLog.h>
+#include <UnigineBase.h>
+#include <filesystem>
+namespace fs = std::filesystem;
+
+void Unigine::LuaSystem::LuaScanDirectory(const char *path)
+{
+    Vector<String> files;
+
+    // Step 1: Resolve Unigine virtual path → absolute OS path
+    Unigine::String resolved_path = Unigine::FileSystem::getAbsolutePath(path);
+    if (resolved_path.empty())
+    {
+        Unigine::Log::warning("[LuaSystem] Could not resolve path: %s\n", path);
+        return;
+    }
+
+    // Step 2: Ensure directory exists
+    fs::path root(resolved_path.get());
+    if (!fs::exists(root))
+    {
+        Unigine::Log::warning("[LuaSystem] Creating missing folder: %s\n", resolved_path.get());
+        fs::create_directories(root);
+        return;
+    }
+
+    // Step 3: Recursively collect .lua files
+    try
+    {
+        for (const auto &entry : fs::recursive_directory_iterator(root))
+        {
+            if (entry.is_regular_file() && entry.path().extension() == ".lua")
+                files.append(entry.path().string().c_str());
+        }
+    }
+    catch (const fs::filesystem_error &e)
+    {
+        Unigine::Log::error("[LuaSystem] Filesystem error while scanning %s: %s\n",
+                            resolved_path.get(), e.what());
+        return;
+    }
+
+    // Step 4: Load all found Lua files
+    for (const auto &file : files)
+    {
+        try
+        {
+            lua.script_file(file.get());
+            Unigine::Log::message("[LuaSystem] Loaded %s\n", file.get());
+        }
+        catch (const sol::error &e)
+        {
+            Unigine::Log::error("[LuaSystem] Error loading %s: %s\n", file.get(), e.what());
+        }
+    }
+}
+```
+
+---
+
+## Bug History and Fix Log
+
+| # | Issue | Root Cause | Fix |
+|---|--------|-------------|-----|
+| 1 | `FileSystem::getFiles()` missing | Function not part of API | Replaced with `Unigine::Dir` or `std::filesystem` |
+| 2 | `std::filesystem_error` thrown | Missing or invalid path | Added existence check + `create_directories()` |
+| 3 | `Unigine::MAX_PATH` not found | Constant doesn’t exist | Use `UNIGINE_MAX_PATH` from `UnigineBase.h` |
+| 4 | `resolvePath()` missing | API removed | Replaced with `FileSystem::getAbsolutePath()` |
+| 5 | `getAbsolutePath()` overload mismatch | Wrong argument types | Use `Unigine::String` return value |
+| 6 | `.isEmpty()` not available | Using `char[]` buffer instead of `String` | Switch to `Unigine::String` and `.empty()` |
+| 7 | Implicit pointer check unsafe | Used `if (!resolved_path)` | Use `if (resolved_path.empty())` |
+| 8 | LuaScanDirectory function hits resloved_path incorrectly | causing issue due to 'path' being a char and not a string.
+| 9 | cannot resolve path correctly | caused by not converting Unigine::String to std::string | converted using .get() method |
+
+---
+
+## Shutdown Routine
+
+```cpp
+void LuaSystem::shutdown()
+{
+    Log::message("[LuaSystem] Shutting down Lua runtime...\n");
+    registered_components.clear();
+    lua.collect_garbage();
+    lua = sol::state(); // reset Lua state
+    Log::message("[LuaSystem] Lua runtime successfully shut down.\n");
+}
+```
+
+---
+
+## Final Checklist (Stage 1 Complete - debugging)
+
+| Feature | Status |
+|----------|---------|
+| Lua runtime boot | x |
+| Path mounting | x | -- function LuaScanDirectory (NonFunctional)
+| Component registration | x |
+| Safe file scanning | x |
+| Exception handling | x |
+| Directory auto-create | x |
+| Logging integration | x |
+| Stable shutdown | x |
+
+---
+
+## Example Runtime Log
+
+```
+[LuaSystem] Initializing Lua runtime...
+[LuaSystem] Loaded C:\UnigineProjects\unigine_project_5\data\lua_components\player.lua
+World loading "unigine_project_5.world" (Time: 28.0ms, Memory: 122.2KB)
+```
+
+---
+
+# Next: Stage 2 – Lua Component Descriptor
+
+**Purpose:** Implement Unigine-style reflection and property registration for Lua-defined components.
+
+**Planned Goals:**
+- Introduce `LuaComponentDescriptor` to store metadata for each Lua script.
+- Implement lifecycle binding: `onInit()`, `onUpdate()`, `onShutdown()`.
+- Create `REGISTER_LUA_COMPONENT` macro mirroring `REGISTER_COMPONENT`.
+- Enable Lua-driven `.prop` synchronization.
+
+---
+
+# Stage 3 (Planned)
+**Goal:** Integrate Lua property reflection into Unigine Editor via `.prop` metadata mapping.
+
+---
+
+# Stage 4 (Planned)
+**Goal:** Implement runtime sync — C++ ↔ Lua ↔ Editor, dynamic variable updates, and reload support.
+
+---
+
+# Stage 5 (Planned)
+**Goal:** Add hot-reloading and runtime debugging hooks for Lua-driven logic, similar to Unigine’s property inspector refresh loop.
+
+---
+
+# Conclusion
+
+The Lua integration layer now mirrors Unigine’s initialization and file-loading flow.
+Next development stages will layer reflection, lifecycle management, and property binding on top.
+
+---

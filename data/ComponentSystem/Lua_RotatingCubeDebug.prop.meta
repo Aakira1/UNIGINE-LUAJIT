@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>b6cba3d4a4fff5ac31aee0f51d064cd4481719d4</guid>
+	<type>property</type>
+	<hash>c57bb75d</hash>
+	<runtimes>
+		<runtime id="1b2892106b4a07ac9c1c8fd966f4d84acbafab9c" name="Lua_RotatingCubeDebug" link="0" type="4"/>
+	</runtimes>
+</asset>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<property version="2.20.0.0" name="Lua_PlayerController" manual="1" parent_name="node_base" tooltip="Simple first-person controller (movement, jump, crouch)">
+	<parameter name="jump_power" type="float" title="Jump Power">6</parameter>
+	<parameter name="crouch_speed" type="float" title="Crouch Speed">3</parameter>
+	<parameter name="crouch_height" type="float" title="Crouch Height">1</parameter>
+	<parameter name="mouse_sensitivity" type="float" title="Mouse Sensitivity">0</parameter>
+	<parameter name="camera_height" type="float" title="Camera Height">2</parameter>
+	<parameter name="move_speed" type="float" title="Move Speed">5</parameter>
+</property>

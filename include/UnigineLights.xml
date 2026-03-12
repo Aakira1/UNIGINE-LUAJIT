@@ -1,0 +1,739 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.Light.allocateLensFlares(int)">
+			<summary>
+			Allocate a buffer for a given number of lens flares to be created. With this function, memory can be allocated once rather than in chunks, making the creation faster.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary> 
+			<param name="num"> Number of lens flares to be created in the allocated buffer. </param> 
+		</member>
+		<member name="M:Unigine.Light.addLensFlare">
+			<summary>
+			Add a new lens flare for the per-light lens flare effect.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Light.getLensFlare(int)">
+			<summary>
+			Returns the given lens flare from the list of the ones used for the per-light lens flare effect.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary> 
+			<param name="num"> Lens flare number. </param> 
+			<returns>Light lens flare smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.Light.cloneLensFlare(int)">
+			<summary>
+			Creates a clone of the lens flare with a given number in the list of lens flares used for the per-light lens flare effect.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary> 
+			<param name="num"> Number of lens flare to be cloned. </param> 
+		</member>
+		<member name="M:Unigine.Light.removeLensFlare(int)">
+			<summary>
+			Removes the lens flare with a given number from the list of lens flares used for the per-light lens flare effect.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary> 
+			<param name="num"> Number of lens flare to be removed. </param> 
+		</member>
+		<member name="M:Unigine.Light.clearLensFlares">
+			<summary>
+			Clears the list of lens flares used for the per-light lens flare effect.					The lens flare effect must be enabled for the light source. This feature is available only for: Omni Lights, Projected Lights and World Lights.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Light.calculateFinalColor const">
+			<summary>
+			Calculates the final color of the light source depending on the calculation mode used.
+			</summary>  
+			<returns>Resulting color of the light source.</returns>
+		</member>
+		<member name="M:Unigine.Light.saveStateLight(Unigine.Ptr{Unigine.Stream}) const">
+			<summary>
+			Saves the state of the light source to the specified stream.					Example using SaveStateLight() and restoreStateLight() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the state of the light source is saved successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Light.restoreStateLight(Unigine.Ptr{Unigine.Stream})">
+			<summary>
+			Restores the state of the light source from the specified stream.					Example using saveStateLight() and restoreStateLight() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the state of the light source is restored successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Light.saveStateLensFlares(Unigine.Ptr{Unigine.Stream}) const">
+			<summary>
+			Saves the state of the per-light lens flare effect to the specified stream.					Example using saveStateLensFlares() and restoreStateLensFlares() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the state of the per-light lens flare effect is saved successfully; otherwise, false.</returns>
+		</member>
+		<member name="M:Unigine.Light.restoreStateLensFlares(Unigine.Ptr{Unigine.Stream})">
+			<summary>
+			Restores the state of the per-light lens flare effect from the specified stream.					Example using saveStateLensFlares() and restoreStateLensFlares() methods:
+			</summary> 
+			<param name="stream"> Stream smart pointer. </param> 
+			<returns>true if the state of the per-light lens flare effect is restored successfully; otherwise, false.</returns>
+		</member>
+		<member name="F:Unigine.Light.SHAPE_DEFAULT">
+			<summary>
+			A point light source (light is emitted by an infinitely small point) set by default.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHAPE_POINT">
+			<summary>
+			A point light source (light is emitted by an infinitely small point).
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHAPE_SPHERE">
+			<summary>
+			A sphere-shaped light source.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHAPE_CAPSULE">
+			<summary>
+			A capsule-shaped light source.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHAPE_RECTANGLE">
+			<summary>
+			A rectangular light source. Such light source produces the light and the speck in a form of a rounded rectangle.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.COLOR_MODE_TEMPERATURE">
+			<summary>
+			Physically based color calculation mode, resulting color is calculated as: ColorFilter * (color obtained using the ColorTemperature value).
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.COLOR_MODE_CLASSIC">
+			<summary>
+			Classic color calculation mode, resulting color is defined by Color.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.MODE_DYNAMIC">
+			<summary>
+			Real-time light rendering mode. The light source with this mode enabled is turned off while light baking is being calculated. Objects lit by such light cast only dynamic shadows.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.MODE_STATIC">
+			<summary>
+			Mixed light rendering mode. The light source with this light mode enabled contributes to light baking and remains enabled all the time providing direct realtime lighting. Objects lit by such light can cast static or dynamic shadows depending on the shadow mode set for the source and the object surface.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_MODE_STATIC">
+			<summary>
+			Static shadow mode for omni and projected light sources with the static light mode enabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_MODE_MIXED">
+			<summary>
+			Shadow mode for omni and projected light sources with the static light mode enabled to render both static and dynamic shadows.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_COLOR_MODE_SIMPLE">
+			<summary>
+			An arbitrary 2D texture is projected onto the scene.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_COLOR_MODE_IES">
+			<summary>
+			Light distibution is defined by the IES profile.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_16384">
+			<summary>
+			Shadow map resolution equals 16384×16384.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_8192">
+			<summary>
+			Shadow map resolution equals 8192×8192.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_4096">
+			<summary>
+			Shadow map resolution equals 4096×4096.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_2048">
+			<summary>
+			Shadow map resolution equals 2048×2048.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_1024">
+			<summary>
+			Shadow map resolution equals 1024×1024.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_512">
+			<summary>
+			Shadow map resolution equals 512×512.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_256">
+			<summary>
+			Shadow map resolution equals 256×256.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_128">
+			<summary>
+			Shadow map resolution equals 128×128.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_VALUE_64">
+			<summary>
+			Shadow map resolution equals 64×64.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_DEFAULT">
+			<summary>
+			Default shadow map resolution (512×512).
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_ULTRA">
+			<summary>
+			Ultra quality of shadow penumbra.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_HIGH">
+			<summary>
+			High quality of shadow penumbra.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_MEDIUM">
+			<summary>
+			Medium quality of shadow penumbra.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_LOW">
+			<summary>
+			Low quality of shadow penumbra.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_DISABLED">
+			<summary>
+			Shadow penumbra is disabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_PENUMBRA_GLOBAL">
+			<summary>
+			Quality mode of shadow penumbra that is set globally for all light sources is applied.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_ULTRA">
+			<summary>
+			Ultra quality of shadow filtering.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_HIGH">
+			<summary>
+			High quality of shadow filtering.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_MEDIUM">
+			<summary>
+			Medium quality of shadow filtering.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_LOW">
+			<summary>
+			Low quality of shadow filtering.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_DISABLED">
+			<summary>
+			Shadow filtering is disabled.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_FILTER_GLOBAL">
+			<summary>
+			Quality mode of shadow filtering that is set globally is applied.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_16384">
+			<summary>
+			Shadow map resolution equals 16384×16384.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_8192">
+			<summary>
+			Shadow map resolution equals 8192×8192.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_4096">
+			<summary>
+			Shadow map resolution equals 4096×4096.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_2048">
+			<summary>
+			Shadow map resolution equals 2048×2048.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_1024">
+			<summary>
+			Shadow map resolution equals 1024×1024.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_512">
+			<summary>
+			Shadow map resolution equals 512×512.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_256">
+			<summary>
+			Shadow map resolution equals 256×256.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_128">
+			<summary>
+			Shadow map resolution equals 128×128.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_64">
+			<summary>
+			Shadow map resolution equals 64×64.
+		</summary>
+		</member>
+		<member name="F:Unigine.Light.SHADOW_RESOLUTION_MODE_DEFAULT">
+			<summary>
+			Default shadow map resolution (512×512).
+		</summary>
+		</member>
+		<member name="M:Unigine.LightEnvironmentProbe.#ctor(Unigine.Math.vec4,Unigine.Math.vec3,char)">
+			<summary>
+			Constructor. Creates a new Environment Probe with cubemap modulation based on given parameters.
+			</summary> 
+			<param name="color"> Color of the Environment Probe. </param>
+			<param name="attenuation_distance"> Radii of the Environment Probe. </param>
+			<param name="name"> Path to a cube texture of the Environment Probe. </param> 
+		</member>
+		<member name="M:Unigine.LightEnvironmentProbe.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>LightEnvironmentProbe type identifier.</returns>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_1">
+			<summary>
+			Refresh only one face every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_2">
+			<summary>
+			Refresh two faces every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_3">
+			<summary>
+			Refresh three faces every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_4">
+			<summary>
+			Refresh four faces every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_5">
+			<summary>
+			Refresh five faces every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_DYNAMIC_FACES_PER_FRAME_MODE_6">
+			<summary>
+			Refresh all six faces every frame.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_SUPERSAMPLING_MODE_1">
+			<summary>
+			One sample per pixel.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_SUPERSAMPLING_MODE_2">
+			<summary>
+			Two samples per pixel.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_SUPERSAMPLING_MODE_4">
+			<summary>
+			Four samples per pixel.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_SUPERSAMPLING_MODE_8">
+			<summary>
+			Eight samples per pixel.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_32">
+			<summary>
+			32-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_64">
+			<summary>
+			64-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_128">
+			<summary>
+			128-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_256">
+			<summary>
+			256-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_512">
+			<summary>
+			512-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_1024">
+			<summary>
+			1024-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_2048">
+			<summary>
+			2048-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_RESOLUTION_MODE_4096">
+			<summary>
+			4096-pixel texture resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_MODE_BAKED">
+			<summary>
+			Reflections are static (the cubemap is pre-baked).
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.GRAB_MODE_DYNAMIC">
+			<summary>
+			Reflections are updated in realtime (the cubemap is generated dynamically).
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.SPECULAR_BRDF_MODE_BLINN">
+			<summary>
+			Blinn-Phong reflection model.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.SPECULAR_BRDF_MODE_GGX">
+			<summary>
+			GGX light distribution model.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.PROJECTION_MODE_SPHERE">
+			<summary>
+			The spherical shape of projection.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.PROJECTION_MODE_BOX">
+			<summary>
+			The box shape of projection.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.PROJECTION_MODE_RAYMARCHING">
+			<summary>
+			The raymarching mode used to calculate reflections from the surrounding surfaces.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.LAST_STEP_MODE_ENVIRONMENT_PROBE">
+			<summary>
+			The cubemap used for the last step is the same as for all previous steps.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.LAST_STEP_MODE_ONLY_SKY">
+			<summary>
+			The cubemap contains the sky and clouds only.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.SECONDARY_BOUNCE_PROJECTION_MODE_SPHERE">
+			<summary>
+			Sphere projection.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightEnvironmentProbe.SECONDARY_BOUNCE_PROJECTION_MODE_RAYMARCHING">
+			<summary>
+			Raymarching.
+		</summary>
+		</member>
+		<member name="M:Unigine.LightVoxelProbe.#ctor">
+			<summary>
+			Constructor. Creates a new Voxel Probe with default parameters.
+			</summary>  
+		</member>
+		<member name="M:Unigine.LightVoxelProbe.getResolution">
+			<summary>
+			Returns the resolution of the Voxel Probe according to the voxel size.
+			</summary>  
+			<returns>Resolution of the Voxel Probe along X, Y and Z axis, in voxels.</returns>
+		</member>
+		<member name="M:Unigine.LightVoxelProbe.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>LightVoxelProbe type identifier.</returns>
+		</member>
+		<member name="M:Unigine.LightVoxelProbe.getVideoMemoryUsage">
+			<summary>
+			Returns a value defining how much memory the light texture takes according to its size. The memory is calculated in accordance to the following formula: Memory = SizeX × SizeY × SizeZ × Sides × FormatMemory 						SizeX, SizeY, SizeZ - the dimensions of the 3D light texture, in voxels.						Sides - number of sides of each voxel, equal to 6.						FormatMemory - a memory usage amount for the texture in RGBA16 format, equal to 8.
+			</summary>  
+			<returns>A texture memory usage, in bytes.</returns>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_INTERNAL_VOLUME_HALF">
+			<summary>
+			Bake internal volume (voxels that don't touch geometry) in half resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_INTERNAL_VOLUME_FULL">
+			<summary>
+			Bake internal volume (voxels that don't touch geometry) in full resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_INTERNAL_VOLUME_DISABLED">
+			<summary>
+			Baking internal volume (voxels that don't touch geometry) is disabled - only the voxels covering geometry are baked while empty ones are skipped.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_QUALITY_ULTRA">
+			<summary>
+			Ultra baking quality might be useful to get rid of small inconsistencies on the release production.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_QUALITY_HIGH">
+			<summary>
+			High sampling quality and number of light rays simulated is quite enough for release production.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_QUALITY_MEDIUM">
+			<summary>
+			Stable quality level is good for most cases.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_QUALITY_LOW">
+			<summary>
+			Low sampling quality and number of light rays simulated.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BAKE_QUALITY_DRAFT">
+			<summary>
+			The lowest sampling quality and number of rays simulated but the highest iterativity.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BLEND_ALPHA_BLEND">
+			<summary>
+			The alpha blend mode of light blending.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BLEND_ADDITIVE">
+			<summary>
+			The additive mode of light blending. This option offers more flexibility in lighting control. you can use it to blend lighting of several Voxel Probes together and control them separately (e.g. make a separate Voxel Probe for an indoor emissive light source and blend it with another Voxel Probe with lighting baked from the sky, having the ability to enable and disable them separately).					Voxel probes with additive blending enabled cannot be used to add lighting details (e.g. creating a small high-detail Voxel Probe inside a large low-detail one). Such probes do not replace each other, as they are blended instead.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightVoxelProbe.BLEND_MULTIPLICATIVE">
+			<summary>
+			The multiplicative mode of light blending.
+		</summary>
+		</member>
+		<member name="M:Unigine.LightPlanarProbe.#ctor">
+			<summary>
+			Constructor. Creates a new planar probe.
+			</summary>  
+		</member>
+		<member name="M:Unigine.LightPlanarProbe.type">
+			<summary>
+			Returns the object node type.
+			</summary>  
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_HEIGHT">
+			<summary>
+			Reflection texture size equals to the viewport height resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_HALF_HEIGHT">
+			<summary>
+			Reflection texture size equals to half of the viewport height resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_QUART_HEIGHT">
+			<summary>
+			Reflection texture size equals to the quarter of the viewport height resolution.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_128">
+			<summary>
+			Reflection texture size equals to 128x128 pixels.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_256">
+			<summary>
+			Reflection texture size equals to 256x256 pixels.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_512">
+			<summary>
+			Reflection texture size equals to 512x512 pixels.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_1024">
+			<summary>
+			Reflection texture size equals to 1024x1024 pixels.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_2048">
+			<summary>
+			Reflection texture size equals to 2048x2048 pixels.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightPlanarProbe.REFLECTION_RESOLUTION_MODE_4096">
+			<summary>
+			Reflection texture size equals to 4096x4096 pixels.
+		</summary>
+		</member>
+		<member name="M:Unigine.LightOmni.#ctor(Unigine.Math.vec4,float,char)">
+			<summary>
+			Constructor. Creates a new omni light source with the given parameters.
+			</summary> 
+			<param name="color"> Color of the new light source. </param>
+			<param name="attenuation_distance"> Attenuation distance </param>
+			<param name="name"> Name of the source. </param> 
+		</member>
+		<member name="M:Unigine.LightOmni.setTextureImage(Unigine.Ptr{Unigine.Image},bool)">
+			<summary>
+			Sets a given Image instance as the light image texture. If you need to set a texture of all the lights in the scene, set dynamic flag to 1.
+			</summary> 
+			<param name="image"> New texture to set. </param>
+			<param name="dynamic"> Dynamic texture flag.If set to 0, changing a texture of the light instance will also affect all the lights in the scene.If set to 1, an image will be successfully set only for the current light instance. </param> 
+			<returns>Returns 1 if the texture is set successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.LightOmni.getTextureImage(Unigine.Ptr{Unigine.Image}) const">
+			<summary>
+			Reads the light image texture into an Image instance.
+			</summary> 
+			<param name="image"> Image, into which the texture is read. </param> 
+			<returns>Returns 1 if the texture is read successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.LightOmni.setShadowSideEnabled(int,int)">
+			<summary>
+			Enables or disables shadows for the specified side of the omni light source's cube map. By default the light source casts shadows in all directions.
+			</summary> 
+			<param name="side"> Number of the side of the omni light source for which shadows are to be enabled or disabled. One of the following values:0 - positive X1 - negative X2 - positive Y3 - negative Y4 - positive Z5 - negative Z </param>
+			<param name="enable"> 1 to enable shadows for the specified side of the omni light source, 0 - to disable. </param> 
+		</member>
+		<member name="M:Unigine.LightOmni.isShadowSideEnabled(int) const">
+			<summary>
+			Returns a value indicating if shadows are to be cast for the specified side of the omni light source. By default the light source casts shadows in all directions.
+			</summary> 
+			<param name="side"> Number of the side of the omni light source for which shadows are to be enabled or disabled. One of the following values:0 - positive X1 - negative X2 - positive Y3 - negative Y4 - positive Z5 - negative Z </param> 
+			<returns>1 if shadows are to be cast for the specified side of the omni light source; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.LightOmni.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Light type identifier.</returns>
+		</member>
+		<member name="M:Unigine.LightProj.#ctor(Unigine.Math.vec4,float,float,char)">
+			<summary>
+			Constructor. Creates a new projected light source with texture modulation based on given parameters.
+			</summary> 
+			<param name="color"> Color of the new light source. </param>
+			<param name="attenuation_distance"> Distance from the light source shape, at which the light source doesn't illuminate anything. </param>
+			<param name="fov"> Field of view of the new light source. </param>
+			<param name="name"> Path to a texture of the new light source. </param> 
+		</member>
+		<member name="M:Unigine.LightProj.setTextureImage(Unigine.Ptr{Unigine.Image},bool)">
+			<summary>
+			Sets a given Image instance as the light image texture. If you need to set a texture of all the lights in the scene, set dynamic flag to 1.
+			</summary> 
+			<param name="image"> Image. </param>
+			<param name="dynamic"> Dynamic texture flag.If set to 0, changing a texture of the light instance will also affect all the lights in the scene.If set to 1, an image will be successfully set only for the current light instance. </param> 
+			<returns>Returns 1 if the texture is set successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.LightProj.getTextureImage(Unigine.Ptr{Unigine.Image}) const">
+			<summary>
+			Reads the light image texture into an Image instance.
+			</summary> 
+			<param name="image"> Image, into which the texture is read. </param> 
+			<returns>Returns 1 if the texture is read successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.LightProj.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Light type identifier.</returns>
+		</member>
+		<member name="M:Unigine.LightWorld.#ctor(Unigine.Math.vec4)">
+			<summary>
+			Constructor. Creates a new world light source with a given color.
+			</summary> 
+			<param name="color"> Color of the new light source. </param> 
+		</member>
+		<member name="M:Unigine.LightWorld.setShadowCascadeBorder(int,float)">
+			<summary>
+			Sets the multiplier for the distance to the border of the specified shadow cascade at which the corresponding shadows are rendered.
+			</summary> 
+			<param name="num"> Number of the cascade in range [0;num_cascades-1]. </param>
+			<param name="r"> Distance multiplier to be set, in range [0; 1]. </param> 
+		</member>
+		<member name="M:Unigine.LightWorld.getShadowCascadeBorder(int) const">
+			<summary>
+			Returns the multiplier for the distance to the border of the specified shadow cascade at which the corresponding shadows are rendered.
+			</summary> 
+			<param name="num"> Number of the cascade in range [0;num_cascades-1]. </param> 
+			<returns>Current distance multiplier, in range [0;1].</returns>
+		</member>
+		<member name="M:Unigine.LightWorld.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Light type identifier.</returns>
+		</member>
+		<member name="M:Unigine.LightWorld.getRenderShadowCascadeModelview(int) const">
+			<summary>
+			Returns the model-view matrix for the specified shadow cascade.
+			</summary> 
+			<param name="num"> Shadow cascade number in the [0;num_cascades-1] range. </param> 
+			<returns>Shadow cascade model-view matrix.</returns>
+		</member>
+		<member name="M:Unigine.LightWorld.getRenderShadowCascadeProjection(int) const">
+			<summary>
+			Returns the shadow cascade projection matrix for the specified cascade number.
+			</summary> 
+			<param name="num"> Shadow cascade number in the [0;num_cascades-1] range. </param> 
+			<returns>Shadow cascade projection matrix.</returns>
+		</member>
+		<member name="M:Unigine.LightWorld.updateRenderShadowCascadeMatrices(Unigine.Math.Vec3,float)">
+			<summary>
+			Updates projection matrices for the shadow cascades of the light source in accordance with the specified camera position and distance to the far clipping plane.
+			</summary> 
+			<param name="camera_position"> Position of the camera in world coordinates. </param>
+			<param name="zfar"> Distance to the far z-clipping plane, in units. </param> 
+		</member>
+		<member name="F:Unigine.LightWorld.SCATTERING_MOON">
+			<summary>
+			Render the atmosphere in accordance with the Moon's lighting.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightWorld.SCATTERING_NONE">
+			<summary>
+			Render the atmosphere with no influence of the global lights (sun and moon), i.e. the light gradient won't be changed in any direction.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightWorld.SCATTERING_SUN">
+			<summary>
+			Render the atmosphere in accordance with the Sun's lighting.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightWorld.SHADOW_CASCADE_MODE_STATIC">
+			<summary>
+			Static shadow cascade generation mode. In this mode shadow cascades are built and baked relative to the light source's position. This mode is suitable as a performance optimization technique for small-area ArchViz projects where shadow cascades can be divided into 2 sections: walkable area with high-resolution shadows (as they're observed closely) and non-walkable area with low-resolution shadows (as they're observed from a distance).					Changing the time of day is not available in this mode, as shadow cascades are baked.
+		</summary>
+		</member>
+		<member name="F:Unigine.LightWorld.SHADOW_CASCADE_MODE_DYNAMIC">
+			<summary>
+			Dynamic shadow cascade generation mode. In this mode shadow cascades are built dynamically relative to the camera's position. All shadows are calculated dynamically making it possible to change the time of day (day-night cycle).
+		</summary>
+		</member>
+	</members>
+</doc>

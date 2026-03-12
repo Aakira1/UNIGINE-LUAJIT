@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Natvis Include="../utils/natvis/unigine_stl.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="AppSystemLogic.cpp">
+      <Filter>private</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEditorLogic.cpp">
+      <Filter>private</Filter>
+    </ClCompile>
+    <ClCompile Include="AppWorldLogic.cpp">
+      <Filter>private</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstPersonController.cpp">
+      <Filter>private\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaSystem.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaAPIBindings.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaPropertyManager.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaFileScanner.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaComponentLifecycle.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaUtilities.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaEventSystem.cpp">
+      <Filter>Manager\private</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaComponentPool.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaAnimationSystem.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaAutocompleteGenerator.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaComponentQueries.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaCoroutineHelpers.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaDebugger.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaInputSystem.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaMaterialRuntime.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaPathfinding.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaProfiler.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaPropertySerialization.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaPropertyValidation.cpp">
+      <Filter>Manager\private\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_MathAdv.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Input.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Node.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Game.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Utilities.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_World.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Object.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Materials.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_MathUtils.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Events.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Physics.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Visualizer.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Sound.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_FileSystem.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Camera.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Decals.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Lights.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Objects_Extended.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Physics_Extended.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Player.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBindings_Texture.cpp">
+      <Filter>Manager\private\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_components_generated\Lua_PhysicsFallSound.cpp">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_components_generated\Lua_RotatingCube.cpp">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_components_generated\Lua_PlayerController.cpp">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppEditorLogic.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSystemLogic.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="AppWorldLogic.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstPersonController.h">
+      <Filter>public\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaSystem.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaAPIBindings.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaPropertyManager.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaFileScanner.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaComponentLifecycle.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaUtilities.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaEventSystem.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaComponentPool.h">
+      <Filter>Manager\public</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaComponentGenerator.h">
+      <Filter>Manager\public\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonIncludes.h">
+      <Filter>Manager\public\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaNode.h">
+      <Filter>Manager\public\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="SolInclude.h">
+      <Filter>Manager\public\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_components_generated\_register_all.h">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_components_generated\Lua_PhysicsFallSound.h">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_components_generated\Lua_RotatingCube.h">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_components_generated\Lua_PlayerController.h">
+      <Filter>LuaGeneratedCPP</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="private">
+      <UniqueIdentifier>{609019ce-983d-4c03-aed4-6f66a365581e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="private\Components">
+      <UniqueIdentifier>{9839f94a-a6c2-473a-b112-62a285f786d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{fcbc2831-a0c9-4c6d-9ccb-025c843ee0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\private">
+      <UniqueIdentifier>{8ffb9113-75b3-49d4-87bd-e92f32afe7b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\private\Systems">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\private\Bindings">
+      <UniqueIdentifier>{245434e7-087c-4bd3-ab59-61c4b161f046}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\public">
+      <UniqueIdentifier>{01879154-6f9e-42a6-b09b-a8c21aa10bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\public\lib">
+      <UniqueIdentifier>{e1a8aa84-9cf5-4ed6-a2b8-4faa20c71062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{67895de2-e8d3-49ca-b102-33cf7a228653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\Components">
+      <UniqueIdentifier>{d9056a70-68d3-476d-96d1-166958ef4115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LuaGeneratedCPP">
+      <UniqueIdentifier>{0032a6f3-6be8-4ad0-bf87-8491b7672f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LuaScripts">
+      <UniqueIdentifier>{9fe383b7-042a-47c2-8498-4fc74a39d045}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\data\lua_components\PhysicsCube.lua">
+      <Filter>LuaScripts</Filter>
+    </None>
+    <None Include="..\data\lua_components\PlayerController.lua">
+      <Filter>LuaScripts</Filter>
+    </None>
+    <None Include="..\data\lua_components\RotatingCube.lua">
+      <Filter>LuaScripts</Filter>
+    </None>
+  </ItemGroup>
+</Project>

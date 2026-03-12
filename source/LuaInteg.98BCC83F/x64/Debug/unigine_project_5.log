@@ -1,0 +1,64 @@
+﻿  Lua_PhysicsFallSound.cpp
+  Lua_PlayerController.cpp
+  Lua_RotatingCube.cpp
+     Creating library C:\Users\ayden\OneDrive\Documents\UNIGINE Projects\LuaIntegrationProject\source\../bin/LuaIntegrationProject_x64d.lib and object C:\Users\ayden\OneDrive\Documents\UNIGINE Projects\LuaIntegrationProject\source\../bin/LuaIntegrationProject_x64d.exp
+LuaSystem.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaMaterialRuntime.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaPathfinding.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaProfiler.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaPropertySerialization.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaComponentPool.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaAnimationSystem.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaCoroutineHelpers.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaInputSystem.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Physics_Extended.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Utilities.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Visualizer.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_World.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Lights.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Camera.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Objects_Extended.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Decals.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Physics.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Player.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Sound.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Texture.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_MathAdv.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_MathUtils.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Node.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Object.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Events.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Game.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Input.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaBindings_Materials.obj : error LNK2001: unresolved external symbol __std_find_last_trivial_1
+LuaPropertySerialization.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaSystem.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaInputSystem.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaMaterialRuntime.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaPathfinding.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaProfiler.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaComponentPool.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaAnimationSystem.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaCoroutineHelpers.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaEventSystem.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Physics_Extended.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Utilities.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Visualizer.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_World.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Lights.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Camera.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Objects_Extended.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Decals.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Physics.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Player.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Sound.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Texture.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_MathAdv.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_MathUtils.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Node.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Object.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Events.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Game.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Input.obj : error LNK2001: unresolved external symbol __std_search_1
+LuaBindings_Materials.obj : error LNK2001: unresolved external symbol __std_search_1
+C:\Users\ayden\OneDrive\Documents\UNIGINE Projects\LuaIntegrationProject\source\..\bin\LuaIntegrationProject_x64d.exe : fatal error LNK1120: 2 unresolved externals

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>6b0074aec6e22a0f1fd74342263446283451edc6</guid>
+	<type>file</type>
+	<hash>107ba4db</hash>
+	<runtimes>
+		<runtime id="6b0074aec6e22a0f1fd74342263446283451edc6" name="PhysicsCube.lua" link="0"/>
+	</runtimes>
+</asset>

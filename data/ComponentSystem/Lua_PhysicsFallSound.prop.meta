@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>eb297171f91d27096c4c325040e49e7115f5cb71</guid>
+	<type>property</type>
+	<hash>a09fd55a</hash>
+	<runtimes>
+		<runtime id="1032ae89eb8bef039625e339b18b2726cd8bba7a" name="Lua_PhysicsFallSound" link="0" type="4"/>
+	</runtimes>
+</asset>

@@ -1,0 +1,249 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.Navigation.getNavigation(int)">
+			<summary>
+			Returns the specified connected navigation area.
+			</summary> 
+			<param name="num"> The navigation area number. </param> 
+			<returns>The navigation area.</returns>
+		</member>
+		<member name="M:Unigine.Navigation.inside(Unigine.Ptr{Navigation})">
+			<summary>
+			Returns a value indicating if the specified Navigation area is a part of the Navigation area.
+			</summary> 
+			<param name="navigation"> Navigation area </param> 
+		</member>
+		<member name="M:Unigine.Navigation.inside2D(Unigine.Math.Vec3,float)">
+			<summary>
+			Depending on the type of the navigation area, the function performs the following:											For navigation sectors, it checks whether the given point is inside the navigation sector. 					The height of the navigation sector (Z coordinate) is ignored.						For navigation meshes, it checks whether the given point is inside the navigation mesh and the distance from the point to the mesh is in range [-height;height].					Here height is a height of the navigation mesh.
+			</summary> 
+			<param name="point"> Point coordinates. </param>
+			<param name="radius"> The radius of the point. The radius is used to exclude exceeding the navigation mesh by the point.If the radius is set, it is more likely that the point will be inside the navigation mesh.When calling the function for NavigationSector, this option is irrelevant. </param> 
+			<returns>1 if the point is inside the navigation area; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.Navigation.inside3D(Unigine.Math.Vec3,float)">
+			<summary>
+			Depending on the type of the navigation area, the function performs the following:											For navigation sectors, it checks whether the given point is inside the navigation area. 					Notice that the height of the navigation sector (Z coordinate) is also taken into account.						For navigation meshes, it checks whether the given point is inside the navigation mesh and the distance from the point to the mesh is in range [0;height].					Here height is a height of the navigation mesh.
+			</summary> 
+			<param name="point"> Point coordinates. </param>
+			<param name="radius"> The radius of the point. The radius is used to exclude exceeding the navigation mesh by the point.If the radius is set, it is more likely that the point will be inside the navigation mesh.When calling the function for NavigationSector, this option is irrelevant. </param> 
+			<returns>1 it the point is inside the navigation area; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.#ctor">
+			<summary>
+			Constructor. Creates an empty navigation mesh.
+			</summary>  
+		</member>
+		<member name="M:Unigine.NavigationMesh.#ctor(char)">
+			<summary>
+			Creates a navigation mesh from the given *.mesh file.
+			</summary> 
+			<param name="arg1"> Path to the *.mesh file. </param> 
+		</member>
+		<member name="M:Unigine.NavigationMesh.setMesh(Unigine.Ptr{Unigine.Mesh})">
+			<summary>
+			Copies a given mesh into the mesh, on which the current navigation mesh is based.
+			</summary> 
+			<param name="mesh"> Mesh to be copied. </param> 
+			<returns>1 if the mesh is copied successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.getMesh(Unigine.Ptr{Unigine.Mesh})">
+			<summary>
+			Copies the mesh that is used as a base for the current navigation mesh into the received mesh.					A mesh used as a base for the navigation mesh should meet the requirements described here.
+			</summary> 
+			<param name="mesh"> A mesh into which the current mesh is copied. </param> 
+			<returns>1 if the mesh is copied successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.setMeshPath(char,int)">
+			<summary>
+			Sets a new path for the mesh used as a base for the navigation mesh and forces loading of the mesh with the new path for the current navigation mesh.
+			</summary> 
+			<param name="path"> Path to the *.mesh-file to be set. </param>
+			<param name="force_load"> Force flag.If 1 is specified, the mesh with the new path will be loaded immediately.If 0 is specified, only the mesh path will be updated. </param> 
+			<returns>true if:The current mesh path coincides the new path.The mesh with the new path has been loaded successfully.The force flag is set to 0. In other cases,false.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.loadMesh(char)">
+			<summary>
+			Loads a mesh, on which the navigation mesh is based, from the file. This function doesn't change the mesh name.
+			</summary> 
+			<param name="path"> A relative path to the *.mesh-file. </param> 
+			<returns>1 if the mesh is loaded successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.saveMesh(char)">
+			<summary>
+			Saves the mesh, on which the navigation mesh is based, to the file.
+			</summary> 
+			<param name="path"> A relative path to the *.mesh file. </param> 
+			<returns>1 if the mesh is saved successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.NavigationMesh.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Navigation type identifier.</returns>
+		</member>
+		<member name="M:Unigine.NavigationSector.#ctor(Unigine.Math.vec3)">
+			<summary>
+			Constructor. Creates a navigation sector of the specified size.
+			</summary> 
+			<param name="arg1"> Box dimensions. </param> 
+		</member>
+		<member name="M:Unigine.NavigationSector.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Navigation type identifier.</returns>
+		</member>
+		<member name="M:Unigine.ObstacleBox.#ctor(Unigine.Math.vec3)">
+			<summary>
+			Constructor. Creates a new cuboid-shaped obstacle of a specified size.
+			</summary> 
+			<param name="arg1"> Box dimensions. </param> 
+		</member>
+		<member name="M:Unigine.ObstacleBox.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Obstacle type identifier.</returns>
+		</member>
+		<member name="M:Unigine.ObstacleCapsule.#ctor(float,float)">
+			<summary>
+			Constructor. Creates a new capsule-shaped obstacle of a specified size.
+			</summary> 
+			<param name="radius"> Radius of the capsule. </param>
+			<param name="height"> Height of the capsule. </param> 
+		</member>
+		<member name="M:Unigine.ObstacleCapsule.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Obstacle type identifier.</returns>
+		</member>
+		<member name="M:Unigine.ObstacleSphere.#ctor(float)">
+			<summary>
+			Constructor. Creates a new sphere-shaped obstacle of a specified size.
+			</summary> 
+			<param name="radius"> Radius of the sphere. </param> 
+		</member>
+		<member name="M:Unigine.ObstacleSphere.type">
+			<summary>
+			Returns the type of the node.
+			</summary>  
+			<returns>Obstacle type identifier.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.#ctor(float)">
+			<summary>
+			Constructor. Creates a new 2D or 3D route. The radius is used to check whether the point can move inside a navigation area or this navigation area should be excluded from pathfinding.
+			</summary> 
+			<param name="radius"> Radius of the point moving along the route. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.setExcludeNavigations(Unigine.Vector{Unigine.Ptr{Unigine.Node},int,Unigine.VectorAllocator})">
+			<summary>
+			Sets the list of navigation sectors and navigation meshes to be ignored during pathfinding.
+			</summary> 
+			<param name="exclude_navigations"> Array of the ignored navigation areas. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.getExcludeNavigations">
+			<summary>
+			Returns the list of navigation sectors and navigation meshes excluded from pathfinding.
+			</summary> 
+			<param name="exclude_navigations"> Array to store the excluded navigation areas. </param> 
+			<returns>Container to store the result.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.setExcludeObstacles(Unigine.Vector{Unigine.Ptr{Unigine.Node},int,Unigine.VectorAllocator})">
+			<summary>
+			Sets the list of obstacles to be ignored during pathfinding.
+			</summary> 
+			<param name="obstacles"> Array of the ignored obstacles. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.getExcludeObstacles">
+			<summary>
+			Returns the list of obstacles ignored during pathfinding.
+			</summary>  
+			<returns>Container for obstacles.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.getIntersection(Unigine.Ptr{PathRouteIntersection})">
+			<summary>
+			Returns the first intersected obstacle.
+			</summary> 
+			<param name="intersection"> PathRouteIntersection node. </param> 
+			<returns>Intersected obstacle.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.getNavigation(int)">
+			<summary>
+			Returns the navigation sector or mesh within which the specified route point is located.
+			</summary> 
+			<param name="num"> Point number. </param> 
+			<returns>Navigation sector or navigation mesh.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.getObstacle(int)">
+			<summary>
+			Returns the obstacle around which the route is turning.
+			</summary> 
+			<param name="num"> Point number. </param> 
+			<returns>Obstacle.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.getPoint(int)">
+			<summary>
+			Returns the coordinates of the turning point in the route.
+			</summary> 
+			<param name="num"> Point number. </param> 
+			<returns>Point coordinates.</returns>
+		</member>
+		<member name="M:Unigine.PathRoute.addExcludeNavigation(Unigine.Ptr{Unigine.Node})">
+			<summary>
+			Sets a navigation sector or a navigation mesh to be ignored during pathfinding. Excluded sectors/meshes are added into the list.
+			</summary> 
+			<param name="navigation"> A navigation area to be ignored. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.addExcludeObstacle(Unigine.Ptr{Unigine.Node})">
+			<summary>
+			Sets an obstacle to be ignored during pathfinding. Excluded obstacles are added into the list.
+			</summary> 
+			<param name="obstacle"> An obstacle to be ignored. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.create2D(Unigine.Math.Vec3,Unigine.Math.Vec3,int)">
+			<summary>
+			Calculates a 2D route between the given points with the specified delay.
+			</summary> 
+			<param name="p0"> The starting point. </param>
+			<param name="p1"> The destination point. </param>
+			<param name="delay"> The number of frames which is possible to delay pathfinding calculations. 0 means the pathfinding should be calculated immediately. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.create3D(Unigine.Math.Vec3,Unigine.Math.Vec3,int)">
+			<summary>
+			Calculates a 3D route between the given points with the specified delay.
+			</summary> 
+			<param name="p0"> The starting point. </param>
+			<param name="p1"> The destination point. </param>
+			<param name="delay"> The number of frames which is possible to delay pathfinding calculations. 0 means the pathfinding should be calculated immediately. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.removeExcludeNavigation(Unigine.Ptr{Unigine.Node})">
+			<summary>
+			Removes a navigation sector or a navigation mesh from the list of ignored ones during pathfinding.
+			</summary> 
+			<param name="navigation"> A navigation area. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.removeExcludeObstacle(Unigine.Ptr{Unigine.Node})">
+			<summary>
+			Removes an obstacle from the list of ignored ones during pathfinding.
+			</summary> 
+			<param name="obstacle"> An obstacle. </param> 
+		</member>
+		<member name="M:Unigine.PathRoute.renderVisualizer(Unigine.Math.vec4)">
+			<summary>
+			Renders the route in a given color.					You should enable the engine visualizer by the show_visualizer 1 console command.
+			</summary> 
+			<param name="color"> Route color. </param> 
+		</member>
+		<member name="M:Unigine.PathRouteIntersection.#ctor">
+			<summary>
+			The PathRouteIntersection constructor.
+			</summary>  
+		</member>
+	</members>
+</doc>

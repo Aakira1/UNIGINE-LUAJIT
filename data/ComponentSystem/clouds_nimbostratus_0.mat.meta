@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>a549a2b6c5700f350dc36920c7ceb300d44f7d88</guid>
+	<type>material</type>
+	<hash>1cabb88a</hash>
+	<runtimes>
+		<runtime id="a549a2b6c5700f350dc36920c7ceb300d44f7d88" name="clouds_nimbostratus_0" link="0" type="5"/>
+	</runtimes>
+	<parameters>
+		<parameter type="bool" name="unchanged">1</parameter>
+	</parameters>
+</asset>

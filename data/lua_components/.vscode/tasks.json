@@ -1,0 +1,95 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run App (Generate C++ Wrappers)",
+      "type": "shell",
+      "command": "${workspaceFolder}/bin/unigine_project_5_x64d.exe",
+      "args": [
+        "-video_app",
+        "null",
+        "-sound_app",
+        "null",
+        "-console_command",
+        "quit"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bin"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Build C++ Project",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "$msbuild = Get-ChildItem -Path 'C:\\Program Files\\Microsoft Visual Studio\\2022' -Recurse -Filter 'MSBuild.exe' -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName; if (-not $msbuild) { Write-Host 'MSBuild not found!'; exit 1 }; & \"$msbuild\" \"${workspaceFolder}\\source\\unigine_project_5.vcxproj\" /p:Configuration=Debug /p:Platform=x64 /t:Build /m /v:minimal"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean Build",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "$msbuild = Get-ChildItem -Path 'C:\\Program Files\\Microsoft Visual Studio\\2022' -Recurse -Filter 'MSBuild.exe' -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName; if (-not $msbuild) { Write-Host 'MSBuild not found!'; exit 1 }; & \"$msbuild\" \"${workspaceFolder}\\source\\unigine_project_5.vcxproj\" /p:Configuration=Debug /p:Platform=x64 /t:Clean /v:minimal"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Full Lua Workflow",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Run App (Generate C++ Wrappers)",
+        "Build C++ Project",
+        "Run App (Generate C++ Wrappers)"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Quick Lua Edit (No Rebuild)",
+      "type": "shell",
+      "command": "${workspaceFolder}/bin/unigine_project_5_x64d.exe",
+      "args": [
+        "-data_path",
+        "../data/",
+        "-console_command",
+        "world_load \"unigine_project_5\""
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/bin"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ]
+}

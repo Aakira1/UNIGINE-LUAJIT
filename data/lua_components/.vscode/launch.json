@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        
+        {
+            "name": "Launch Unigine (Debug)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/LuaIntegrationProject_x64d.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin",
+            "environment": [],
+            "console": "externalTerminal",
+            "preLaunchTask": "Rebuild Lua Components"
+        },
+        {
+            "name": "Launch Unigine (No Rebuild)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/LuaIntegrationProject_x64d.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "Generate Components Only",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/LuaIntegrationProject_x64d.exe",
+            "args": [
+                "-video_app", "null",
+                "-sound_app", "null",
+                "-console_command", "quit"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/bin",
+            "environment": [],
+            "console": "externalTerminal"
+        }
+    ]
+}

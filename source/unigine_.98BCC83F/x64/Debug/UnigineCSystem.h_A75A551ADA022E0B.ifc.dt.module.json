@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "unigine_.98BCC83F\\x64\\Debug\\UnigineCSystem.obj",
+            "outputs": [
+                "unigine_.98BCC83F\\x64\\Debug\\UnigineCSystem.h_A75A551ADA022E0B.ifc.dt.module.json",
+                "unigine_.98BCC83F\\x64\\Debug\\UnigineCSystem.h_A75A551ADA022E0B.ifc.dt.d.json",
+                "unigine_.98BCC83F\\x64\\Debug\\UnigineCSystem.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "C:\\Users\\ayden\\Documents\\UNIGINE Projects\\unigine_project_5\\source\\UnigineCSystem.h",
+                    "source-path": "c:\\users\\ayden\\documents\\unigine projects\\unigine_project_5\\source\\uniginecsystem.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

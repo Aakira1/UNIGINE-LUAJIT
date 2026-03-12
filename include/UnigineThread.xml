@@ -1,0 +1,1355 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.AtomicInteger.AtomicInteger">
+			<summary>
+			Default constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicInteger.AtomicInteger(Type)">
+			<summary>
+			Constructor. Initializes the value by copying the binary representation of the provided value.
+			</summary> 
+			<param name="v"> Initial value. </param> 
+		</member>
+		<member name="M:Unigine.AtomicInteger.AtomicInteger(AtomicInteger)">
+			<summary>
+			Copy constructor. Initializes the object by copying the raw value from another atomic object, ensuring atomic consistency.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator Type() const">
+			<summary>
+			Implicitly converts the AtomicInteger object to a value of type Type. Internally calls fetch() to return a thread-safe snapshot of the current value.
+			</summary>  
+			<returns>Returns copy of the current value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getUnsafeRawValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal raw value. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Returns a reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getUnsafeRawValue const">
+			<summary>
+			Const-qualified version of getUnsafeRawValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getRawValuePtr">
+			<summary>
+			Returns a pointer to the internal raw value.
+			</summary>  
+			<returns>Returns a pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getRawValuePtr const">
+			<summary>
+			Const-qualified version of getRawValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getUnsafeValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal logical value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns non-thread-safe reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getUnsafeValue const">
+			<summary>
+			Const-qualified version of getUnsafeValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns non-thread-safe const reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getValuePtr">
+			<summary>
+			Returns a raw pointer to the internal value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.getValuePtr const">
+			<summary>
+			Const-qualified version of getValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns const pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetch const">
+			<summary>
+			Retrieves the current value in a lock-free, thread-safe manner. Performs an atomic read of the raw internal storage and reinterprets the result.
+			</summary>  
+			<returns>Returns copy of the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.store(Type)">
+			<summary>
+			Stores a new value by writing its raw binary representation atomically into internal storage. Ensures thread-safe write access without locks.
+			</summary> 
+			<param name="v"> The new value to store. </param> 
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator=(Type)">
+			<summary>
+			Copy assignment operator. Stores the new value atomically by calling store().
+			</summary> 
+			<param name="v"> The new value to assign. </param> 
+			<returns>Returns the assigned value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator=(AtomicInteger)">
+			<summary>
+			Copy assignment operator. Atomically replaces the internal value with the one from another atomic object.
+			</summary> 
+			<param name="v"> Another atomic to copy from. </param> 
+			<returns>Returns the copied value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.swap(Type)">
+			<summary>
+			Atomically replaces the current value with a new one and returns the old value.
+			</summary> 
+			<param name="v"> The new value to set. </param> 
+			<returns>Returns the value that was stored before swap.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.compareAndSwap(Type,Type)">
+			<summary>
+			Performs a lock-free compare-and-swap operation. If the current value equals old_value, it is replaced with new_value.
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+			<returns>Returns true if the internal value was updated; false if the current value did not match old_value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.spinLock(Type,Type)">
+			<summary>
+			Continuously attempts to atomically swap the value from old_value to new_value using compareAndSwap().
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+		</member>
+		<member name="M:Unigine.AtomicInteger.waitValue(Type)">
+			<summary>
+			Blocks the current thread in a spin loop until the internal value becomes equal to the provided one. Internally calls spinLock(v, v) and rechecks after each failure.
+			</summary> 
+			<param name="v"> The value to wait for. </param> 
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchAdd(Type)">
+			<summary>
+			Atomically adds value to the current atomic value and returns the previous value.
+			</summary> 
+			<param name="v"> The value to add. </param> 
+			<returns>Returns the value held before the addition.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchSub(Type)">
+			<summary>
+			Atomically subtracts value from the current atomic value and returns the previous value.
+			</summary> 
+			<param name="v"> The value to subtract. </param> 
+			<returns>Returns the value held before the subtraction.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchAnd(Type)">
+			<summary>
+			Atomically performs a bitwise AND with value and returns the previous value.
+			</summary> 
+			<param name="v"> The value to AND with. </param> 
+			<returns>Returns the value before the operation.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchOr(Type)">
+			<summary>
+			Atomically performs a bitwise OR with value and returns the previous value.
+			</summary> 
+			<param name="v"> The value to OR with. </param> 
+			<returns>Returns the value before the operation.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchXor(Type)">
+			<summary>
+			Atomically performs a bitwise XOR with value and returns the previous value.
+			</summary> 
+			<param name="v"> The value to XOR with. </param> 
+			<returns>Returns the value before the operation.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchInc">
+			<summary>
+			Atomically increments the current value by 1.
+			</summary>  
+			<returns>The value held before the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.fetchDec">
+			<summary>
+			Atomically decrements the current value by 1.
+			</summary>  
+			<returns>The value held before the decrement.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator+=(Type)">
+			<summary>
+			Atomically adds value to the current value and returns the result after the addition.
+			</summary> 
+			<param name="v"> The value to add. </param> 
+			<returns>The updated value after the addition.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator-=(Type)">
+			<summary>
+			Atomically subtracts value from the current value and returns the result after the subtraction.
+			</summary> 
+			<param name="v"> The value to subtract. </param> 
+			<returns>The updated value after the subtraction.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator++(int)">
+			<summary>
+			Postfix increment. Atomically increments the current value by 1.
+			</summary> 
+			<param name=""> dummy parameter to distinguish from the prefix version. </param> 
+			<returns>The value before the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator--(int)">
+			<summary>
+			Postfix decrement. Atomically decrements the current value by 1.
+			</summary> 
+			<param name=""> dummy parameter to distinguish from the prefix version. </param> 
+			<returns>The value before the decrement.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator++">
+			<summary>
+			Prefix increment. Atomically increments the current value by 1.
+			</summary>  
+			<returns>The value after the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator--">
+			<summary>
+			Prefix decrement. Atomically decrements the current value by 1.
+			</summary>  
+			<returns>The value after the decrement.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator&amp;=(Type)">
+			<summary>
+			Atomically performs a bitwise AND with value and updates the current value.
+			</summary> 
+			<param name="v"> The value to AND with. </param> 
+			<returns>The updated value after the operation.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator|=(Type)">
+			<summary>
+			Atomically performs a bitwise OR with value and updates the current value.
+			</summary> 
+			<param name="v"> The value to OR with. </param> 
+			<returns>The updated value after the operation.</returns>
+		</member>
+		<member name="M:Unigine.AtomicInteger.operator^=(Type)">
+			<summary>
+			Atomically performs a bitwise XOR with value and updates the current value.
+			</summary> 
+			<param name="v"> The value to XOR with. </param> 
+			<returns>The updated value after the operation.</returns>
+		</member>
+		<member name="F:Unigine.AtomicInteger.isLockFree">
+			<summary>
+			Indicates that the implementation is lock-free and performs atomic operations without using mutexes.
+		</summary>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.AtomicLockFreeAlign">
+			<summary>
+			Default constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.AtomicLockFreeAlign(Type)">
+			<summary>
+			Constructor. Initializes the value by copying the binary representation of the provided value.
+			</summary> 
+			<param name="v"> Initial value. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.AtomicLockFreeAlign(AtomicLockFreeAlign)">
+			<summary>
+			Copy constructor. Initializes the object by copying the raw value from another atomic object, ensuring atomic consistency.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.operator Type() const">
+			<summary>
+			Implicitly converts the AtomicLockFreeAlign object to a value of type Type. Internally calls fetch() to return a thread-safe snapshot of the current value.
+			</summary>  
+			<returns>Returns copy of the current value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getUnsafeRawValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal raw value. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Returns a reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getUnsafeRawValue const">
+			<summary>
+			Const-qualified version of getUnsafeRawValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getRawValuePtr">
+			<summary>
+			Returns a pointer to the internal raw value.
+			</summary>  
+			<returns>Returns a pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getRawValuePtr const">
+			<summary>
+			Const-qualified version of getRawValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getUnsafeValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal logical value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns non-thread-safe reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getUnsafeValue const">
+			<summary>
+			Const-qualified version of getUnsafeValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns non-thread-safe const reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getValuePtr">
+			<summary>
+			Returns a raw pointer to the internal value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.getValuePtr const">
+			<summary>
+			Const-qualified version of getValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns const pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.fetch const">
+			<summary>
+			Retrieves the current value in a lock-free, thread-safe manner. Performs an atomic read of the raw internal storage and reinterprets the result.
+			</summary>  
+			<returns>Returns copy of the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.store(Type)">
+			<summary>
+			Stores a new value by writing its raw binary representation atomically into internal storage.
+			</summary> 
+			<param name="v"> The new value to store. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.operator=(Type)">
+			<summary>
+			Copy assignment operator. Stores the new value atomically by calling store().
+			</summary> 
+			<param name="v"> The new value to assign. </param> 
+			<returns>Returns the assigned value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.operator=(AtomicLockFreeRaw)">
+			<summary>
+			Copy assignment operator. Atomically replaces the internal value with the one from another atomic object.
+			</summary> 
+			<param name="v"> Another atomic to copy from. </param> 
+			<returns>Returns the copied value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.swap(Type)">
+			<summary>
+			Atomically replaces the current value with a new one and returns the old value.
+			</summary> 
+			<param name="v"> The new value to set. </param> 
+			<returns>Returns the value that was stored before swap.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.compareAndSwap(Type,Type)">
+			<summary>
+			Performs a lock-free compare-and-swap operation. If the current value equals old_value, it is replaced with new_value.
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+			<returns>Returns true if the internal value was updated; false if the current value did not match old_value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.spinLock(Type,Type)">
+			<summary>
+			Continuously attempts to atomically swap the value from old_value to new_value using compareAndSwap().
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeAlign.waitValue(Type)">
+			<summary>
+			Blocks the current thread in a spin loop until the internal value becomes equal to the provided one. Internally calls spinLock(v, v) and rechecks after each failure.
+			</summary> 
+			<param name="v"> The value to wait for. </param> 
+		</member>
+		<member name="F:Unigine.AtomicLockFreeAlign.isLockFree">
+			<summary>
+			Indicates that the implementation is lock-free and performs atomic operations without using mutexes.
+		</summary>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.AtomicLockFreeRaw">
+			<summary>
+			Default constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.AtomicLockFreeRaw(Type)">
+			<summary>
+			Constructor. Initializes the value by copying the binary representation of the provided value.
+			</summary> 
+			<param name="v"> Initial value. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.AtomicLockFreeRaw(AtomicLockFreeRaw)">
+			<summary>
+			Copy constructor. Initializes the object by copying the raw value from another atomic object, ensuring atomic consistency.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.operator Type() const">
+			<summary>
+			Implicitly converts the AtomicLockFreeRaw object to a value of type Type. Internally calls fetch() to return a thread-safe snapshot of the current value.
+			</summary>  
+			<returns>Returns copy of the current value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getUnsafeRawValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal raw value. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Returns a reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getUnsafeRawValue const">
+			<summary>
+			Const-qualified version of getUnsafeRawValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const reference to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getRawValuePtr">
+			<summary>
+			Returns a pointer to the internal raw value.
+			</summary>  
+			<returns>Returns a pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getRawValuePtr const">
+			<summary>
+			Const-qualified version of getRawValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns a const pointer to the internal raw value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getUnsafeValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal logical value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns non-thread-safe reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getUnsafeValue const">
+			<summary>
+			Const-qualified version of getUnsafeValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns non-thread-safe const reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getValuePtr">
+			<summary>
+			Returns a raw pointer to the internal value, reinterpreted from the raw data. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.getValuePtr const">
+			<summary>
+			Const-qualified version of getValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns const pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.fetch const">
+			<summary>
+			Retrieves the current value in a lock-free, thread-safe manner. Performs an atomic read of the raw internal storage and reinterprets the result.
+			</summary>  
+			<returns>Returns copy of the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.store(Type)">
+			<summary>
+			Stores a new value by writing its raw binary representation atomically into internal storage.
+			</summary> 
+			<param name="v"> The new value to store. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.operator=(Type)">
+			<summary>
+			Copy assignment operator. Stores the new value atomically by calling store().
+			</summary> 
+			<param name="v"> The new value to assign. </param> 
+			<returns>Returns the assigned value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.operator=(AtomicLockFreeRaw)">
+			<summary>
+			Copy assignment operator. Atomically replaces the internal value with the one from another atomic object.
+			</summary> 
+			<param name="v"> Another atomic to copy from. </param> 
+			<returns>Returns the copied value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.swap(Type)">
+			<summary>
+			Atomically replaces the current value with a new one and returns the old value.
+			</summary> 
+			<param name="v"> The new value to set. </param> 
+			<returns>Returns the value that was stored before swap.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.compareAndSwap(Type,Type)">
+			<summary>
+			Performs a lock-free compare-and-swap operation. If the current value equals old_value, it is replaced with new_value.
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+			<returns>Returns true if the internal value was updated; false if the current value did not match old_value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.spinLock(Type,Type)">
+			<summary>
+			Continuously attempts to atomically swap the value from old_value to new_value using compareAndSwap().
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+		</member>
+		<member name="M:Unigine.AtomicLockFreeRaw.waitValue(Type)">
+			<summary>
+			Blocks the current thread in a spin loop until the internal value becomes equal to the provided one. Internally calls spinLock(v, v) and rechecks after each failure.
+			</summary> 
+			<param name="v"> The value to wait for. </param> 
+		</member>
+		<member name="F:Unigine.AtomicLockFreeRaw.isLockFree">
+			<summary>
+			Indicates that the implementation is lock-free and performs atomic operations without using mutexes.
+		</summary>
+		</member>
+		<member name="M:Unigine.AtomicPointer.AtomicPointer">
+			<summary>
+			Default constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicPointer.AtomicPointer(Type)">
+			<summary>
+			Construcor. Constructs an atomic pointer initialized with the given raw pointer value.
+			</summary> 
+			<param name="v"> The pointer value to initialize with (e.g., int*, MyStruct*). </param> 
+		</member>
+		<member name="M:Unigine.AtomicPointer.AtomicPointer(AtomicPointer)">
+			<summary>
+			Copy constructor. Atomically copies the pointer value from another AtomicPointer&lt;Type&gt; instance.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator Type() const">
+			<summary>
+			Implicitly converts the AtomicPointer object to a value of type Type. Internally calls fetch() to return a thread-safe snapshot of the current value.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicPointer.getUnsafeRawValue">
+			<summary>
+			Returns a non-atomic reference to the internal raw 64-bit representation of the pointer. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Reference to the internal value storing the pointer.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getUnsafeRawValue const">
+			<summary>
+			Const-qualified version of getUnsafeRawValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Reference to the internal value storing the pointer.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getRawValuePtr">
+			<summary>
+			Returns a pointer to the raw storage of the atomic pointer. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getRawValuePtr const">
+			<summary>
+			Const-qualified version of getRawValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Const pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getUnsafeValue">
+			<summary>
+			Returns a non-atomic reference to the stored pointer as a typed value. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Reference to the pointer value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getUnsafeValue const">
+			<summary>
+			Const-qualified version of getUnsafeValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Const reference to the pointer value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getValuePtr">
+			<summary>
+			Returns a pointer to the stored pointer value, cast to its original type.
+			</summary>  
+			<returns>A typed pointer to the internal data.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.getValuePtr const">
+			<summary>
+			Const-qualified version of getValuePtr(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>A typed const pointer to the internal data.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.fetch const">
+			<summary>
+			Atomically retrieves the current pointer value.
+			</summary>  
+			<returns>The current pointer value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.store(Type)">
+			<summary>
+			Atomically stores a new pointer value.
+			</summary> 
+			<param name="v"> The new pointer value to store atomically. </param> 
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator=(Type)">
+			<summary>
+			Atomically assigns a new raw pointer value.
+			</summary> 
+			<param name="v"> The new pointer value to assign. </param> 
+			<returns>Returns the assigned pointer value (same as v).</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator=(AtomicPointer)">
+			<summary>
+			Atomically copies the pointer value from another AtomicPointer&lt;Type&gt; instance.
+			</summary> 
+			<param name="v"> Another atomic pointer of the same type to copy from. </param> 
+			<returns>The newly assigned pointer value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.swap(Type)">
+			<summary>
+			Atomically replaces the current pointer value with the provided value and returns the previous value.
+			</summary> 
+			<param name="v"> The pointer value to assign atomically. </param> 
+			<returns>The pointer value that was held before the swap.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.compareAndSwap(Type,Type)">
+			<summary>
+			Performs a lock-free compare-and-swap operation. If the current value equals old_value, it is replaced with new_value.
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+			<returns>Returns true if the internal value was updated; false if the current value did not match old_value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.spinLock(Type,Type)">
+			<summary>
+			Continuously attempts to atomically swap the value from old_value to new_value using compareAndSwap().
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+		</member>
+		<member name="M:Unigine.AtomicPointer.waitValue(Type)">
+			<summary>
+			Blocks the current thread in a spin loop until the internal value becomes equal to the provided one. Internally calls spinLock(v, v) and rechecks after each failure.
+			</summary> 
+			<param name="v"> The value to wait for. </param> 
+		</member>
+		<member name="M:Unigine.AtomicPointer.fetchAdd(long)">
+			<summary>
+			Atomically moves the pointer forward by a given number of positions.
+			</summary> 
+			<param name="v"> The number of elements to add; internally multiplied by sizeof(*Type). (e.g. If Type = int* and v = 2, the pointer is advanced by 2 * 4 = 8 bytes. </param> 
+			<returns>Returns the value held before the addition.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.fetchSub(long)">
+			<summary>
+			Atomically moves the pointer backward by a given number of positions.
+			</summary> 
+			<param name="v"> The number of elements to subtract; internally multiplied by sizeof(*Type). (e.g. If Type = int* and v = 2, the pointer is moved backward by 2 * 4 = 8 bytes. </param> 
+			<returns>Returns the value held before the subtraction.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.fetchInc">
+			<summary>
+			Atomically increments the pointer by one position.
+			</summary>  
+			<returns>Returns the value held before the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.fetchDec">
+			<summary>
+			Atomically decrements the pointer by one position.
+			</summary>  
+			<returns>Returns the value held before the decrement.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator+=(long)">
+			<summary>
+			Atomically moves the pointer by a given number of positions.
+			</summary> 
+			<param name="v"> The number of elements to add; internally multiplied by sizeof(*Type). (e.g. If Type = int* and v = 2, the pointer is advanced by 2 * 4 = 8 bytes. </param> 
+			<returns>Returns the value held after the addition.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator-=(long)">
+			<summary>
+			Atomically moves the pointer backward by a given number of positions.
+			</summary> 
+			<param name="v"> The number of elements to subtract; internally multiplied by sizeof(*Type). (e.g. If Type = int* and v = 2, the pointer is moved backward by 2 * 4 = 8 bytes. </param> 
+			<returns>Returns the value held after the subtraction.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator++(int)">
+			<summary>
+			Atomically decrements the pointer by one position (postfix form).
+			</summary> 
+			<param name=""> dummy parameter to distinguish from the prefix version. </param> 
+			<returns>Postfix increment. Returns the value held before the decrement.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator--(int)">
+			<summary>
+			Atomically increments the pointer by one position (postfix form).
+			</summary> 
+			<param name=""> dummy parameter to distinguish from the prefix version. </param> 
+			<returns>Postfix decrement. Returns the value held before the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator++">
+			<summary>
+			Prefix increment. Atomically increments the pointer by one position.
+			</summary>  
+			<returns>Returns the value held after the increment.</returns>
+		</member>
+		<member name="M:Unigine.AtomicPointer.operator--">
+			<summary>
+			Prefix decrement. Atomically decrements the pointer by one position.
+			</summary>  
+			<returns>Returns the value held after the decrement.</returns>
+		</member>
+		<member name="F:Unigine.AtomicPointer.isLockFree">
+			<summary>
+			Indicates that the implementation is lock-free and performs atomic operations without using mutexes.
+		</summary>
+		</member>
+		<member name="F:Unigine.AtomicPointer.SIZE_TYPE">
+			<summary>
+			Represents the size (in bytes) of the object pointed to by the pointer type &amp;lt;Type&amp;gt;
+		</summary>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.AtomicWithMutex">
+			<summary>
+			Default constructor. Initializes the internal value with its default constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.AtomicWithMutex(Type)">
+			<summary>
+			Constructor. Initializes the internal value with the provided input.
+			</summary> 
+			<param name="v"> Initial value. </param> 
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.AtomicWithMutex(AtomicWithMutex)">
+			<summary>
+			Copy constructor. Locks both source and destination mutexes to safely copy the provided value.
+			</summary>  
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.operator Type()">
+			<summary>
+			Implicitly converts the AtomicWithMutex object to a value of type Type. Internally calls fetch() to return a thread-safe snapshot of the current value.
+			</summary>  
+			<returns>Returns copy of the current value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getUnsafeValue">
+			<summary>
+			Provides direct, non-synchronized access to the internal value. Calling this bypasses all thread safety and must only be used when external synchronization is guaranteed by the caller.
+			</summary>  
+			<returns>Returns non-thread-safe reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getUnsafeValue const">
+			<summary>
+			Const-qualified version of getUnsafeValue(). Provides read-only, non-thread-safe access to the stored value.
+			</summary>  
+			<returns>Returns non-thread-safe const reference to the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getValuePtr">
+			<summary>
+			Returns a raw pointer to the internal value without locking. Unsafe in multithreaded contexts unless externally synchronized.
+			</summary>  
+			<returns>Returns pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getValuePtr const">
+			<summary>
+			Const-qualified version of getValuePtr().
+			</summary>  
+			<returns>Returns const pointer to the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getMutex">
+			<summary>
+			Provides direct access to the internal mutex object. This allows external code to manually lock or unlock the mutex.
+			</summary>  
+			<returns>Returns the reference to the mutex used for protecting the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.getMutex const">
+			<summary>
+			Const-qualified version of getMutex().
+			</summary>  
+			<returns>Returns the const reference to the mutex used for protecting the internal value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.fetch const">
+			<summary>
+			Retrieves the current value in a thread-safe manner. Acquires the mutex, copies the internal value, then releases the mutex. Preferred over direct access when consistent reads are required.
+			</summary>  
+			<returns>Returns copy of the stored value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.store(Type)">
+			<summary>
+			Sets the internal value to a new value in a thread-safe way. The entire assignment is protected by the mutex to avoid race conditions with readers or other writers.
+			</summary> 
+			<param name="v"> The new value to store. </param> 
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.operator=(Type)">
+			<summary>
+			Thread-safe assignment operator that stores a new value internally. Equivalent to calling store().
+			</summary> 
+			<param name="v"> The new value to assign. </param> 
+			<returns>Returns a const reference to the assigned value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.operator=(AtomicWithMutex)">
+			<summary>
+			Thread-safe copy assignment from another AtomicWithMutex. Locks both the source and destination mutexes to prevent data races.
+			</summary> 
+			<param name="v"> Another AtomicWithMutex to copy from. </param> 
+			<returns>Returns the copied value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.swap(Type)">
+			<summary>
+			Atomically replaces the current value with a new one and returns the old value.
+			</summary> 
+			<param name="v"> The new value to set. </param> 
+			<returns>Returns the value that was stored before swap.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.compareAndSwap(Type,Type)">
+			<summary>
+			Performs a compare-and-swap operation. If the current value equals old_value, it is replaced with new_value.
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+			<returns>true if the internal value was updated; false if the current value did not math old_value.</returns>
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.spinLock(Type,Type)">
+			<summary>
+			Continuously attempts to atomically swap the value from old_value to new_value using compareAndSwap().
+			</summary> 
+			<param name="old_value"> Expected current value. </param>
+			<param name="new_value"> New value to assign if the current matches the expected. </param> 
+		</member>
+		<member name="M:Unigine.AtomicWithMutex.waitValue(Type)">
+			<summary>
+			Blocks the current thread in a spin loop until the internal value becomes equal to the provided one. Internally calls spinLock(v, v) and rechecks after each failure.
+			</summary> 
+			<param name="v"> The value to wait for. </param> 
+		</member>
+		<member name="F:Unigine.AtomicWithMutex.isLockFree">
+			<summary>
+			Indicates that this implementation is not lock-free, unlike standard atomic types such as std::atomic.
+		</summary>
+		</member>
+		<member name="M:Unigine.BackoffSpinner.BackoffSpinner">
+			<summary>
+			Constructor. Creates a new Backoff Spinner.
+			</summary>  
+		</member>
+		<member name="M:Unigine.BackoffSpinner.spin">
+			<summary>
+			Implements adaptive backoff by progressively increasing wait intervals. Begins with exponentially growing CPU pause instructions based on an internal counter; after reaching a threshold, yields to allow other threads to execute. Increments the backoff counter on each invocation.
+			</summary>  
+		</member>
+		<member name="M:Unigine.CPUShader.#ctor">
+			<summary>
+			Default CPUShader class constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.CPUShader.runSync(int)">
+			<summary>
+			Runs CPU shader code synchronously. This method is blocking. No additional threads are created, as the Engine's thread pool is used.
+			</summary> 
+			<param name="threads_count"> Number of threads to be used. The default value of -1 sets an optimum number of threads calculated for the particular PC. </param> 
+		</member>
+		<member name="M:Unigine.CPUShader.runAsync(int)">
+			<summary>
+			Runs CPU shader code asynchronously. This method is non-blocking. No additional threads are created, as the Engine's thread pool is used.
+			</summary> 
+			<param name="threads_count"> Number of threads to be used. The default value of -1 sets an optimum number of threads calculated for the particular PC. </param> 
+		</member>
+		<member name="M:Unigine.CPUShader.wait">
+			<summary>
+			Waits for running asynchronous shader code execution.
+			</summary>  
+		</member>
+		<member name="M:Unigine.CPUShader.isRunning">
+			<summary>
+			Returns a value indicating if the CPU shader code is currently executed.
+			</summary>  
+			<returns>1 if the shader code is currently executed; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.CPUShader.getNumThreads">
+			<summary>
+			Returns the currently used number of threads.
+			</summary>  
+			<returns>Number of currently used threads.</returns>
+		</member>
+		<member name="M:Unigine.CPUShader.process(int,int)">
+			<summary>
+			Override this method to implement calculations.
+			</summary> 
+			<param name="thread_num"> Current thread number. This number is not a thread ID, it just a virtual number. </param>
+			<param name="threads_count"> Number of threads to be used. </param> 
+		</member>
+		<member name="M:Unigine.CPUShaderCallable.CPUShaderCallable(Process,Destroy)">
+			<summary>
+			Creates a new shader task with execution and destruction logic.
+			</summary> 
+			<param name="func_process_"> Function executed on each thread. </param>
+			<param name="func_destroy_"> Function executed once after all threads are done. </param> 
+		</member>
+		<member name="M:Unigine.CPUShaderCallable.process(int,int)">
+			<summary>
+			Overridden from CPUShader. Called once per thread during execution. Invokes the provided processing function.
+			</summary> 
+			<param name="thread_num"> Index of the current thread. </param>
+			<param name="num_threads"> Total number of threads assigned to this task. </param> 
+		</member>
+		<member name="M:Unigine.CPUShaderCallableStateless.#ctor(Process)">
+			<summary>
+			Creates a new shader task with execution logic.
+			</summary> 
+			<param name="func_process_"> Function executed on each thread. </param> 
+		</member>
+		<member name="M:Unigine.CPUShaderCallableStateless.process(int,int)">
+			<summary>
+			Overridden from CPUShader. Called once per thread during execution. Invokes the provided processing function.
+			</summary> 
+			<param name="thread_num"> Index of the current thread. </param>
+			<param name="num_threads"> Total number of threads assigned to this task. </param> 
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.isInitialized">
+			<summary>
+			Returns whether the pool has been initialized.
+			</summary>  
+			<returns>Returns 1 if pool is initialized; 0 otherwise.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.isRunning">
+			<summary>
+			Returns whether any shader is currently active.
+			</summary>  
+			<returns>Returns true if at least one shader is running; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.getNumActiveShaders">
+			<summary>
+			Returns the number of currently active shaders.
+			</summary>  
+			<returns>Number of currently running shader tasks.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.getNumActiveProcesses">
+			<summary>
+			Returns the number of active shader processes.
+			</summary>  
+			<returns>Number of currently queued or running processes.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.getCurrentThreadIndex">
+			<summary>
+			Returns the index of the current thread within the shader pool.
+			</summary>  
+			<returns>Index of the current thread in the pool, if called from a worker thread.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.getNumThreads">
+			<summary>
+			Returns the number of worker threads available in the pool.
+			</summary>  
+			<returns>Total number of threads in the shader pool.</returns>
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.wait">
+			<summary>
+			Blocks until all currently active shader tasks have completed.
+			</summary>  
+		</member>
+		<member name="M:Unigine.PoolCPUShaders.signal">
+			<summary>
+			Signals the worker threads to resume execution (used internally).
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexAdvance.MutexAdvance">
+			<summary>
+			Default constructor. Initializes the internal mutex and sets the lock state to unlocked.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexAdvance.lock">
+			<summary>
+			Acquires the internal mutex and marks the lock state as active.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexAdvance.unlock">
+			<summary>
+			Releases the internal mutex and marks the lock state as inactive.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexAdvance.tryLock">
+			<summary>
+			Attempts to acquire the lock without blocking. First checks the internal flag for a fast-path rejection, then tries to acquire the underlying mutex.
+			</summary>  
+			<returns>Returns true if the lock was successfully acquired, false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.MutexAdvance.isLocked">
+			<summary>
+			Returns the current lock status of the mutex by checking the internal flag.
+			</summary>  
+			<returns>Returns true if the lock is currently held, false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.MutexAdvance.waitForce">
+			<summary>
+			Forces the current thread to wait by acquiring and immediately releasing the lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexAdvance.wait">
+			<summary>
+			Waits for the mutex to be released if it is currently locked. Returns immediately if the lock is not held.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexCriticalSection.MutexCriticalSection">
+			<summary>
+			Constructor. Initializes the internal CRITICAL_SECTION object.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexCriticalSection.~MutexCriticalSection">
+			<summary>
+			Destructor. Destroys the internal CRITICAL_SECTION object.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexCriticalSection.lock">
+			<summary>
+			Acquires the critical section, blocking the calling thread if necessary until the lock becomes available.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexCriticalSection.tryLock">
+			<summary>
+			Attempts to acquire the critical section without blocking.
+			</summary>  
+			<returns>Returns true if the lock was succesfully acquired; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.WinAPI.MutexCriticalSection.unlock">
+			<summary>
+			Releases the critical section, allowing other threads to enter.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexSlim.MutexSlim">
+			<summary>
+			Constructor. Initializes the internal SRWLOCK by calling WinAPI::InitializeSRWLock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexSlim.~MutexSlim">
+			<summary>
+			Destructor. Asserts that the lock is not held during destruction.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexSlim.lock">
+			<summary>
+			Acquires the slim lock in exclusive (write) mode. Blocks the calling thread if the lock is already held.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.MutexSlim.tryLock">
+			<summary>
+			Attempts to acquire the slim lock in exclusive mode without blocking.
+			</summary>  
+			<returns>Returns true if the mutex was successfully locked, false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.WinAPI.MutexSlim.unlock">
+			<summary>
+			Releases the exclusive slim lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexSpin.MutexSpin">
+			<summary>
+			Default constructor. Initializes the internal lock state to unlocked.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexSpin.lock">
+			<summary>
+			Acquires the spinlock by continuously checking the internal lock variable until it becomes available. Once the lock is acquired, sets the lock state.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexSpin.tryLock">
+			<summary>
+			Attempts to acquire the spinlock without blocking.
+			</summary>  
+			<returns>Returns true if the lock was successfully acquired; false if the lock is already held by another thread.</returns>
+		</member>
+		<member name="M:Unigine.MutexSpin.unlock">
+			<summary>
+			Releases the spinlock by setting the internal lock variable to the unlocked state.
+			</summary>  
+		</member>
+		<member name="M:Unigine.MutexSpin.isLocked const">
+			<summary>
+			Checks whether the spinlock is currently held by any thread.
+			</summary>  
+			<returns>Returns true if the spinlock is currently locked; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.MutexSpin.wait">
+			<summary>
+			Spins until the lock becomes free without attempting to acquire it.
+			</summary>  
+		</member>
+		<member name="M:Unigine.UnixAPI.MutexPThread.MutexPThread">
+			<summary>
+			Constructor. Initializes the internal pthread_mutex_t with default attributes.
+			</summary>  
+		</member>
+		<member name="M:Unigine.UnixAPI.MutexPThread.~MutexPThread">
+			<summary>
+			Destructor. Destroys the internal mutex. Must not be called while the mutex is locked.
+			</summary>  
+		</member>
+		<member name="M:Unigine.UnixAPI.MutexPThread.lock">
+			<summary>
+			Blocks the calling thread until the mutex becomes available and then locks it.
+			</summary>  
+		</member>
+		<member name="M:Unigine.UnixAPI.MutexPThread.tryLock">
+			<summary>
+			Attempts to lock the mutex without blocking.
+			</summary>  
+			<returns>Returns true if the mutex was successfully locked, false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.UnixAPI.MutexPThread.unlock">
+			<summary>
+			Releases the mutex, allowing other threads to acquire it.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.ReentrantMutexBase">
+			<summary>
+			Default constructor. Initializes the internal state, setting the lock as available.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.lock">
+			<summary>
+			Acquires the mutex. If the current thread already owns the lock, increments the reentrancy depth instead of re-locking the underlying mutex.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.tryLock">
+			<summary>
+			Attempts to acquire the mutex without blocking. If the current thread already owns the lock, increments the reentrancy depth.
+			</summary>  
+			<returns>Returns true if if the mutex was successfully acquired; false if the mutex is currently held by another thread.</returns>
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.unlock">
+			<summary>
+			Releases the mutex. If the lock has been acquired multiple times by the same thread, decrements the reentrancy depth. Once the depth reaches zero, releases the underlying mutex and clears thread ownership.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.isLocked">
+			<summary>
+			Checks whether the mutex is currently considered locked by any thread.
+			</summary>  
+			<returns>Ruturns true if the mutex is locked; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.waitForce">
+			<summary>
+			Forces the current thread to wait until the mutex becomes available by acquiring and then immediately releasing the lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ReentrantMutexBase.wait">
+			<summary>
+			Waits for the mutex to be released by another thread. If the mutex is currently unowned or already owned by the calling thread, the method returns immediately. Otherwise, it blocks by calling waitForce().
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.RWMutexSlim">
+			<summary>
+			Constructor. Initializes the internal SRWLOCK by calling WinAPI::InitializeSRWLock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.~RWMutexSlim">
+			<summary>
+			Destructor. Asserts that the lock is not held during destruction.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.lockRead">
+			<summary>
+			Acquires a shared (read) lock. Multiple threads can hold the read lock concurrently.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.tryLockRead">
+			<summary>
+			Attempts to acquire a shared (read) lock without blocking.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.unlockRead">
+			<summary>
+			Releases a shared (read) lock previously acquired.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.lockWrite">
+			<summary>
+			Acquires an exclusive (write) lock. Blocks until no other thread holds a read or write lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.tryLockWrite">
+			<summary>
+			Attempts to acquire an exclusive (write) lock without blocking.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.unlockWrite">
+			<summary>
+			Releases an exclusive (write) lock previously acquired.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.lock">
+			<summary>
+			Alias for lockWrite(). Allows RWMutexSlim to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.tryLock">
+			<summary>
+			Alias for tryLockWrite(). Allows RWMutexSlim to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.WinAPI.RWMutexSlim.unlock">
+			<summary>
+			Alias for unlockWrite(). Allows RWMutexSlim to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.RWMutexSpin">
+			<summary>
+			Default constructor. Initializes the internal lock state with no active readers or writers.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.lockRead">
+			<summary>
+			Acquires a shared (read) lock. Multiple threads can acquire read access concurrently as long as no writer holds the lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.tryLockRead">
+			<summary>
+			Attempts to acquire a read lock without blocking. Fails if a writer currently holds the lock.
+			</summary>  
+			<returns>Returns true if the read lock was successfully acquired; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.RWMutexSpin.unlockRead">
+			<summary>
+			Releases a previously acquired read lock by decrementing the reader count.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.lockWrite">
+			<summary>
+			Acquires an exclusive (write) lock. Blocks until no other thread holds a read or write lock.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.tryLockWrite">
+			<summary>
+			Attempts to acquire a write lock without blocking. Succeeds only if no readers or writers currently hold the lock.
+			</summary>  
+			<returns>Returns true if the write lock was successfully acquired; false otherwise.</returns>
+		</member>
+		<member name="M:Unigine.RWMutexSpin.unlockWrite">
+			<summary>
+			Releases a previously acquired write lock by resetting the writer flag.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.lock">
+			<summary>
+			Alias for lockWrite(). Allows RWMutexSpin to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.tryLock">
+			<summary>
+			Alias for tryLockWrite(). Allows RWMutexSpin to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.RWMutexSpin.unlock">
+			<summary>
+			Alias for unlockWrite(). Allows RWMutexSpin to be used in generic locking interfaces.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ScopedMutexLock.ScopedMutexLock(MutexType)">
+			<summary>
+			Constructor that locks the provided mutex. The lock remains held for the duration of the ScopedMutexLock object's lifetime.
+			</summary> 
+			<param name="m"> A reference to a mutex object to be locked. The mutex must provide lock() and unlock() member functions. </param> 
+		</member>
+		<member name="M:Unigine.ScopedMutexLock.~ScopedMutexLock">
+			<summary>
+			Destructor that automatically unlocks the mutex when the ScopedMutexLock object goes out of scope.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ScopedMutexReaderLock.ScopedMutexReaderLock(MutexType)">
+			<summary>
+			Constructor that locks the provided mutex for reading. The lock remains held for the duration of the ScopedMutexReaderLock object's lifetime.
+			</summary> 
+			<param name="m"> A reference to a mutex object to be locked for reading. The mutex must provide lockRead() and unlockRead() member functions. </param> 
+		</member>
+		<member name="M:Unigine.ScopedMutexReaderLock.~ScopedMutexReaderLock">
+			<summary>
+			Destructor that automatically unlocks the mutex when the ScopedMutexReaderLock object goes out of scope.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ScopedMutexWriterLock.ScopedMutexWriterLock(MutexType)">
+			<summary>
+			Constructor that locks the provided mutex for writing. The lock remains held for the duration of the ScopedMutexWriterLock object's lifetime.
+			</summary> 
+			<param name="m"> A reference to a mutex object to be locked for writing. The mutex must provide lockWrite() and unlockWrite() member functions. </param> 
+		</member>
+		<member name="M:Unigine.ScopedMutexWriterLock.~ScopedMutexWriterLock">
+			<summary>
+			Destructor that automatically unlocks the mutex when the ScopedMutexWriterLock object goes out of scope.
+			</summary>  
+		</member>
+		<member name="M:Unigine.ScopedSpinLockInteger.ScopedSpinLockInteger(volatileType)">
+			<summary>
+			Constructor that acquires the spinlock for the provided mutex object. Calls the MutexSpinLock function to acquire the lock. The lock will remain active until the ScopedSpinLockInteger object goes out of scope.
+			</summary> 
+			<param name="m"> A reference to the object of type volatile Type that represents the lockable variable. </param> 
+		</member>
+		<member name="M:Unigine.ScopedSpinLockInteger.~ScopedSpinLockInteger">
+			<summary>
+			Destructor that releases the spinlock by calling the MutexSpinUnlock function.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Thread.#ctor">
+			<summary>
+			Constructor.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Thread.getID">
+			<summary>
+			Returns the current thread identifier.
+			</summary>  
+			<returns>The unique thread identifier.</returns>
+		</member>
+		<member name="M:Unigine.Thread.setPriority(int)">
+			<summary>
+			Sets the thread priority.
+			</summary> 
+			<param name="priority"> Thread priority to set in range [-3;3]. The default thread priority is 0. </param> 
+			<returns>Returns 1 if the operation was a success; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.getPriority const">
+			<summary>
+			Gets the thread priority.
+			</summary>  
+			<returns>Returns the thread priority in range [-3;3].</returns>
+		</member>
+		<member name="M:Unigine.Thread.isRunning const">
+			<summary>
+			Checks if the thread is running.
+			</summary>  
+			<returns>Returns 1 if the thread is running; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.isWaiting const">
+			<summary>
+			Checks if the thread is waiting.
+			</summary>  
+			<returns>Returns 1 if the thread is waiting; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.process">
+			<summary>
+			Thread process function.
+			</summary>  
+		</member>
+		<member name="M:Unigine.Thread.run(size_t)">
+			<summary>
+			Runs the thread.
+			</summary> 
+			<param name="size"> Thread stack size in bytes. </param> 
+			<returns>Returns 1 if the thread was successfully run; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.Thread.signal">
+			<summary>
+			Signals the thread.
+			</summary>  
+			<returns>Returns 1 if the operation was a success; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.stop">
+			<summary>
+			Stops the thread.
+			</summary>  
+			<returns>Returns 1 if the operation was a success; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.terminate">
+			<summary>
+			Terminates the thread.
+			</summary>  
+			<returns>Returns 1 if the operation was a success; otherwise, 0 is returned.</returns>
+		</member>
+		<member name="M:Unigine.Thread.sleep(unsignedint)">
+			<summary>
+			Suspends thread execution in milliseconds.
+			</summary> 
+			<param name="usec"> Time in milliseconds. </param> 
+		</member>
+		<member name="M:Unigine.Thread.wait">
+			<summary>
+			Puts the thread into the waiting state.
+			</summary>  
+		</member>
+	</members>
+</doc>

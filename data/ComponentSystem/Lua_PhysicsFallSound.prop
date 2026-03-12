@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<property version="2.20.0.0" name="Lua_PhysicsFallSound" manual="1" parent_name="node_base" tooltip="Plays a sound when a physics-driven cube impacts any surface, with pitch variation based on impact velocity">
+	<parameter name="max_pitch" type="float" title="Maximum Pitch">2</parameter>
+	<parameter name="sound_path" type="file" title="Impact Sound">sounds/preview.mp3</parameter>
+	<parameter name="impact_threshold" type="float" title="Impact Distance Threshold">1</parameter>
+	<parameter name="min_pitch" type="float" title="Minimum Pitch">1</parameter>
+	<parameter name="min_velocity" type="float" title="Minimum Impact Velocity (m/s)">1</parameter>
+	<parameter name="cooldown_time" type="float" title="Impact Cooldown (seconds)">0</parameter>
+</property>

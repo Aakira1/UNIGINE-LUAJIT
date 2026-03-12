@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<property version="2.20.0.0" name="Lua_RotatingCube" manual="1" parent_name="node_base" tooltip="Rotating cube with debug logging">
+	<parameter name="use_world_transform" type="toggle">0</parameter>
+	<parameter name="rotation_speed" type="float">45</parameter>
+</property>

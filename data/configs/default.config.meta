@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>7ae944da716f5d06e4089f0846438d7608d67ae2</guid>
+	<type>file</type>
+	<hash>a5a31eef</hash>
+	<runtimes>
+		<runtime id="7ae944da716f5d06e4089f0846438d7608d67ae2" name="default.config" link="0"/>
+	</runtimes>
+</asset>

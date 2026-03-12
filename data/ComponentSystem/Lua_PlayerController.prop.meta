@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>303191772205c70fb754d2569bfc7e77ceed2b77</guid>
+	<type>property</type>
+	<hash>30319177</hash>
+	<runtimes>
+		<runtime id="303191772205c70fb754d2569bfc7e77ceed2b77" name="Lua_PlayerController" link="0" type="4"/>
+	</runtimes>
+</asset>

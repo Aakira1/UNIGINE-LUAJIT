@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<material version="2.20.0.0" guid="598290e7d5e1c6bbd668018fa2f0eaaace9067ca" base_material="b7c07dfd4ce80edac55fcbfdd0befa02ccd20b88">
+	<state name="motion_vectors">1</state>
+	<state name="emission">1</state>
+	<parameter name="transparent_blur" expression="0">1</parameter>
+	<parameter name="emission_scale" expression="0">3.40899992</parameter>
+	<parameter name="translucent" expression="0">0.0327799991</parameter>
+	<parameter name="translucent_depth" expression="0">10</parameter>
+</material>

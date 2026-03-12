@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asset version="2.20.0.0">
+	<guid>3965e83da2ec339ddefac0977fc7ee786ee04fcf</guid>
+	<type>file</type>
+	<hash>60de6c3</hash>
+	<runtimes>
+		<runtime id="3965e83da2ec339ddefac0977fc7ee786ee04fcf" name="default.boot" link="0"/>
+	</runtimes>
+</asset>

@@ -1,0 +1,344 @@
+<?xml version='1.0'?>
+<doc>
+	<assembly>
+		<name>Unigine</name>
+	</assembly>
+	<members>
+		<member name="M:Unigine.AsyncQueue.getImage(int)">
+			<summary>
+			Returns the image loaded by the specified operation.					This method does not remove the image from the list of loaded ones. If you want the image to be removed from this list right after retrieving it, use the						 method.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Image smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.getMesh(int)">
+			<summary>
+			Returns the mesh loaded by the specified operation.					This method does not remove the mesh from the list of loaded ones. If you want the mesh to be removed from this list right after retrieving it, use the						 method.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Mesh smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.getNode(int)">
+			<summary>
+			Returns the node loaded by the specified operation. If the node loaded by the specified operation consists of multiple objects, a new dummy object to combine them is created and its smart pointer is returned.					This method does not remove the node from the list of loaded ones. If you want the node to be removed from this list right after retrieving it, use the						 method.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Node smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.getNodes(int,Unigine.Vector{Unigine.Ptr{Unigine.Node},int,Unigine.VectorAllocator}) const">
+			<summary>
+			Puts the nodes loaded by the specified operation to the specified array. If the node loaded by the specified operation consists of multiple objects, they are put into the array.					This method does not remove the nodes from the list of loaded ones. If you want the nodes to be removed from this list right after retrieving them, use the						 method.
+			</summary> 
+			<param name="id"> Loading operation identifier. </param>
+			<param name="nodes"> Array of loaded nodes' smart pointers. </param> 
+			<returns>1 if the operation is successful; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.checkFile(int)">
+			<summary>
+			Returns a value indicating if the file is in the loading queue or already loaded.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the file is in the loading queue or already loaded; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.checkImage(int)">
+			<summary>
+			Returns a value indicating if the image is in the loading queue or already loaded.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the image is in the loading queue or already loaded; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.checkMesh(int)">
+			<summary>
+			Returns a value indicating if the mesh is in the loading queue or already loaded.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the mesh is in the loading queue or already loaded; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.checkNode(int)">
+			<summary>
+			Returns a value indicating if the node is in the loading queue or already loaded.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the node is in the loading queue or already loaded; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.forceFile(int)">
+			<summary>
+			Forces loading of the file. The specified file will be loaded right after the currently loading file (if any) is processed. All other file system operations are suspended until the forced file is loaded.					The file won't be loaded immediately after calling the method as it can be large.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the file is loaded successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.forceImage(int)">
+			<summary>
+			Forces loading of the image. The specified image will be loaded right after the currently loading image (if any) is processed. All other file system operations are suspended until the forced image is loaded.					The image won't be loaded immediately after calling the method as it can be large.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the image is loaded successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.forceMesh(int)">
+			<summary>
+			Forces loading of the mesh. The specified mesf will be loaded right after the currently loading mesh (if any) is processed. All other file system operations are suspended until the forced mesh is loaded.					The mesh won't be loaded immediately after calling the method as it can be large.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the mesh is loaded successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.forceNode(int)">
+			<summary>
+			Forces loading of the node. The specified node will be loaded right after the currently loading node (if any) is processed. All other file system operations are suspended until the forced node is loaded.					The node won't be loaded immediately after calling the method as it can be large.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the node is loaded successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.loadFile(char,int,float)">
+			<summary>
+			Loads a given file with the specified group and priority to the thread.
+			</summary> 
+			<param name="name"> Absolute or relative path to the file (including its name). </param>
+			<param name="group"> Priority group. Greater priority means faster loading. The default value is 0. </param>
+			<param name="weight"> Weight of the priority inside the group. Greater weight means faster loading inside the same priority group. The default value is 0.0f. </param> 
+			<returns>Loading operation identifier.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.loadImage(char,int,float)">
+			<summary>
+			Loads a given image file with the specified group and priority to the thread.
+			</summary> 
+			<param name="name"> Absolute or relative path to the image file (including its name). </param>
+			<param name="group"> Priority group. Greater priority means faster loading. The default value is 0. </param>
+			<param name="weight"> Weight of the priority inside the group. Greater weight means faster loading inside the same priority group. The default value is 0.0f. </param> 
+			<returns>Loading operation identifier.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.loadMesh(char,int,float)">
+			<summary>
+			Loads a given mesh-file with the specified group and priority to the thread.
+			</summary> 
+			<param name="name"> Absolute or relative path to the *.mesh file (including its name). </param>
+			<param name="group"> Priority group. Greater priority means faster loading. The default value is 0. </param>
+			<param name="weight"> Weight of the priority inside the group. Greater weight means faster loading inside the same priority group. The default value is 0.0f. </param> 
+			<returns>Loading operation identifier.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.loadNode(char,int,float)">
+			<summary>
+			Loads a given node-file with the specified group and priority to the thread.					In order to display such asynchronously loaded node, the updateEnabled() method should be called for it from the main thread.
+			</summary> 
+			<param name="name"> Absolute or relative path to the *.node file (including its name). </param>
+			<param name="group"> Priority group. Greater priority means faster loading. The default value is 0. </param>
+			<param name="weight"> Weight of the priority inside the group. Greater weight means faster loading inside the same priority group. The default value is 0.0f. </param> 
+			<returns>Loading operation identifier.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.removeFile(int)">
+			<summary>
+			Removes the given file from the loading queue or from the list of loaded files, if it was already loaded.					If the specified file is currently loading, it will be removed after the loading operation is completed.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the file is successfully removed; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.removeImage(int)">
+			<summary>
+			Removes the given image from the loading queue or from the list of loaded images, if it was already loaded.					If the specified image is currently loading, it will be removed after the loading operation is completed.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the image is successfully removed; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.removeMesh(int)">
+			<summary>
+			Removes the given mesh from the loading queue or from the list of loaded meshes, if it was already loaded.					If the specified mesh is currently loading, it will be removed after the loading operation is completed.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the mesh is successfully removed; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.removeNode(int)">
+			<summary>
+			Removes the given node from the loading queue or from the list of loaded nodes, if it was already loaded.					If the specified node is currently loading, it will be removed after the loading operation is completed. Nodes are removed with all their hierarchy.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>1 if the node is removed successfully; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.takeImage(int)">
+			<summary>
+			Returns the image loaded by the specified operation and removes it from the list of loaded images.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Image smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.takeMesh(int)">
+			<summary>
+			Returns the mesh loaded by the specified operation and removes it from the list of loaded meshes.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Mesh smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.takeNode(int)">
+			<summary>
+			Returns the node loaded by the specified operation and removes it from the list of loaded nodes.					Nodes are removed with all their hierarchy.
+			</summary> 
+			<param name="id"> Loading operation identifier (see the method). </param> 
+			<returns>Node smart pointer.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.takeNodes(int,Unigine.Vector{Unigine.Ptr{Unigine.Node},int,Unigine.VectorAllocator}) const">
+			<summary>
+			Puts the nodes loaded by the specified operation to the specified array and removes them from the list of loaded nodes. If the node loaded by the specified operation consists of multiple objects, they are put into the array.					Nodes are removed with all their hierarchy.
+			</summary> 
+			<param name="id"> Loading operation identifier. </param>
+			<param name="nodes"> Array of loaded nodes' smart pointers. </param> 
+			<returns>1 if the operation is successful; otherwise, 0.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.loadImageInfo(char,int,float)">
+			<summary>
+			Loads file info (size format, etc.) for the specified image, group and priority to the thread.
+			</summary> 
+			<param name="name"> Absolute or relative path to the image file (including its name). </param>
+			<param name="group"> Priority group. Greater priority means faster loading. The default value is 0. </param>
+			<param name="weight"> Weight of the priority inside the group. Greater weight means faster loading inside the same priority group. The default value is 0.0f. </param> 
+			<returns>Loading operation identifier.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.runAsync(AsyncQueue::ASYNC_THREAD,Unigine.CallbackBase,AsyncQueue::ASYNC_PRIORITY)">
+			<summary>
+								Schedules the specified callback to be executed on the given thread type. This allows executing custom logic in the specified thread managed by the engine.											The priority parameter defines the scheduling order of tasks:													CRITICAL (0) - Highest priority. Tasks with this level are scheduled for execution before all others.							DEFAULT (1) - Standard priority. Used for general-purpose tasks that follow any critical ones.							BACKGROUND (2) - Lowest priority. These tasks are only scheduled when no higher-priority tasks are pending.																Use this method to offload operations such as geometry generation, file parsing, or image processing to a dedicated engine-managed thread.
+			</summary> 
+			<param name="thread_type"> Type of thread to run the task on. </param>
+			<param name="callback"> Pointer to a callback object. The target function must have the following signature: void callback_function(). To pass the function as a callback, wrap it using MakeCallback(). </param>
+			<param name="priority"> Priority of the task execution. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runFrameAsyncMultiThread(Unigine.CallbackBase2{int,int},int)">
+			<summary>
+			Executes the specified callback concurrently across multiple threads. The task is synchronized with the end of the current frame, and does not block the current thread. Intended for parallel execution of compute-heavy tasks that do not require immediate results but must complete within the current frame.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runFrameAsyncMultiThread(Unigine.CallbackBase2{int,int},Unigine.CallbackBase,int)">
+			<summary>
+			Executes the specified callback concurrently across multiple threads. The task is synchronized with the end of the current frame, and does not block the current thread. Once all threads have finished execution, the second provided callback is invoked. Intended for parallel execution of compute-heavy tasks that do not require immediate results but must complete within the current frame.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="callback_done"> Callback to be called once all threaded executions of callback have completed.The function must be wrapped using MakeCallback() and have the following signature: void callback_done() </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runFrameSyncMultiThread(Unigine.CallbackBase2{int,int},int)">
+			<summary>
+			Executes the specified callback concurrently across multiple threads. The task is synchronized with the end of the current frame. The current thread is blocked until all tasks have completed. Intended for parallel execution of compute-heavy tasks that must complete within the current frame.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runAsyncMultiThread(Unigine.CallbackBase2{int,int},int)">
+			<summary>
+			Executes the specified function concurrently across multiple threads without blocking the current thread. Intended for parallel execution of compute-heavy tasks that do not require immediate results.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runAsyncMultiThread(Unigine.CallbackBase2{int,int},Unigine.CallbackBase,int)">
+			<summary>
+			Executes the specified function concurrently across multiple threads without blocking the current thread. Once all threads have finished execution, the second provided callback is invoked. Intended for parallel execution of compute-heavy tasks that do not require immediate results.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="callback_done"> Callback to be called once all threaded executions of callback have completed.The function must be wrapped using MakeCallback() and have the following signature: void callback_done() </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.runSyncMultiThread(Unigine.CallbackBase2{int,int},int)">
+			<summary>
+			Executes the specified function concurrently across multiple threads and blocks the current thread until all threads finish.
+			</summary> 
+			<param name="callback"> Pointer to the callback that accepts two parameters:int thread_index - the index of the current thread (starting from 0).int thread_count - the total number of threads executing the task.These parameters allow the task to be split into independent chunks, by assigning a portion of work to each thread.The function must be wrapped using MakeCallback() and have the following signature: void callback(int thread_index, int thread_cound) </param>
+			<param name="num_threads"> Number of threads to use. If set to -1, the engine selects an optimal number based on available CPU cores. </param> 
+		</member>
+		<member name="M:Unigine.AsyncQueue.isMainThread">
+			<summary>
+			Checks if the current thread is the main thread (ASYNC_THREAD_MAIN).
+			</summary>  
+			<returns>Returns true if called from the main thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isGPUStreamThread">
+			<summary>
+			Checks if the current thread is the GPU stream thread (ASYNC_THREAD_GPU_STREAM).
+			</summary>  
+			<returns>Returns true if called from the GPU stream thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isFileStreamThread">
+			<summary>
+			Checks if the current thread is the file stream thread (ASYNC_THREAD_FILE_STREAM).
+			</summary>  
+			<returns>Returns true if called from the file stream thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isAsyncThread">
+			<summary>
+			Checks if the current thread is a general-purpose async thread (ASYNC_THREAD_ASYNC).
+			</summary>  
+			<returns>Returns true if called from a general-purpose async thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isBackgroundThread">
+			<summary>
+			Checks if the current thread is a background thread (ASYNC_THREAD_BACKGROUND).
+			</summary>  
+			<returns>Returns true if called from a background thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isAsyncRenderThread">
+			<summary>
+			Checks if the current thread is the async render thread.
+			</summary>  
+			<returns>Returns true if called from the async render thread; otherwise false.</returns>
+		</member>
+		<member name="M:Unigine.AsyncQueue.isPoolCPUShaderThread">
+			<summary>
+			Checks if the current thread is a pooled CPU shader thread (FRAME_POOL).
+			</summary>  
+			<returns>Returns true if called from a pooled CPU shader thread; otherwise false.</returns>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_BACKGROUND">
+			<summary>
+			Background thread with the lowest priority. Rarely used by the engine itself, primarily intended for user-driven procedural operations such as geometry modification. Safe for long-running background tasks, as it does not interfere with streaming or other critical engine systems.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_ASYNC">
+			<summary>
+			General-purpose async thread used by the engine for tasks like prefetching, landscape updates, data streaming, and other background operations. Overusing this thread may delay core engine systems.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_GPU_STREAM">
+			<summary>
+			Specialized thread with a dedicated command queue for transferring data from RAM to VRAM. Used to asynchronously create GPU resources (e.g.,					Texture,					MeshRender) from corresponding RAM objects (					Image,					Mesh). Ideal for implementing custom data streaming system or dynamic GPU data updates.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_FILE_STREAM">
+			<summary>
+			Dedicated thread for file I/O operations. Similar in priority to ASYNC, but separated to reduce contention between CPU work and disk access. Suitable for loading/saving geometry, streaming data from disk, or handling heavy I/O without affecting core async systems. Overloading this thread may impact streaming performance.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_MAIN">
+			<summary>
+			Main thread of the engine. Required for any operation that interacts with scene objects or engine state directly. Use this thread when executing callbacks that must safely modify or access scene elements. Typically used for dispatching final-stage results from background tasks.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_NEW">
+			<summary>
+			Creates a new isolated thread from the internal thread pool. Meant for custom user operations that must not block or interfere with existing engine threads. Ideal for long-running or experimental tasks. This thread runs independently and does not impact engine systems.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.NUM_ASYNC_THREADS">
+			<summary>
+			Number of predefined async thread types. Used internally to validate or iterate over thread type constants.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_PRIORITY_CRITICAL">
+			<summary>
+			Highest priority.					Tasks with this level are scheduled for execution before all others.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_PRIORITY_DEFAULT">
+			<summary>
+			Standard priority.					Used for general-purpose tasks that follow any critical ones.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_PRIORITY_BACKGROUND">
+			<summary>
+			Lowest priority.					These tasks are only scheduled when no higher-priority tasks are pending.
+		</summary>
+		</member>
+		<member name="F:Unigine.AsyncQueue.ASYNC_THREAD_ASYNC_FRAME_POOL">
+			<summary>
+			Specialized thread pool intended for high-performance asynchronous tasks that must be completed within the duration of the current frame.
+		</summary>
+		</member>
+	</members>
+</doc>
