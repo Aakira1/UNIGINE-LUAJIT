@@ -2,6 +2,7 @@
 
 **Keep noted this is a first project and will have alot of bugs, please feel free to improve upon this codebase.**
 
+--
 # Lua Integration Features - Implementation Summary
 
 This document summarizes all the new features added to the Lua component system.
