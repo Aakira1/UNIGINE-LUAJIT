@@ -2,7 +2,7 @@
 - https://github.com/LuaJIT/LuaJIT
 - https://github.com/ThePhD/sol2
 
-### I will work on fixing this
+##### I will work on fixing this
 ---
 
 **Keep noted this is a first project and will have alot of bugs, please feel free to improve upon this codebase.**
